@@ -1,0 +1,49 @@
+html,body {
+    max-width: 100%;
+    overflow-x: hidden;
+} 
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 0.1fr 3fr 0.1fr 6fr 1fr;
+}
+
+.wrapper2 {
+    display: grid;
+    grid-template-columns: 1fr 20fr 1fr;
+}
+
+button { 
+    display: block;
+    height: 3em;
+    width: 3em;
+    color: #fff;
+    background-color: green; 
+}
+
+.mapContainer {
+    width: 100%;
+    height: 25em;
+    border-style: solid;
+    background-color: green;
+}
+
+.arrowsLR {
+    border-radius: 12px;
+    width: 100%;
+    height: 24em;
+    border-style: solid;
+    background-color: green;
+}
+
+.arrowsUD {
+    border-radius: 12px;
+    width: 100%;
+    height: 40px;
+    border-style: solid;
+}
+
+.map {
+    height: 20em;
+    width: 100%;
+}
