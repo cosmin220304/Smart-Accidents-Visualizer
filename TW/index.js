@@ -1,44 +1,3 @@
-  import 'ol/ol.css';
-  import Map from 'ol/Map';
-  import View from 'ol/View';
-  import GeoJSON from 'ol/format/GeoJSON';
-  import VectorLayer from 'ol/layer/Vector';
-  import VectorSource from 'ol/source/Vector';
-  import {Fill, Stroke, Style, Text} from 'ol/style';
-
-
-  var style = new Style({
-    fill: new Fill({
-      color: 'rgba(255, 255, 255, 0.6)'
-    }),
-    stroke: new Stroke({
-      color: '#319FD3',
-      width: 1
-    }),
-    text: new Text({
-      font: '12px Calibri,sans-serif',
-      fill: new Fill({
-        color: '#000'
-      }),
-      stroke: new Stroke({
-        color: '#fff',
-        width: 3
-      })
-    })
-  });
-
-  var vectorLayer = new VectorLayer({
-    source: new VectorSource({
-      url: 'data/geojson/countries.geojson',
-      format: new GeoJSON()
-    }),
-    style: function(feature) {
-      style.getText().setText(feature.get('name'));
-      return style;
-    }
-  });
-
-
 
     var map = new ol.Map({
       target: 'map',
@@ -49,75 +8,60 @@
       ],
       view: new ol.View({
         center: ol.proj.fromLonLat([262.30, 38]),
-        zoom: 4
+        zoom: 4,
+        minZoom: 4
+
       })
     });
 
 
 
-  var highlightStyle = new Style({
-    stroke: new Stroke({
-      color: '#f00',
-      width: 1
-    }),
-    fill: new Fill({
-      color: 'rgba(255,0,0,0.1)'
-    }),
-    text: new Text({
-      font: '12px Calibri,sans-serif',
-      fill: new Fill({
-        color: '#000'
-      }),
-      stroke: new Stroke({
-        color: '#f00',
-        width: 3
-      })
-    })
-  });
+      google.charts.load('current', {'packages':['geochart']});
+      google.charts.setOnLoadCallback(drawRegionsMap);
 
-  var featureOverlay = new VectorLayer({
-    source: new VectorSource(),
-    map: map,
-    style: function(feature) {
-      highlightStyle.getText().setText(feature.get('name'));
-      return highlightStyle;
-    }
-  });
+      function drawRegionsMap() {
 
-  var highlight;
-  var displayFeatureInfo = function(pixel) {
+        var data = google.visualization.arrayToDataTable([
+          ['State', 'Select'],
+          ['US-AL', 10],
+          ['US-AK', 120],
+          ['US-AR', 10],
+          ['US-AK', 10],
+          ['US-AZ', 10],
+          ['US-Colorado', 0],
+          ['US-CO', 150],
+          ['US-DE', 120],
+          ['US-FL', 130],
+          ['US-HI', 120],
+          ['US-KS', 110],
+          ['US-KY', 180],
+          ['US-MI', 110],
+          ['US-MO', 180],
+          ['US-MS', 10],
+          ['US-MT', 101],
+          ['US-NE', 120],
+          ['US-NJ', 1210],
+          ['US-NM', 1210],
+          ['US-NY', 1410],
+          ['US-OR', 1310],
+          ['US-PA', 1510],
+          ['US-TX', 1610],
+          ['US-UT', 1710],
+          ['US-VA', 1810],
+          ['US-WA', 1910],
+          ['US-WV', 1910],
+          ['US-WY', 1910],
+        ]);
 
-    var feature = map.forEachFeatureAtPixel(pixel, function(feature) {
-      return feature;
-    });
+        var options = {
+          colorAxis: {colors: ['#FEFFD2', '#EFFF00', '#910000']},
+          region: 'US',
+          displayMode: 'regions',
+          resolution: 'provinces',
+          backgroundColor: 'rgb(51, 51, 51)' ,
+         };
 
-    var info = document.getElementById('info');
-    if (feature) {
-      info.innerHTML = feature.getId() + ': ' + feature.get('name');
-    } else {
-      info.innerHTML = '&nbsp;';
-    }
+        var chart = new google.visualization.GeoChart(document.getElementById('geochart'));
 
-    if (feature !== highlight) {
-      if (highlight) {
-        featureOverlay.getSource().removeFeature(highlight);
+        chart.draw(data, options);
       }
-      if (feature) {
-        featureOverlay.getSource().addFeature(feature);
-      }
-      highlight = feature;
-    }
-
-  };
-
-  map.on('pointermove', function(evt) {
-    if (evt.dragging) {
-      return;
-    }
-    var pixel = map.getEventPixel(evt.originalEvent);
-    displayFeatureInfo(pixel);
-  });
-
-  map.on('click', function(evt) {
-    displayFeatureInfo(evt.pixel);
-  });
