@@ -22,14 +22,14 @@
     <!-- harta inconjurata de butoane -->
     <div id="mapContainer">
        <!-- Up buton -->
-      <button class="button arrowsUD" onclick="moveAround(`up`)"> &uarr; </button> 
+      <button class="button arrowsUD" onmousedown="moveAround(`up`)" onmouseup="stopMove()"> &uarr; </button> 
       <div class="wrapper2">
-        <button class="button arrowsLR"  onclick="moveAround(`left`)"> &larr; </button> 
+        <button class="button arrowsLR"  onmousedown="moveAround(`left`)" onmouseup="stopMove()"> &larr; </button> 
         <div id="map" class="map"></div>
-        <button class="button arrowsLR"  onclick="moveAround(`right`)"> &rarr; </button> 
+        <button class="button arrowsLR"  onmousedown="moveAround(`right`)" onmouseup="stopMove()"> &rarr; </button> 
       </div>
        <!-- Down buton -->
-      <button class="button arrowsUD" onclick="moveAround(`down`)"> &darr; </button> 
+      <button class="button arrowsUD" onmousedown="moveAround(`down`)" onmouseup="stopMove()">  &darr; </button> 
     </div>
 
     <!-- White space -->
