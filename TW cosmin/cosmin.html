@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="cosmin.css">
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <title>Pagina Cosmin</title>
+</head>
+
+<body>
+  <!-- Code from alex-->
+  <header class="Us-Accidents">
+    <h1>US Accidents Visualizer</h1>
+  <br>
+    <div class="topnav">
+      <a>Home</a>
+      <a>Contact</a>
+      <a>About</a>
+    </div>
+  </header>
+  <!-- End Code from alex-->
+
+  <h2>My Map</h2> 
+  <div id="mainWrapper">  
+
+    <!-- Legend explaining all data-->
+    <div id="legend">
+      <div id="Severity">
+        <span> Choose Severity Level:</span>
+        <input type="checkbox" value="Severity 4">
+          <span  style="color: #e22903;">
+            4
+          </span> 
+        </input>
+        <input type="checkbox" value="Severity 3">
+          <span  style="color: #e29f03;">
+            3
+          </span> 
+        </input>
+        <input type="checkbox" value="Severity 2">
+          <span  style="color: #d7e203;">
+            2
+          </span> 
+        </input>
+        <input type="checkbox" value="Severity 1">
+          <span  style="color: #6fe203;">
+            1
+          </span> 
+        </input> 
+      </div> 
+        <p> Number of accidents: size1, size2, size 3</p>
+
+    </div>
+ 
+    <span></span>
+
+    <!-- Map render surrounded by buttons -->
+    <div id="mapContainer">  
+      <!-- Upper button -->
+      <button class="button arrowsUD" onmousedown="moveAround(`up`)" onmouseup="stopMove()"> &uarr; </button> 
+
+      <div id="mapWrapper"> 
+        <!-- Left button -->
+        <button class="button arrowsLR"  onmousedown="moveAround(`left`)" onmouseup="stopMove()"> &larr; </button> 
+        
+        <!-- Map render using openlayers api -->
+        <div id="map" class="map"></div>  
+
+        <!-- Right button -->
+        <button class="button arrowsLR"  onmousedown="moveAround(`right`)" onmouseup="stopMove()"> &rarr; </button> 
+      </div> 
+
+      <!-- Lower button -->
+      <button class="button arrowsUD" onmousedown="moveAround(`down`)" onmouseup="stopMove()">  &darr; </button>  
+    </div> 
+
+  </div>
+  
+  <script type="text/javascript" src="cosmin.js"></script> 
+</body>
+</html>

@@ -5,12 +5,10 @@ var startZoom = 3;
 var mercatorProjection = `EPSG:3857`;
 var worldGeodeticSystem = `EPSG:4326`; //datum featuring coordinates that change with time.
 var isMoving = false;
-var direction;
+var direction; 
+var red = '#e22903',  orange = '#e29f03', yellow = '#d7e203', green = '#6fe203'; 
+var colors = [green, yellow, orange, red];
 
-//MODIFICA AICI DACA VREI SA TESTEZI CUM ARATA PUNCTELE
-var color = '#002500';
-var radius = 2;
- 
 function renderMap() {
   map = new ol.Map({
     target: 'map',
@@ -37,11 +35,15 @@ function addRandomPoints() {
     var posX = startPosX + R;
     R = Math.random() * 10;
     var posY = startPosY + R;
-    addPointToMap(posX, posY);
+    R = Math.floor(Math.random() * 2) + 2;
+    var size = R;
+    R = Math.floor(Math.random() * 4);
+    var color = colors[R]; 
+    addPointToMap(posX, posY, size, color);
   }
 }
 
-function addPointToMap(posX, posY) {
+function addPointToMap(posX, posY, size, color) {
   var layer = new ol.layer.Vector({
     source: new ol.source.Vector({
       features: [
@@ -52,19 +54,23 @@ function addPointToMap(posX, posY) {
     }),
     style: new ol.style.Style({
       image: new ol.style.Circle({
-        radius: radius,
+        radius: size,
         fill: new ol.style.Fill({
-          color
-        })
-        //        stroke: new ol.style.Stroke({color, width: 1})
+          color : color
+        }) 
       })
-    })
+    }),
+    name: "point"
   });
   map.addLayer(layer);
 }
 
+function removeAllPoints() {
+  map.getLayers().getArray().filter(layer => layer.get('name') === 'point').forEach(layer => map.removeLayer(layer));
+}
+
 function updateMapView() {
-  map.getView().setCenter(ol.proj.transform([startPosX, startPosY], worldGeodeticSystem, mercatorProjection));
+  map.getView().setCenter(ol.proj.transform([startPosX, startPosY], worldGeodeticSystem, mercatorProjection)); 
 }
 
 function sleep(ms) {
@@ -85,7 +91,7 @@ async function moving() {
   do {
     if (isMoving) 
     {
-      force = startZoom / map.getView().getZoom();
+      force = 2 * startZoom /  Math.exp(map.getView().getZoom());
 
       if (direction == "up") 
       {
