@@ -26,34 +26,163 @@
   <div id="mainWrapper">  
 
     <!-- Legend explaining all data-->
-    <div id="legend">
+    <div id="Legend">
+      <form action="" method="post">
       <div id="Severity">
         <span> Choose Severity Level:</span>
-        <input type="checkbox" value="Severity 4">
+        <br>
+        <input type="checkbox" name="severity" value="4" checked>
           <span  style="color: #e22903;">
-            4
-          </span> 
-        </input>
-        <input type="checkbox" value="Severity 3">
+            4 (Red)
+          </span>  
+        <input type="checkbox" name="severity" value="3" checked>
           <span  style="color: #e29f03;">
-            3
-          </span> 
-        </input>
-        <input type="checkbox" value="Severity 2">
+            3 (Orange)
+          </span>  
+        <input type="checkbox" name="severity" value="2" checked>
           <span  style="color: #d7e203;">
-            2
-          </span> 
-        </input>
-        <input type="checkbox" value="Severity 1">
+            2 (Yellow)
+          </span>  
+        <input type="checkbox" name="severity" value="1" checked>
           <span  style="color: #6fe203;">
-            1
-          </span> 
-        </input> 
+            1 (Green)
+          </span>  
       </div> 
-        <p> Number of accidents: size1, size2, size 3</p>
+      
+      <!-- <div id="AccidentsNumber">
+        <span > Choose Number of Accidents: </span> 
+        <br><input type="checkbox" value="le10k" checked> <span class="dot1"></span> <span> = &le; 10000 </span> 
+        <br><input type="checkbox" value="between" checked> <span class="dot2"></span> <span> = (10000 - 100000) </span> 
+        <br><input type="checkbox" value="ge1kk" checked> <span class="dot3"></span> <span> = &ge; 100000 </span> 
+      </div> -->
 
-    </div>
- 
+      <div id="AccidentAfterDate"> 
+        <span > Accidents that happened after: </span> 
+        <select name="AfterDay" id="AfterDay"> 
+          <option value="1">01</option>
+          <option value="2">02</option>
+          <option value="3">03</option>
+          <option value="4">04</option>
+          <option value="5">05</option>
+          <option value="6">06</option>
+          <option value="7">07</option>
+          <option value="8">08</option>
+          <option value="9">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+          <option value="17">17</option>
+          <option value="18">18</option>
+          <option value="19">19</option>
+          <option value="20">20</option>
+          <option value="21">21</option>
+          <option value="22">22</option>
+          <option value="23">23</option>
+          <option value="24">24</option>
+          <option value="25">25</option>
+          <option value="26">26</option>
+          <option value="27">27</option>
+          <option value="28">28</option>
+          <option value="29">29</option>
+          <option value="30">30</option>
+          <option value="31">31</option>
+        </select> 
+        <select name="AfterMonth" id="AfterMonth"> 
+          <option value="1">01</option>
+          <option value="2">02</option>
+          <option value="3">03</option>
+          <option value="4">04</option>
+          <option value="5">05</option>
+          <option value="6">06</option>
+          <option value="7">07</option>
+          <option value="8">08</option>
+          <option value="9">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select> 
+        <select name="AfterYear" id="AfterYear"> 
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+        </select>  
+      </div> 
+
+      <p>(leave empty if field does not matter)</p> 
+
+      <div id="AccidentBeforeDate"> 
+        <span > Accidents that happened before: </span> 
+        <select id="BeforeDay">
+          <option value="0">Day</option>
+          <option value="1">01</option>
+          <option value="2">02</option>
+          <option value="3">03</option>
+          <option value="4">04</option>
+          <option value="5">05</option>
+          <option value="6">06</option>
+          <option value="7">07</option>
+          <option value="8">08</option>
+          <option value="9">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+          <option value="17">17</option>
+          <option value="18">18</option>
+          <option value="19">19</option>
+          <option value="20">20</option>
+          <option value="21">21</option>
+          <option value="22">22</option>
+          <option value="23">23</option>
+          <option value="24">24</option>
+          <option value="25">25</option>
+          <option value="26">26</option>
+          <option value="27">27</option>
+          <option value="28">28</option>
+          <option value="29">29</option>
+          <option value="30">30</option>
+          <option value="31">31</option>
+        </select> 
+        <select id="BeforeMonth">
+          <option value="0">Month</option>
+          <option value="1">01</option>
+          <option value="2">02</option>
+          <option value="3">03</option>
+          <option value="4">04</option>
+          <option value="5">05</option>
+          <option value="6">06</option>
+          <option value="7">07</option>
+          <option value="8">08</option>
+          <option value="9">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select> 
+        <select id="BeforeYear">
+          <option value="0">Year</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+        </select>  
+      </div> 
+      
+      <p>(leave empty if field does not matter)</p>
+      
+      <input type="submit"/>
+    </form>
+    </div>  
+
+
+    <!-- White space used by grid -->
     <span></span>
 
     <!-- Map render surrounded by buttons -->
@@ -75,9 +204,9 @@
       <!-- Lower button -->
       <button class="button arrowsUD" onmousedown="moveAround(`down`)" onmouseup="stopMove()">  &darr; </button>  
     </div> 
-
   </div>
-  
-  <script type="text/javascript" src="cosmin.js"></script> 
+  <div id="mouse-position">asdsad</div>
+  <script id="script1" type="text/javascript" src="cosmin.js"></script> 
+   
 </body>
 </html>

@@ -15,9 +15,6 @@ html,body {
     text-align: center; 
     font-family: serif, Arial,sans-serif;
     font-size: 20px;
-    
-    border-bottom-style: solid;
-    border-color: white;
 }
 
 /* Code from alex */
@@ -25,6 +22,9 @@ html,body {
     width: 100%;
     padding: 13px 16px;
     font-size: 22px;   
+    
+    border-bottom-style: solid;
+    border-color: white;
 }
  
 /* Code from alex */
@@ -38,19 +38,65 @@ html,body {
     grid-template-columns: 3fr 0.1fr 6fr;
 }
 
-#legend {
+#Legend {
     background-color: darkslateblue;
     color: black;
+}
+
+#Legend p {
+    margin-top: 0;
+    font-size: 0.75em;
+}
+
+#Severity {
+    margin-bottom: 1em;
+}
+
+#AccidentsNumber input {
+    margin-bottom: 1em;
+}
+
+#AccidentAfterDate {
+    margin-top: 1em; 
+} 
+
+#AccidentBeforeDate {
+    margin-top: 1em; 
+} 
+
+.dot1 {
+    height: 0.5em;
+    width: 0.5em;
+    background-color: black;
+    border-radius: 50%;
+    display: inline-block; 
+    margin-left: 1em;
+    margin-right: 0.5em;
+}
+
+.dot2 {
+    height: 1em;
+    width: 1em;
+    background-color: black;
+    border-radius: 50%;
+    display: inline-block; 
+    margin-left: 0.75em;
+    margin-right: 0.2em;
+}
+
+.dot3 {
+    height: 1.5em;
+    width: 1.5em;
+    background-color: black;
+    border-radius: 50%;
+    display: inline-block; 
+    margin-left: 0.5em;  
 }
 
 #mapWrapper {
     width: 100%;
     display: grid;
     grid-template-columns: 2fr 15fr 2fr;
-}
-
-#mapContainer { 
-    
 }
 
 button { 
@@ -77,7 +123,7 @@ button {
     width: 100%;
 }
 
-@media only screen and (max-width: 800px) { 
+@media only screen and (max-width: 900px) { 
     #mainWrapper { 
         display: flex;
         flex-direction: column;

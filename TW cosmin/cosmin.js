@@ -8,6 +8,7 @@ var isMoving = false;
 var direction; 
 var red = '#e22903',  orange = '#e29f03', yellow = '#d7e203', green = '#6fe203'; 
 var colors = [green, yellow, orange, red];
+var sizes = [4, 6, 8];
 
 function renderMap() {
   map = new ol.Map({
@@ -25,7 +26,8 @@ function renderMap() {
     view: new ol.View({
       center: ol.proj.fromLonLat([startPosX, startPosY]),
       zoom: startZoom
-    })
+    }),
+    controls: ol.control.defaults({ attribution: false, rotate: false }).extend([mousePositionControl])
   });
 }
 
@@ -35,13 +37,14 @@ function addRandomPoints() {
     var posX = startPosX + R;
     R = Math.random() * 10;
     var posY = startPosY + R;
-    R = Math.floor(Math.random() * 2) + 2;
-    var size = R;
+    R = Math.floor(Math.random() * 3);
+    var size = sizes[0];
     R = Math.floor(Math.random() * 4);
     var color = colors[R]; 
     addPointToMap(posX, posY, size, color);
   }
 }
+ 
 
 function addPointToMap(posX, posY, size, color) {
   var layer = new ol.layer.Vector({
@@ -119,6 +122,26 @@ async function moving() {
   } while(1);
 }
 
+// import {createStringXY} from 'ol/coordinate';
+var mousePositionControl = new ol.control.MousePosition({
+  coordinateFormat: ol.coordinate.createStringXY(1),
+  projection: mercatorProjection,
+  className: 'custom-mouse-position',
+  target: document.getElementById('mouse-position'),
+  undefinedHTML: '&nbsp;'
+});
+
 renderMap();
 addRandomPoints();
 moving();
+
+
+function test(){
+  var day = document.getElementById("BeforeDay").value; 
+
+  var month = document.getElementById("BeforeMonth").value;
+
+  var year = document.getElementById("BeforeYear").value;
+
+  alert(day + ' ' + month + ' ' + year);
+}

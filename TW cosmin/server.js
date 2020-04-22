@@ -1,55 +1,93 @@
-// Code from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Node_server_without_framework
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
+var qs = require('querystring');
+port = 8127;
+
 
 http.createServer(function (request, response) {
-    console.log('request ', request.url);
+    console.log('request', request.method, request.url); 
+ 
+    switch (request.method) {
+        case "GET":
+            GET(request, response); 
+            break;
 
+        case "POST":
+            var reqBody = '';
+            var formData = "test";
+            request.on('data',function(data){
+                reqBody += data;  
+                if (reqBody.length > 1e6)
+                    request.connection.destroy();
+            });
+            request.on('end', function(){
+                formData = qs.parse(reqBody); 
+                console.log(formData);
+            });
+
+        default:
+            response.writeHead(404, { 'Content-Type': 'text/html' });
+            response.end("<html><body><p>404 page not found</p></body></html>");
+    }
+}).listen(port); 
+
+function GET(request, response){
+
+    //Get filepath
     var filePath = '.' + request.url;
-    if (filePath == './') {
+    if (filePath == './home'){
         filePath = './cosmin.html';
     }
 
-    var extname = String(path.extname(filePath)).toLowerCase();
-    var mimeTypes = {
+    //Read file content
+    fs.readFile(filePath, function(error, content) 
+    {
+        //Check for error
+        if (error) 
+        {
+            //Return "404 error" file in case searched file was not found
+            if(error.code == 'ENOENT') 
+            {
+                fs.readFile('./404.html', function(error, content) 
+                {
+                    response.writeHead(404, { 'Content-Type': 'text/html' });
+                    response.end("<html><body><p>404 page not found</p></body></html>");
+                });
+            } 
+
+            //Return "unexpected error" file if searched file was found but could not be read
+            else 
+            {
+                fs.readFile('./unexpected.html', function(error, content) 
+                {
+                    response.writeHead(402, { 'Content-Type': 'text/html' });
+                    response.end("<html><body><p>something bad happened</p></body></html>");
+                });
+            }
+        }
+
+        //Return file content as response
+        else 
+        {
+            response.writeHead(200, { 'Content-Type': getContentType(filePath) });
+            response.end(content);
+        }
+    });
+}
+
+function getContentType(filePath)
+{
+    var extensionName = String(path.extname(filePath)).toLowerCase();
+    var contentTypeMap = {
         '.html': 'text/html',
         '.js': 'text/javascript',
         '.css': 'text/css',
-        '.json': 'application/json',
-        '.png': 'image/png',
-        '.jpg': 'image/jpg',
-        '.gif': 'image/gif',
-        '.svg': 'image/svg+xml',
-        '.wav': 'audio/wav',
-        '.mp4': 'video/mp4',
-        '.woff': 'application/font-woff',
-        '.ttf': 'application/font-ttf',
-        '.eot': 'application/vnd.ms-fontobject',
-        '.otf': 'application/font-otf',
-        '.wasm': 'application/wasm'
-    };
-
-    var contentType = mimeTypes[extname] || 'application/octet-stream';
-
-    fs.readFile(filePath, function(error, content) {
-        if (error) {
-            if(error.code == 'ENOENT') {
-                fs.readFile('./404.html', function(error, content) {
-                    response.writeHead(404, { 'Content-Type': 'text/html' });
-                    response.end(content, 'utf-8');
-                });
-            }
-            else {
-                response.writeHead(500);
-                response.end('Sorry, check with the site admin for error: '+error.code+' ..\n');
-            }
-        }
-        else {
-            response.writeHead(200, { 'Content-Type': contentType });
-            response.end(content, 'utf-8');
-        }
-    });
-
-}).listen(8125);
-console.log('Server running at http://127.0.0.1:8125/');
+        '.json': 'application/json', 
+    }; 
+    var contentType = contentTypeMap[extensionName];
+    return contentType;
+}
+ 
+test = 'Server running at http://127.0.0.1:' + port + '/';
+console.log(test);
