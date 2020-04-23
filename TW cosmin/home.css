@@ -38,12 +38,12 @@ html,body {
     grid-template-columns: 3fr 0.1fr 6fr;
 }
 
-#Legend {
+#Tool {
     background-color: darkslateblue;
     color: black;
 }
 
-#Legend p {
+#Tool p {
     margin-top: 0;
     font-size: 0.75em;
 }

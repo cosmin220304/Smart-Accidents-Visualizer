@@ -1,13 +1,16 @@
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
-var qs = require('querystring');
-port = 8127;
-
+var qs = require('querystring'); 
+port = 8128;     
 
 http.createServer(function (request, response) {
-    console.log('request', request.method, request.url); 
- 
+    //See request
+    console.log('request', request.method, request.url);    
+    
+    showCookies(request);
+    
+    //Process request
     switch (request.method) {
         case "GET":
             GET(request, response); 
@@ -15,16 +18,20 @@ http.createServer(function (request, response) {
 
         case "POST":
             var reqBody = '';
-            var formData = "test";
+            var formData = "test"; 
             request.on('data',function(data){
                 reqBody += data;  
                 if (reqBody.length > 1e6)
                     request.connection.destroy();
             });
             request.on('end', function(){
+                console.log(reqBody);
                 formData = qs.parse(reqBody); 
-                console.log(formData);
+                console.log(formData); 
+                response.writeHead(200, {  'Set-Cookie': 'mycookie=test', 'Content-Type': 'application/json' });
+                response.end(qs.stringify(formData));
             });
+            break;
 
         default:
             response.writeHead(404, { 'Content-Type': 'text/html' });
@@ -32,13 +39,20 @@ http.createServer(function (request, response) {
     }
 }).listen(port); 
 
+function showCookies(request){
+    var list = {},
+    rc = request.headers.cookie; 
+
+    console.log(rc);
+}
+
 function GET(request, response){
 
     //Get filepath
     var filePath = '.' + request.url;
-    if (filePath == './home'){
-        filePath = './cosmin.html';
-    }
+    if (filePath == './home' || filePath == './'){
+        filePath = './home.html';
+    } 
 
     //Read file content
     fs.readFile(filePath, function(error, content) 

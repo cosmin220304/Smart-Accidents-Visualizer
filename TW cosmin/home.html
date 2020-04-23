@@ -3,9 +3,9 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="cosmin.css">
+  <link rel="stylesheet" type="text/css" href="home.css">
   <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
   <title>Pagina Cosmin</title>
 </head>
 
@@ -25,9 +25,9 @@
   <h2>My Map</h2> 
   <div id="mainWrapper">  
 
-    <!-- Legend explaining all data-->
-    <div id="Legend">
-      <form action="" method="post">
+    <!-- Tool for manipulating and seeing data-->
+    <div id="Tool">
+      <form action="javascript:test()" method="">
       <div id="Severity">
         <span> Choose Severity Level:</span>
         <br>
@@ -206,7 +206,8 @@
     </div> 
   </div>
   <div id="mouse-position">asdsad</div>
-  <script id="script1" type="text/javascript" src="cosmin.js"></script> 
+  <script id="script1" type="text/javascript" src="homeMapRenderer.js"></script> 
+  <script id="script1" type="text/javascript" src="homeTools.js"></script> 
    
 </body>
 </html>

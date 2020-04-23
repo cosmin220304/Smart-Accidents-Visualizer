@@ -44,7 +44,6 @@ function addRandomPoints() {
     addPointToMap(posX, posY, size, color);
   }
 }
- 
 
 function addPointToMap(posX, posY, size, color) {
   var layer = new ol.layer.Vector({
@@ -77,7 +76,7 @@ function updateMapView() {
 }
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise(start => setTimeout(start, ms));
 } 
 
 function moveAround(dir) { 
@@ -121,27 +120,15 @@ async function moving() {
     await sleep(10);
   } while(1);
 }
-
-// import {createStringXY} from 'ol/coordinate';
+ 
 var mousePositionControl = new ol.control.MousePosition({
   coordinateFormat: ol.coordinate.createStringXY(1),
   projection: mercatorProjection,
-  className: 'custom-mouse-position',
-  target: document.getElementById('mouse-position'),
-  undefinedHTML: '&nbsp;'
+  className: 'mousePos',
+  target: document.getElementById('mouse-position')
 });
 
 renderMap();
 addRandomPoints();
 moving();
 
-
-function test(){
-  var day = document.getElementById("BeforeDay").value; 
-
-  var month = document.getElementById("BeforeMonth").value;
-
-  var year = document.getElementById("BeforeYear").value;
-
-  alert(day + ' ' + month + ' ' + year);
-}
