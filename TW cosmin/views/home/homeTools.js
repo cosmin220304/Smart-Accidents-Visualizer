@@ -22,7 +22,7 @@ function postReq(param) {
       'Accept': 'application/json, */*',
        'Content-type': 'application/json'
     },
-    body: JSON.stringify(param)
+    body: param
   })
   .then((res) => res.json())
   .then((data) => console.log(data))

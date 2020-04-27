@@ -10,7 +10,8 @@ var mySchema = new Schema({
     ID:  String, 
     Source: String,
     TMC:   Number,
-    Severity: Number,
+    Severity: String
+    ,
     Start_Time: Date,
     End_Time: Date,
     Start_Lat: Number,
@@ -57,7 +58,7 @@ var mySchema = new Schema({
     Nautical_Twilight: String,
     Astronomical_Twilight: String
 }); 
-var MyModel = mongoose.model('data', mySchema);
+const MyModel = mongoose.model("data", mySchema, "data");
 
 function start(){
     mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true})
@@ -71,7 +72,10 @@ async function find (body)
     console.log(body);
     var formatedReqBody = qs.parse(body);  
     console.log(formatedReqBody); 
-    //todo find function
+    var firstKey = Object.keys(formatedReqBody)[0];
+    var value = formatedReqBody[firstKey]
+    console.log(firstKey, value)
+    MyModel.findOne({'Severity': value}, function(err, doc){ if(err) throw err; console.log((doc)) })
 }
 
 module.exports.start = start;
