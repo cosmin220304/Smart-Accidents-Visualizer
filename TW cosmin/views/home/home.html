@@ -14,9 +14,12 @@
     <h1>US Accidents Visualizer</h1>
   <br>
     <div class="topnav">
-      <a>Home</a>
-      <a>Contact</a>
-      <a>About</a>
+      <a>Home</a> 
+      <a>Heat Map</a>
+      <a>Pie chart</a>
+      <a>Bar Graph</a>
+      <a>Sankey diagram</a>
+      <a>Contacts</a>
     </div>
   </header>
   <!-- End Code from alex-->
@@ -30,19 +33,19 @@
       <div id="Severity">
         <span> Choose Severity Level:</span>
         <br>
-        <input type="checkbox" name="'Severity'" value="4" checked>
+        <input type="checkbox" name="Severity" value="4" checked>
           <span  style="color: #e22903;">
             4 (Red)
           </span>  
-        <input type="checkbox" name="'Severity'" value="3" checked>
+        <input type="checkbox" name="Severity" value="3" checked>
           <span  style="color: #e29f03;">
             3 (Orange)
           </span>  
-        <input type="checkbox" name="'Severity'" value="2" checked>
+        <input type="checkbox" name="Severity" value="2" checked>
           <span  style="color: #d7e203;">
             2 (Yellow)
           </span>  
-        <input type="checkbox" name="'Severity'" value="1" checked>
+        <input type="checkbox" name="Severity" value="1" checked>
           <span  style="color: #6fe203;">
             1 (Green)
           </span>  
@@ -174,6 +177,7 @@
       <p>(leave empty if field does not matter)</p>
       
       <input type="submit"/>
+      <input type="time" name="time" />
     </form>
     </div>  
 
@@ -203,7 +207,7 @@
   </div>
   <div id="mouse-position">asdsad</div>
   <script id="script1" type="text/javascript" src="homeMapRenderer.js"></script> 
-  <script id="script2" type="text/javascript" src="homeTools.js"></script> 
+  <script id="script2" type="text/javascript" src="homeViewModeler.js"></script> 
    
 </body>
 </html>

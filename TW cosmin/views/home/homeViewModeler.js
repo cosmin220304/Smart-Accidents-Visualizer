@@ -15,12 +15,12 @@ function makeSearch() {
   return false;
 } 
 
-function postReq(param) {  
+async function postReq(param) {  
   fetch("http://127.0.0.1:8128/home" , {
     method: 'POST',
     headers: {
       'Accept': 'application/json, */*',
-       'Content-type': 'application/json'
+      'Content-type': 'application/json'
     },
     body: param
   })

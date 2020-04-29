@@ -1,0 +1,13 @@
+Totul se va desfasura in mare parte pe www.challengermode.com/ (IN BROWSER), unde va trebui sa va inscrieti cu echipa + cont de Steam.
+Fiecare echipa va avea 2-5 minute sa baneze prima harta, apoi cate 30 de secunde pentru fiecare ban.
+Dupa ce sunt alese locatia serverului si harta, veti primi un invite link catre serverul pe care este hostat meciul (tot pe acelasi site)
+In faza de Wamp Up se asteapta conectarea jucatorilor. Jocul in sine va incepe un minut dupa ce s-au conectat toti cu succes.
+
+Tournament este de tipul Double Elimination.*
+Fiecare Meci este de tipul Best of One, cu maxim 30 de runde.**
+Game type: Bomb Defusal
+Pool map(8): de_mirage, de_dust2, de_inferno, de_train, de_nuke, de_overpass, de_vertigo, de_cache
+ 
+--
+*( o echipa este eliminata dupa 2 infrangeri).
+**( rezultatul fiecarui meci va fi deci doar de un singur joc de 30 de runde)

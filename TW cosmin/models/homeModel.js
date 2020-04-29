@@ -10,8 +10,7 @@ var mySchema = new Schema({
     ID:  String, 
     Source: String,
     TMC:   Number,
-    Severity: String
-    ,
+    Severity: String,
     Start_Time: Date,
     End_Time: Date,
     Start_Lat: Number,
@@ -60,13 +59,14 @@ var mySchema = new Schema({
 }); 
 const MyModel = mongoose.model("data", mySchema, "data");
 
-function start(){
+async function start(){
     mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true})
     .then(() => console.log('Connected to DB!'))
     .catch(err => console.log('DB conn error: ${err.message}')); 
     db = mongoose.connection;  
 }
-  
+ 
+let i = 0;
 async function find (body)
 {
     console.log(body);
@@ -75,7 +75,11 @@ async function find (body)
     var firstKey = Object.keys(formatedReqBody)[0];
     var value = formatedReqBody[firstKey]
     console.log(firstKey, value)
-    MyModel.findOne({'Severity': value}, function(err, doc){ if(err) throw err; console.log((doc)) })
+    var test = parseInt(value);
+    var n = firstKey.toString();
+    i++;
+    console.log(i, n,test)
+    MyModel.find({[n]: test}, function(err, doc){ if(err) throw err; console.log((doc)) })
 }
 
 module.exports.start = start;

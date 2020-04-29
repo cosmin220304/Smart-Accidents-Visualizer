@@ -1,9 +1,9 @@
 const homeController = require("../controllers/homeController");
 
 //Resources we handle  
-const availableResources = ['/', '/home', '/home.html', '/homeMapRenderer.js', '/homeTools.js', '/home.css']
+const availableResources = ['/', '/home', '/home.html', '/homeMapRenderer.js', '/homeViewModeler.js', '/home.css']
 
-function route(request, response){    
+async function route(request, response){    
     //Request response
     let retCode = 404
 
