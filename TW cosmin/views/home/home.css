@@ -22,11 +22,13 @@ html,body {
     width: 100%;
     padding: 13px 16px;
     font-size: 22px;   
-    
+    text-decoration: none;
     border-bottom-style: solid;
     border-color: white;
 }
- 
+a:visited {
+    color: orange;
+  }
 /* Code from alex */
 .topnav a:hover { 
     color:white;

@@ -1,7 +1,7 @@
 const homeController = require("../controllers/homeController");
 
 //Resources we handle  
-const availableResources = ['/', '/home', '/home.html', '/homeMapRenderer.js', '/homeViewModeler.js', '/home.css']
+const availableResources = ['/', '/home', '/home.html', '/homeMapRenderer.js', '/homeViewModeler.js', '/home.css', '/heatMap.html','/heatMap.','/heatMap.js' ]
 
 async function route(request, response){    
     //Request response
