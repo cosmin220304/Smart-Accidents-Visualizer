@@ -1,4 +1,4 @@
-
+    
     var map = new ol.Map({
       target: 'map',
       layers: [
@@ -23,34 +23,34 @@
 
         var data = google.visualization.arrayToDataTable([
           ['State', 'Select'],
-          ['US-AL', 10],
-          ['US-AK', 120],
-          ['US-AR', 10],
-          ['US-AK', 10],
-          ['US-AZ', 10],
-          ['US-Colorado', 0],
-          ['US-CO', 150],
-          ['US-DE', 120],
-          ['US-FL', 130],
-          ['US-HI', 120],
-          ['US-KS', 110],
-          ['US-KY', 180],
-          ['US-MI', 110],
-          ['US-MO', 180],
-          ['US-MS', 10],
-          ['US-MT', 101],
-          ['US-NE', 120],
-          ['US-NJ', 1210],
-          ['US-NM', 1210],
-          ['US-NY', 1410],
-          ['US-OR', 1310],
-          ['US-PA', 1510],
-          ['US-TX', 1610],
-          ['US-UT', 1710],
-          ['US-VA', 1810],
-          ['US-WA', 1910],
-          ['US-WV', 1910],
-          ['US-WY', 1910],
+          ['AL', 10],
+          ['AK', 120],
+          ['AR', 10],
+          ['AK', 10],
+          ['AZ', 10],
+          ['Colorado', 0],
+          ['CO', 150],
+          ['DE', 120],
+          ['FL', 130],
+          ['HI', 120],
+          ['KS', 110],
+          ['KY', 180],
+          ['MI', 110],
+          ['MO', 180],
+          ['MS', 10],
+          ['MT', 101],
+          ['NE', 120],
+          ['NJ', 1210],
+          ['NM', 1210],
+          ['NY', 1410],
+          ['OR', 1310],
+          ['PA', 1510],
+          ['TX', 1610],
+          ['UT', 1710],
+          ['VA', 1810],
+          ['WA', 1910],
+          ['WV', 1910],
+          ['WY', 1910],
         ]);
 
         var options = {
@@ -58,10 +58,78 @@
           region: 'US',
           displayMode: 'regions',
           resolution: 'provinces',
-          backgroundColor: 'rgb(51, 51, 51)' ,
+          backgroundColor: 'transparent',
+          chartArea: {
+            backgroundColor: 'transparent',
+          }
+          
+     
          };
 
         var chart = new google.visualization.GeoChart(document.getElementById('geochart'));
 
         chart.draw(data, options);
       }
+
+
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['State', 'Select'],
+    ['AL', 10],
+    ['AK', 120],
+    ['AR', 10],
+    ['AK', 10],
+    ['AZ', 10],
+    ['Colorado', 0],
+    ['CO', 150],
+    ['DE', 120],
+    ['FL', 130],
+    ['HI', 120],
+    ['KS', 110],
+    ['KY', 180],
+    ['MI', 110],
+    ['MO', 180],
+    ['MS', 10],
+    ['MT', 101],
+    ['NE', 120],
+    ['NJ', 1210],
+    ['NM', 1210],
+    ['NY', 1410],
+    ['OR', 1310],
+    ['PA', 1510],
+    ['TX', 1610],
+    ['UT', 1710],
+    ['VA', 1810],
+    ['WA', 1910],
+    ['WV', 1910],
+    ['WY', 1910],
+  ]);
+
+var options = {
+  backgroundColor: 'transparent',
+  chartArea: {
+    backgroundColor: 'transparent',
+  },
+  titleTextStyle:   {color: 'white'}, 
+  legend: 'none',
+  pieSliceText: 'label',
+  is3D: true,
+  
+  
+};
+
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+
+$(window).resize(function(){
+  drawChart();
+});
+$(window).resize(function(){
+  drawRegionsMap();
+  });
+
