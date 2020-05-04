@@ -1,6 +1,8 @@
 var http = require('http');
 var homeModel = require('./models/homeModel')
 var homeRoutes = require('./routes/homeRoutes');
+var heatMapRoutes = require('./routes/heatMapRoutes');
+
 port = 8128;      
 
 //Start the model
@@ -14,6 +16,8 @@ http.createServer(function (request, response) {
 
     //Routes to controllers
     let homeRetCode = homeRoutes.route(request, response); 
+    let heatMapRetCode = heatMapRoutes.route(request, response); 
+
      //todo: add routes adi
     //todo: add routes alex
     
@@ -22,6 +26,13 @@ http.createServer(function (request, response) {
         response.writeHead(404, { 'Content-Type': 'text/html' });
         response.end("<html><body><p>404 page not found</p></body></html>");
     }
+    if (heatMapRetCode == 404){
+        response.writeHead(404, { 'Content-Type': 'text/html' });
+        response.end("<html><body><p>404 page not found</p></body></html>");
+    }
+
+ 
+
 
 }).listen(port); 
 

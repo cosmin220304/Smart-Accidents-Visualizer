@@ -1,5 +1,4 @@
-    
-    var map = new ol.Map({
+        var map = new ol.Map({
       target: 'map',
       layers: [
         new ol.layer.Tile({
@@ -74,10 +73,4 @@
 
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
-
-
-
-$(window).resize(function(){
-  drawRegionsMap();
-  });
 

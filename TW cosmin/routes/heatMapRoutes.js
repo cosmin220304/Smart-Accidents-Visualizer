@@ -1,12 +1,11 @@
-const homeController = require("../controllers/homeController");
+const heatMapController = require("../controllers/heatMapController");
 
 //Resources we handle  
-const availableResources = ['/', '/home', '/home.html', '/homeMapRenderer.js', '/homeViewModeler.js', '/home.css' ]
+const availableResources = ['/heatMap', '/heatMap.html',  '/heatMap.css' , '/heatMap.js' ]
 
 async function route(request, response){    
     //Request response
     let retCode = 404
-
     //Check if we are responsible for that resource or return 404
     if ( availableResources.includes(request.url) == false){ 
         return retCode
@@ -15,11 +14,7 @@ async function route(request, response){
     //Send to controller the request
     switch (request.method) {
         case "GET":
-            retCode = homeController.getHandler(request, response);
-            break
-
-        case "POST":
-            retCode = homeController.postHandler(request, response);
+            retCode = heatMapController.getHandler(request, response); 
             break
 
         default:

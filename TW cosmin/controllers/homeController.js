@@ -13,7 +13,7 @@ function getHandler(request, response){
     if (request.url == '/home' || request.url == '/'){
         filePath = homeViewPath + '/home.html';
     }   
-
+    console.log(request.url);
     //Open and return it if is .html,.css or .js
     fs.readFile(filePath, function(error, content) 
     { 
