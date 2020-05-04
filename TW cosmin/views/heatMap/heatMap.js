@@ -1,20 +1,3 @@
-        var map = new ol.Map({
-      target: 'map',
-      layers: [
-        new ol.layer.Tile({
-          source: new ol.source.OSM()
-        })
-      ],
-      view: new ol.View({
-        center: ol.proj.fromLonLat([262.30, 38]),
-        zoom: 4,
-        minZoom: 4
-
-      })
-    });
-
-
-
       google.charts.load('current', {'packages':['geochart']});
       google.charts.setOnLoadCallback(drawRegionsMap);
 
@@ -61,8 +44,6 @@
           chartArea: {
             backgroundColor: 'transparent',
           }
-          
-     
          };
 
         var chart = new google.visualization.GeoChart(document.getElementById('geochart'));
@@ -71,6 +52,4 @@
       }
 
 
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
 

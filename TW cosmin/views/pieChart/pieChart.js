@@ -1,4 +1,6 @@
-// Draw the chart and set the chart values
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
 function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['State', 'Select'],
@@ -40,15 +42,10 @@ function drawChart() {
     titleTextStyle:   {color: 'white'}, 
     legend: 'none',
     pieSliceText: 'label',
-    is3D: true,
-    
-    
+    is3D: true
   };
   
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     chart.draw(data, options);
   }
   
-  $(window).resize(function(){
-    drawChart();
-  });

@@ -2,6 +2,7 @@ var http = require('http');
 var homeModel = require('./models/homeModel')
 var homeRoutes = require('./routes/homeRoutes');
 var heatMapRoutes = require('./routes/heatMapRoutes');
+var pieChartRoutes = require('./routes/pieChartRoutes');
 
 port = 8128;      
 
@@ -17,9 +18,8 @@ http.createServer(function (request, response) {
     //Routes to controllers
     let homeRetCode = homeRoutes.route(request, response); 
     let heatMapRetCode = heatMapRoutes.route(request, response); 
-
+    let pieChartRetCode = pieChartRoutes.route(request, response);
      //todo: add routes adi
-    //todo: add routes alex
     
     //If nothing found return '404 not found'
     if (homeRetCode == 404){
@@ -30,6 +30,11 @@ http.createServer(function (request, response) {
         response.writeHead(404, { 'Content-Type': 'text/html' });
         response.end("<html><body><p>404 page not found</p></body></html>");
     }
+    if (pieChartRetCode == 404){
+        response.writeHead(404, { 'Content-Type': 'text/html' });
+        response.end("<html><body><p>404 page not found</p></body></html>");
+    }
+
 
  
 
