@@ -16,7 +16,9 @@ async function route(request, response){
         case "GET":
             retCode = heatMapController.getHandler(request, response); 
             break
-
+        case "POST":
+            retCode = heatMapController.postHandler(request, response);
+            break    
         default:
             retCode = 404
     } 

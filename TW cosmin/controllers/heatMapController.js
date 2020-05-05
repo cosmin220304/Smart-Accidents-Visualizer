@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');  
 const qs = require('querystring');  
+var model = require('../models/homeModel')
 
 //View path
 const homeViewPath = path.join(__dirname, '..', 'views', 'heatMap'); 
@@ -25,7 +26,38 @@ function getHandler(request, response){
     }); 
 }  
 
- 
+function postHandler(request, response){
+
+    //Find the file path
+    let filePath = homeViewPath + request.url; 
+    if (request.url == '/home' || request.url == '/'){
+        filePath = homeViewPath + '/home.html';
+    }  
+
+    //Used for getting the request data
+    let reqBody = '';
+    let formatedReqBody = '';  
+
+    //Print any error
+    request.on('error', (err) => { 
+        console.error(err.stack);
+    });
+
+    //Get the data
+    request.on('data',function(data){
+        reqBody += data;  
+        if (reqBody.length > 1e6)
+            request.connection.destroy();
+    });
+
+    //Process it and send a response
+    request.on('end', function(){ 
+        formatedReqBody = qs.parse(reqBody);  
+        model.find(reqBody);
+        response.writeHead(200, { 'Content-Type': 'application/json' });
+        response.end(JSON.stringify(formatedReqBody));
+    });
+}
 
 function getContentType(filePath)
 {
@@ -50,3 +82,4 @@ function showCookies(request){
 }
 
 module.exports.getHandler = getHandler;
+module.exports.postHandler = postHandler;

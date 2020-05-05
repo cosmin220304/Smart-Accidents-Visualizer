@@ -16,7 +16,9 @@ async function route(request, response){
         case "GET":
             retCode = pieChartController.getHandler(request, response); 
             break
-
+        case "POST":
+            retCode = pieChartController.postHandler(request, response);
+            break
         default:
             retCode = 404
     } 
