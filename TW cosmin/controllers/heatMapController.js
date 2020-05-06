@@ -30,8 +30,8 @@ function postHandler(request, response){
 
     //Find the file path
     let filePath = homeViewPath + request.url; 
-    if (request.url == '/home' || request.url == '/'){
-        filePath = homeViewPath + '/home.html';
+    if (request.url == '/heatMap'){
+        filePath = homeViewPath + '/heatMap.html';
     }  
 
     //Used for getting the request data

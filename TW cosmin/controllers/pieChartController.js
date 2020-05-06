@@ -31,8 +31,8 @@ function postHandler(request, response){
 
     //Find the file path
     let filePath = homeViewPath + request.url; 
-    if (request.url == '/home' || request.url == '/'){
-        filePath = homeViewPath + '/home.html';
+    if (request.url == '/pieChart'){
+        filePath = homeViewPath + '/pieChart.html';
     }  
 
     //Used for getting the request data
