@@ -76,7 +76,7 @@ async function find (body)
     var value = formatedReqBody[firstKey]
     console.log(firstKey, value)
     var test = parseInt(value);
-    var n = firstKey.toString();
+    var n = "" + firstKey;
     i++;
     console.log(i, n,test)
     MyModel.find({[n]: test}, function(err, doc){ if(err) throw err; console.log((doc)) })

@@ -4,16 +4,16 @@ const qs = require('querystring');
 var model = require('../models/homeModel')
 
 //View path
-const homeViewPath = path.join(__dirname, '..', 'views', 'pieChart'); 
+const pieChartViewPath = path.join(__dirname, '..', 'views', 'pieChart'); 
 
 function getHandler(request, response){ 
 
     //Find the file 
-    let filePath = homeViewPath + request.url; 
+    let filePath = pieChartViewPath + request.url; 
     if (request.url == '/pieChart'){
-        filePath = homeViewPath + '/pieChart.html';
-    }   
-    console.log(request.url);
+        filePath = pieChartViewPath + '/pieChart.html';
+    }
+    
     //Open and return it if is .html,.css or .js
     fs.readFile(filePath, function(error, content) 
     { 
@@ -30,10 +30,12 @@ function getHandler(request, response){
 function postHandler(request, response){
 
     //Find the file path
-    let filePath = homeViewPath + request.url; 
+    let filePath = pieChartViewPath + request.url; 
     if (request.url == '/pieChart'){
-        filePath = homeViewPath + '/pieChart.html';
-    }  
+        filePath = pieChartViewPath + '/pieChart.html';
+    }   
+ 
+
 
     //Used for getting the request data
     let reqBody = '';
