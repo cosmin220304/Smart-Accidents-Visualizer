@@ -3,7 +3,7 @@ const heatMapController = require("../controllers/heatMapController");
 //Resources we handle  
 const availableResources = ['/heatMap', '/heatMap.html',  '/heatMap.css' , '/heatMap.js' ]
 
-async function route(request, response){    
+ function route(request, response){    
     //Request response
     let retCode = 404
     //Check if we are responsible for that resource or return 404

@@ -3,7 +3,7 @@ const pieChartController = require("../controllers/pieChartController");
 //Resources we handle  
 const availableResources = ['/pieChart', '/pieChart.html',  '/pieChart.css' , '/pieChart.js' ]
 
-async function route(request, response){    
+ function route(request, response){    
     //Request response
     let retCode = 404
     //Check if we are responsible for that resource or return 404
