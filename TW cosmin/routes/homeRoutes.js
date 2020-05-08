@@ -3,15 +3,16 @@ const homeController = require("../controllers/homeController");
 //Resources we handle  
 const availableResources = ['/', '/home', '/home.html', '/homeMapRenderer.js', '/homeViewModeler.js', '/home.css' ]
 
-async function route(request, response){    
-    //Request response
+function route(request, response){    
+    //Request response code
     let retCode = 404
 
     //Check if we are responsible for that resource or return 404
-    if ( availableResources.includes(request.url) == false){ 
+    const url = request.url.split('?')
+    if ( availableResources.includes(url[0]) == false){ 
         return retCode
     }
- 
+
     //Send to controller the request
     switch (request.method) {
         case "GET":

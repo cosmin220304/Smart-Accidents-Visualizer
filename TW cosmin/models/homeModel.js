@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 const qs = require('querystring'); 
-const dbUrl = 'mongodb://localhost/sav';
+const dbUrl = 'mongodb+srv://admin:proiectTW2020@cluster0-3dd1j.gcp.mongodb.net/test?retryWrites=true&w=majority';
 let db;
 
 var Schema = mongoose.Schema;

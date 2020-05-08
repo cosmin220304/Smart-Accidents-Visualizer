@@ -1,29 +1,35 @@
 const fs = require('fs');
 const path = require('path');  
 const qs = require('querystring');  
-var homeModel = require('../models/homeModel')
+const homeModel = require('../models/homeModel')
 
 //View path
 const homeViewPath = path.join(__dirname, '..', 'views', 'home'); 
 
 function getHandler(request, response){ 
+    //Returned response Code
+    let retCode = 200;
 
-    //Find the file path
-    let filePath = homeViewPath + request.url; 
-    if (request.url == '/home' || request.url == '/'){
+    //Get the filepath
+    let query = '';
+    const url = request.url.split('?');
+    let filePath = homeViewPath + url[0]; 
+    if (url[0] == '/home' || url[0] == '/'){
         filePath = homeViewPath + '/home.html';
-    }   
-    console.log(request.url);
-    //Open and return it if is .html,.css or .js
+        query = qs.parse(url[1]);
+    }    
+  
+    //Read and return the file content if file was found
     fs.readFile(filePath, function(error, content) 
     { 
         if (error)  
-            return 404; 
+            retCode = 404; 
  
         response.writeHead(200, { 'Content-Type': getContentType(filePath) });
-        response.end(content);
-        return 200; 
+        response.end(content); 
     }); 
+
+    return retCode;
 }  
 
 function postHandler(request, response){
@@ -53,9 +59,10 @@ function postHandler(request, response){
     //Process it and send a response
     request.on('end', function(){ 
         formatedReqBody = qs.parse(reqBody);  
-        homeModel.find(reqBody);
+        let jsonResponse = { 'a':'3'} //homeModel.find(reqBody);
+        
         response.writeHead(200, { 'Content-Type': 'application/json' });
-        response.end(JSON.stringify(formatedReqBody));
+        response.end(JSON.stringify(jsonResponse));
     });
 }
 
