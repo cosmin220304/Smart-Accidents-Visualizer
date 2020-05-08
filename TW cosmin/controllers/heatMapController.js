@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');  
 const qs = require('querystring');  
-var model = require('../models/homeModel')
+var model = require('../models/model')
 
 //View path
 const homeViewPath = path.join(__dirname, '..', 'views', 'heatMap'); 
@@ -33,6 +33,9 @@ function postHandler(request, response){
     if (request.url == '/heatMap'){
         filePath = homeViewPath + '/heatMap.html';
     }  
+    const dataModel= new homeModel({
+
+    });
 
     //Used for getting the request data
     let reqBody = '';
@@ -55,7 +58,7 @@ function postHandler(request, response){
         formatedReqBody = qs.parse(reqBody);  
         model.find(reqBody);
         response.writeHead(200, { 'Content-Type': 'application/json' });
-        response.end(JSON.stringify(formatedReqBody));
+        response.end(reqBody);
     });
 }
 

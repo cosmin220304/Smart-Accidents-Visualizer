@@ -1,5 +1,5 @@
 var http = require('http');
-var homeModel = require('./models/homeModel')
+var model = require('./models/model')
 var homeRoutes = require('./routes/homeRoutes');
 var heatMapRoutes = require('./routes/heatMapRoutes');
 var pieChartRoutes = require('./routes/pieChartRoutes');
@@ -7,8 +7,7 @@ var pieChartRoutes = require('./routes/pieChartRoutes');
 port = 8128;      
 
 //Start the model
-//homeModel = new homeModel();
-homeModel.start();
+model.start();
 
 //Start the server
 http.createServer(function (request, response) {

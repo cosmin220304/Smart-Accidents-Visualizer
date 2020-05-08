@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');  
 const qs = require('querystring');  
-var model = require('../models/homeModel')
+var model = require('../models/model')
 
 //View path
 const pieChartViewPath = path.join(__dirname, '..', 'views', 'pieChart'); 

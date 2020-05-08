@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');  
 const qs = require('querystring');  
-const homeModel = require('../models/homeModel')
+const homeModel = require('../models/model')
 
 //View path
 const homeViewPath = path.join(__dirname, '..', 'views', 'home'); 
