@@ -6,7 +6,7 @@ let db;
 
 var Schema = mongoose.Schema;
 var mySchema = new Schema({
-    _id: String,
+    _id: mongoose.Types.ObjectId,
     ID:  String, 
     Source: String,
     TMC:   Number,
