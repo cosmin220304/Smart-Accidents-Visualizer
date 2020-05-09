@@ -1,7 +1,6 @@
-
 const mongoose = require('mongoose');
 const qs = require('querystring'); 
-const dbUrl = 'mongodb+srv://admin:proiectTW2020@cluster0-3dd1j.gcp.mongodb.net/test?retryWrites=true&w=majority';
+const dbUrl = 'mongodb+srv://admin:proiectTW2020@cluster0-3dd1j.gcp.mongodb.net/SAV?retryWrites=true&w=majority';
 let db;
 
 var Schema = mongoose.Schema;
@@ -9,48 +8,48 @@ var mySchema = new Schema({
     _id: mongoose.Types.ObjectId,
     ID:  String, 
     Source: String,
-    TMC:   Number,
+    TMC:   String,
     Severity: String,
-    Start_Time: Date,
-    End_Time: Date,
-    Start_Lat: Number,
-    Start_Lng: Number,
+    Start_Time: String,
+    End_Time: String,
+    Start_Lat: String,
+    Start_Lng: String,
     End_Lat: String,
     End_Lng: String,
-    Distance: Number,
+    Distance: String,
     Description: String,
-    Number: Number,
+    Number: String,
     Street: String,
     Side: String,
     City: String,
     County: String,
     State: String,
-    Zipcode: Number,
+    Zipcode: String,
     Country: String,
     TimeZone: String,
     Airport_code: String,
-    Weather_Timestamp: Date,
+    Weather_Timestamp: String,
     Temperature: String,
     Wind_Chill: String,
-    Humidity: Number,
-    Pressure: Number,
-    Visibility: Number,
+    Humidity: String,
+    Pressure: String,
+    Visibility: String,
     Wind_Direction: String,
-    Wind_Speed: Number,
-    Precipitation: Number,
+    Wind_Speed: String,
+    Precipitation: String,
     Weather_Condition: String,
-    Amenity: Boolean,
-    Bump: Boolean,
-    Crossing: Boolean,
-    Give_Way: Boolean,
-    Junction: Boolean,
-    No_Exit: Boolean,
-    Railway: Boolean,
-    Roundabout: Boolean,
-    Station: Boolean,
-    Stop: Boolean,
-    Traffic_Calming: Boolean,
-    Traffic_Signal: Boolean,
+    Amenity: String,
+    Bump: String,
+    Crossing: String,
+    Give_Way: String,
+    Junction: String,
+    No_Exit: String,
+    Railway: String,
+    Roundabout: String,
+    Station: String,
+    Stop: String,
+    Traffic_Calming: String,
+    Traffic_Signal: String,
     Turning_Loop: String,
     Sunrise_Sunset: String,
     Civil_Twilight: String,
@@ -82,5 +81,16 @@ async function find (body)
     MyModel.find({[n]: test}, function(err, doc){ if(err) throw err; console.log((doc)) })
 }
 
+function save(obj)
+{
+   var abc = new MyModel(obj);
+   abc.save(function (err, book) {
+    if (err) return console.error(err);
+    console.log(book.name + " saved collection");
+  });
+}
+
+module.exports = mongoose.model("data", mySchema);
+module.exports.save = save;
 module.exports.start = start;
 module.exports.find = find;

@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');  
 const qs = require('querystring');  
 var model = require('../models/model')
+const mongoose = require('mongoose')
 
 //View path
 const homeViewPath = path.join(__dirname, '..', 'views', 'heatMap'); 
@@ -26,6 +27,13 @@ function getHandler(request, response){
     }); 
 }  
 
+function getValueByKey(body, name)
+{
+    for (let [key, value] of Object.entries(body)) {
+    if( `${key}` == name )
+        return (`${value}`);
+    }
+}
 function postHandler(request, response){
 
     //Find the file path
@@ -33,62 +41,11 @@ function postHandler(request, response){
     if (request.url == '/heatMap'){
         filePath = homeViewPath + '/heatMap.html';
     }  
-    const dataModel= new homeModel({
-        _id: mongoose.Types.ObjectId,
-        ID:  request.body.ID, 
-        Source: request.body.Source,
-        TMC:   request.body.TMC,
-        Severity: request.body.Severity,
-        Start_Time: request.body.Start_Time,
-        End_Time: request.body.End_Time,
-        Start_Lat: request.body.Start_Lat,
-        Start_Lng: request.body.Start_Lng,
-        End_Lat: request.body.End_Lat,
-        End_Lng: request.body.End_Lng,
-        Distance: request.body.Distance,
-        Description: request.body.Description,
-        Number: request.body.Number,
-        Street: request.body.Street,
-        Side: request.body.Side,
-        City: request.body.City,
-        County: request.body.Country,
-        State: request.body.State,
-        Zipcode: request.body.Zipcode,
-        Country: request.body.Country,
-        TimeZone: request.body.TimeZone,
-        Airport_code: request.body.Airport_code,
-        Weather_Timestamp: request.body.Weather_Timestamp,
-        Temperature: request.body.Temperature,
-        Wind_Chill: request.body.Wind_Chill,
-        Humidity: request.body.Humidity,
-        Pressure: request.body.Pressure,
-        Visibility: request.body.Visibility,
-        Wind_Direction: request.body.Wind_Direction,
-        Wind_Speed: request.body.Wind_Speed,
-        Precipitation: request.body.Precipitation,
-        Weather_Condition: request.body.Weather_Condition,
-        Amenity: request.body.Amenity,
-        Bump: request.body.Bump,
-        Crossing: request.body.Crossing,
-        Give_Way: request.body.Give_Way,
-        Junction: request.body.Junction,
-        No_Exit: request.body.No_Exit,
-        Railway: request.body.Railway,
-        Roundabout: request.body.Roundabout,
-        Station: request.body.Station,
-        Stop: request.body.Stop,
-        Traffic_Calming: request.body.Traffic_Calming,
-        Traffic_Signal: request.body.Traffic_Signal,
-        Turning_Loop: request.body.Turning_Loop,
-        Sunrise_Sunset: request.body.Sunrise_Sunset,
-        Civil_Twilight: request.body.Civil_Twilight,
-        Nautical_Twilight: request.body.Nautical_Twilight,
-        Astronomical_Twilight: request.body.Astronomical_Twilight
-    });
 
     //Used for getting the request data
     let reqBody = '';
-    let formatedReqBody = '';  
+    var obj;
+    console.log(request);  
 
     //Print any error
     request.on('error', (err) => { 
@@ -97,16 +54,77 @@ function postHandler(request, response){
 
     //Get the data
     request.on('data',function(data){
-        reqBody += data;  
-        if (reqBody.length > 1e6)
-            request.connection.destroy();
+        reqBody += data;
+        obj = JSON.parse(reqBody);
     });
 
-    //Process it and send a response
-    request.on('end', function(){ 
-        formatedReqBody = qs.parse(reqBody);  
-        model.find(reqBody);
+    // var dataModel = new model({
+    //         _id : new mongoose.Types.ObjectId(),
+    //         ID:  getValueByKey(obj, 'ID'),
+    //         Source: 'MapQuest',
+    //         TMC: '201.0',
+    //         Severity: '3',
+    //         Start_Time: '2016-02-08 05:46:00',
+    //         End_Time: '2016-02-08 11:00:00',
+    //         Start_Lat: '39.865147',
+    //         Start_Lng: '-84.058723',
+    //         End_Lat: '',
+    //         End_Lng: '',
+    //         Distance : '0.01',
+    //         Description: 'Right lane blocked due to accident on I-70 Eastbound at Exit 41 OH-235 State Route 4.',
+    //         Number: '',
+    //         Street: 'I-70 E',
+    //         Side: 'R',
+    //         City: 'Dayton',
+    //         County: 'Montgomery',
+    //         State: 'OH',
+    //         Zipcode: '45424',
+    //         Country: 'US',
+    //         Timezone: 'US/Eastern',
+    //         Airport_Code: 'KFFO',
+    //         Weather_Timestamp: '2016-02-08 05:58:00',
+    //         Temperature : '36.9',
+    //         Wind_Chill: '',
+    //         Humidity  : '91.0',
+    //         Pressure : '29.68',
+    //         Visibility : '10.0',
+    //         Wind_Direction: 'Calm',
+    //         Wind_Speed : '',
+    //         Precipitation : '0.02',
+    //         Weather_Condition: 'Light Rain',
+    //         Amenity: 'False',
+    //         Bump: 'False',
+    //         Crossing: 'False',
+    //         Give_Way: 'False',
+    //         Junction: 'False',
+    //         No_Exit: 'False',
+    //         Railway: 'False',
+    //         Roundabout: 'False',
+    //         Station: 'False',
+    //         Stop: 'False',
+    //         Traffic_Calming: 'False',
+    //         Traffic_Signal: 'False',
+    //         Turning_Loop: 'False',
+    //         Sunrise_Sunset: 'Night',
+    //         Civil_Twilight: 'Night',
+    //         Nautical_Twilight: 'Night',
+    //         Astronomical_Twilight: 'Night'
+    // });
+
+    //  dataModel
+    //     .save()
+    //     .then(result =>  {
+    //         console.log(result);
+    //     })
+    //     .catch(err => console.log(err));
+   // Process it and send a response
+
+    request.on('end', function(){
         response.writeHead(200, { 'Content-Type': 'application/json' });
+        console.log("body");
+        obj['_id'] = new mongoose.Types.ObjectId();
+        console.log(obj);
+        model.save(obj);
         response.end(reqBody);
     });
 }
