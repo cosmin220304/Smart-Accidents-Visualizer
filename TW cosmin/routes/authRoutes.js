@@ -1,4 +1,4 @@
-const heatMapController = require("../controllers/authController");
+const authController = require("../controllers/authController");
 
 //Resources we handle  
 const availableResources = ['/auth']
@@ -6,16 +6,14 @@ const availableResources = ['/auth']
  function route(request, response){    
     //Request response
     let retCode = 404
+    
     //Check if we are responsible for that resource or return 404
     if ( availableResources.includes(request.url) == false){ 
         return retCode
     }
  
     //Send to controller the request
-    switch (request.method) {
-        case "GET":
-            retCode = authController.getHandler(request, response); 
-            break
+    switch (request.method) { 
         case "POST":
             retCode = authController.postHandler(request, response);
             break    
