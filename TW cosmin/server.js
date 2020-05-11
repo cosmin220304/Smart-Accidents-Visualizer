@@ -3,6 +3,7 @@ var model = require('./models/model')
 var homeRoutes = require('./routes/homeRoutes');
 var heatMapRoutes = require('./routes/heatMapRoutes');
 var pieChartRoutes = require('./routes/pieChartRoutes');
+var authRoutes = require('./routes/authRoutes')
 
 port = 8128;      
 
@@ -18,7 +19,7 @@ http.createServer(function (request, response) {
     let homeRetCode = homeRoutes.route(request, response); 
     let heatMapRetCode = heatMapRoutes.route(request, response); 
     let pieChartRetCode = pieChartRoutes.route(request, response);
-    let authRetCode = auth.route(request, response);
+    let authRetCode = authRoutes.route(request, response);
     //todo: add routes adi
     
     //If nothing found return '404 not found'
