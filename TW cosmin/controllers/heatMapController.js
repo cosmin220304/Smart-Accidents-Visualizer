@@ -3,8 +3,6 @@ const path = require('path');
 const qs = require('querystring');  
 var model = require('../models/model')
 const mongoose = require('mongoose')
-const checkAuth =  require('..middleware/checkAuth');
-
 //View path
 const homeViewPath = path.join(__dirname, '..', 'views', 'heatMap'); 
 

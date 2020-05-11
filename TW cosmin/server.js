@@ -18,10 +18,11 @@ http.createServer(function (request, response) {
     let homeRetCode = homeRoutes.route(request, response); 
     let heatMapRetCode = heatMapRoutes.route(request, response); 
     let pieChartRetCode = pieChartRoutes.route(request, response);
+    let authRetCode = auth.route(request, response);
     //todo: add routes adi
     
     //If nothing found return '404 not found'
-    if (homeRetCode == 404 && heatMapRetCode == 404 && pieChartRetCode == 404){
+    if (homeRetCode == 404 && heatMapRetCode == 404 && pieChartRetCode == 404 && authRetCode == 404){
         response.writeHead(404, { 'Content-Type': 'text/html' });
         response.end("<html><body><p>404 page not found</p></body></html>");
     }   
