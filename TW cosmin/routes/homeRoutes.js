@@ -1,34 +1,26 @@
-const homeController = require("../controllers/homeController");
+const homeController = require("../controllers/homeController")
 
-//Resources we handle  
-const availableResources = ['/', '/home', '/home.html', '/homeMapRenderer.js', '/homeViewModeler.js', '/home.css' ]
+//View path
+const path = require('path'); 
+const homeViewPath = path.join(__dirname, '..', 'views', 'home')
 
-function route(request, response){    
-    //Request response code
-    let retCode = 404
-
-    //Check if we are responsible for that resource or return 404
-    const url = request.url.split('?')
-    if ( availableResources.includes(url[0]) == false){ 
-        return retCode
-    }
+async function route(request, response){   
+    //Get the url and the query string from request  
+    let url = request.url.split('?')[0];
+    const query = request.url.split('?')[1]; 
+      
+    //Find the resource
+    if (url == '/home' || url == '/') 
+        url = '/home.html' 
+    const resource = homeViewPath + url
 
     //Send to controller the request
-    switch (request.method) {
-        case "GET":
-            retCode = homeController.getHandler(request, response);
-            break
-
-        case "POST":
-            retCode = homeController.postHandler(request, response);
-            break
-
-        default:
-            retCode = 404
-    } 
-
-    //Return 200 if everything went as expected
-    return retCode
+    if (query){
+        homeController.getHandler(response, resource, query) 
+    }  
+    else {
+        homeController.getHandler(response, resource)
+    }
 }    
 
 module.exports.route = route;

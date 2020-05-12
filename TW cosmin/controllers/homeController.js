@@ -1,70 +1,27 @@
-const fs = require('fs');
-const path = require('path');  
+const fs = require('fs'); 
 const qs = require('querystring');  
+const path = require('path'); 
 const homeModel = require('../models/model')
 
-//View path
-const homeViewPath = path.join(__dirname, '..', 'views', 'home'); 
-
-function getHandler(request, response){ 
-    //Returned response Code
-    let retCode = 200;
-
-    //Get the filepath
-    let query = '';
-    const url = request.url.split('?');
-    let filePath = homeViewPath + url[0]; 
-    if (url[0] == '/home' || url[0] == '/'){
-        filePath = homeViewPath + '/home.html';
-        query = qs.parse(url[1]);
-    }    
-  
-    //Read and return the file content if file was found
-    fs.readFile(filePath, function(error, content) 
-    { 
-        if (error)  
-            retCode = 404; 
- 
-        response.writeHead(200, { 'Content-Type': getContentType(filePath) });
+async function getHandler(response, resource){  
+    fs.readFile(resource, function(error, content) 
+    {   
+        response.writeHead(200, { 'Content-Type': getContentType(resource) });
         response.end(content); 
-    }); 
-
-    return retCode;
+    });  
 }  
 
-function postHandler(request, response){
-
-    //Find the file path
-    let filePath = homeViewPath + request.url; 
-    if (request.url == '/home' || request.url == '/'){
-        filePath = homeViewPath + '/home.html';
-    }  
-
-    //Used for getting the request data
-    let reqBody = '';
-    let formatedReqBody = '';  
-
-    //Print any error
-    request.on('error', (err) => { 
-        console.error(err.stack);
-    });
-
-    //Get the data
-    request.on('data',function(data){
-        reqBody += data;  
-        if (reqBody.length > 1e6)
-            request.connection.destroy();
-    });
-
-    //Process it and send a response
-    request.on('end', function(){ 
-        formatedReqBody = qs.parse(reqBody);  
-        let jsonResponse = { 'a':'3'} //homeModel.find(reqBody);
-        
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-        response.end(JSON.stringify(jsonResponse));
-    });
-}
+//TODO: finish this
+async function getHandler(response, resource, queryString){ 
+    //Use query to search throw model
+    
+    
+    fs.readFile(resource, function(error, content) 
+    {   
+        response.writeHead(200, { 'Content-Type': getContentType(resource) });
+        response.end(content); 
+    });  
+}  
 
 function getContentType(filePath)
 {
@@ -79,14 +36,4 @@ function getContentType(filePath)
     return contentType;
 }
 
-function showCookies(request){
-    var list = {},
-    rc = request.headers.cookie; 
-    if (rc)
-        console.log('Cookies:',rc);
-    else 
-        console.log('No cookies found!');
-}
-
-module.exports.getHandler = getHandler;
-module.exports.postHandler = postHandler;
+module.exports.getHandler = getHandler; 

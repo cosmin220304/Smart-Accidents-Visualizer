@@ -25,6 +25,5 @@ function postHandler(request, response){
         response.end(JSON.stringify({"token" : token}));
     });
 }
-
-module.exports.getHandler = getHandler;
+ 
 module.exports.postHandler = postHandler;
