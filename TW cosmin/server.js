@@ -16,7 +16,22 @@ const routesMap = {
     '/home.html' : homeRoutes, 
     '/homeMapRenderer.js' : homeRoutes, 
     '/homeViewModeler.js' : homeRoutes, 
-    '/home.css' : homeRoutes  
+    '/home.css' : homeRoutes,
+    '/heatMap' : heatMapRoutes,
+    '/heatMap.html' : heatMapRoutes,
+    '/heatMap.css' : heatMapRoutes,
+    '/heatMap.js' : heatMapRoutes,
+    '/pieChart' : pieChartRoutes,
+    '/pieChart.html' : pieChartRoutes,
+    '/pieChart.css' : pieChartRoutes,
+    '/pieChart.js' : pieChartRoutes
+}
+
+const endPointsMap = {
+    '/' : '/home.html',
+    '/home' : '/home.html',
+    '/heatMap' : '/heatMap.html',
+    '/pieChart' : '/pieChart.html'
 }
 
 //Start the server
@@ -26,8 +41,11 @@ http.createServer(function (request, response) {
  
     if (request.method == "GET")
     {
-        //Check if you can get that resource
-        let routeFound = routesMap[request.url]
+        //Removing the query string
+        resource = request.url.split('?')[0] 
+
+        //Send to correct route
+        let routeFound = routesMap[resource]
         if (routeFound)
         {
             routeFound.route(request, response)
@@ -38,17 +56,17 @@ http.createServer(function (request, response) {
             response.end("404 not found")
         }
     }
-    else if (request.method == "POST")
-    {
-        //todo
-    }
     else if (request.method == "PUT")
     {
-        //todo
+        deleteThisLater(request, response)
+    }
+    else if (request.method == "PATCH")
+    {
+        deleteThisLater(request, response)
     }
     else if (request.method == "DELETE")
     {
-        //todo
+        deleteThisLater(request, response)
     }
     else {
         response.writeHead(404, {'Content-Type' : 'text/html'})
@@ -56,6 +74,12 @@ http.createServer(function (request, response) {
     }
       
 }).listen(port) 
+
+function deleteThisLater(request, response)
+{
+    response.writeHead(404, {'Content-Type' : 'text/html'})
+    response.end("unrecognized method :" + request.method)
+}
 
 //Show server running
 serverRunningTxt = 'Server running at http://127.0.0.1:' + port + '/'

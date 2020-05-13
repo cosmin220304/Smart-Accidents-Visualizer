@@ -1,30 +1,23 @@
-const pieChartController = require("../controllers/pieChartController");
+const pieChartController = require("../controllers/pieChartController"); 
+const path = require('path');   
+const pieChartViewPath = path.join(__dirname, '..', 'views', 'pieChart'); 
 
-//Resources we handle  
-const availableResources = ['/pieChart', '/pieChart.html',  '/pieChart.css' , '/pieChart.js' ]
-
- function route(request, response){    
-    //Request response
-    let retCode = 404
-    //Check if we are responsible for that resource or return 404
-    if ( availableResources.includes(request.url) == false){ 
-        return retCode
+ async function route(request, response){    
+    //Find the file 
+    let filePath = pieChartViewPath + request.url; 
+    if (request.url == '/pieChart'){
+        filePath = pieChartViewPath + '/pieChart.html';
     }
- 
+
     //Send to controller the request
     switch (request.method) {
         case "GET":
-            retCode = pieChartController.getHandler(request, response); 
+            retCode = pieChartController.getHandler(filePath, response); 
             break
         case "POST":
-            retCode = pieChartController.postHandler(request, response);
-            break
-        default:
-            retCode = 404
-    } 
-
-    //Return 200 if everything went as expected
-    return retCode
+            retCode = pieChartController.postHandler(filePath, response); 
+    }  
 }    
+
 
 module.exports.route = route;

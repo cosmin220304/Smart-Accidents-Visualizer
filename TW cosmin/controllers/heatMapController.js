@@ -3,39 +3,17 @@ const path = require('path');
 const qs = require('querystring');  
 var model = require('../models/model')
 const mongoose = require('mongoose')
-//View path
-const homeViewPath = path.join(__dirname, '..', 'views', 'heatMap'); 
 
-function getHandler(request, response){ 
-
-    //Find the file 
-    let filePath = homeViewPath + request.url; 
-    if (request.url == '/heatMap'){
-        filePath = homeViewPath + '/heatMap.html';
-    }
-    
-    console.log(request.url);
+async function getHandler(filePath, response){ 
     //Open and return it if is .html,.css or .js
     fs.readFile(filePath, function(error, content) 
-    { 
-        if (error)  
-            return 404; 
- 
+    {  
         response.writeHead(200, { 'Content-Type': getContentType(filePath) });
-        response.end(content);
-        return 200; 
+        response.end(content); 
     }); 
 }  
-
-
-function postHandler(request, response){
-
-    //Find the file path
-    let filePath = homeViewPath + request.url; 
-    if (request.url == '/heatMap'){
-        filePath = homeViewPath + '/heatMap.html';
-    }  
-
+ 
+async function postHandler(filePath, response){  
     //Used for getting the request data
     let reqBody = '';
     var obj;

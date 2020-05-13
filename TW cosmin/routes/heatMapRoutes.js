@@ -1,30 +1,22 @@
-const heatMapController = require("../controllers/heatMapController");
+const heatMapController = require("../controllers/heatMapController"); 
+const path = require('path');  
+const heatMapViewPath = path.join(__dirname, '..', 'views', 'heatMap'); 
 
-//Resources we handle  
-const availableResources = ['/heatMap', '/heatMap.html',  '/heatMap.css' , '/heatMap.js' ]
-
- function route(request, response){    
-    //Request response
-    let retCode = 404
-    //Check if we are responsible for that resource or return 404
-    if ( availableResources.includes(request.url) == false){ 
-        return retCode
-    }
- 
+async function route(request, response){   
+    //Find the file 
+    let filePath = heatMapViewPath + request.url; 
+    if (request.url == '/heatMap'){
+        filePath = heatMapViewPath + '/heatMap.html';
+    } 
+    
     //Send to controller the request
     switch (request.method) {
         case "GET":
-            retCode = heatMapController.getHandler(request, response); 
+            heatMapController.getHandler(filePath, response); 
             break
         case "POST":
-            retCode = heatMapController.postHandler(request, response);
-            break    
-        default:
-            retCode = 404
-    } 
-
-    //Return 200 if everything went as expected
-    return retCode
+            heatMapController.postHandler(filePath, response); 
+    }  
 }    
 
 module.exports.route = route;
