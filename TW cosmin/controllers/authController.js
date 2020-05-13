@@ -16,8 +16,9 @@ function postHandler(request, response){
     request.on('data',function(data){
         reqBody += data;
         obj = JSON.parse(reqBody);
-        token = jwt.sign(obj);
+        token = jwt.sign(obj, 'SecretKey');
     });
+//controller verifica token sau in middleware
 
 
     request.on('end', () => {
@@ -25,5 +26,5 @@ function postHandler(request, response){
         response.end(JSON.stringify({"token" : token}));
     });
 }
- 
+
 module.exports.postHandler = postHandler;
