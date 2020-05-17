@@ -1,44 +1,48 @@
-html,body {
+body {
     max-width: 100%;
-    background: linear-gradient(to right, rgb(120, 2, 6), rgb(6, 17, 97)), 
-    no-repeat, center, center,  fixed;
-    background-size: cover;
+    margin: 0;
+    background: #222; 
     color: orange;
-}  
-body{
     padding-left: 3em;
     padding-right: 3em;
-
 }
 
+.box-border{ 
+    padding: 2px;
+    background: linear-gradient(to right, red, purple); 
+}
+
+.box-interior{ 
+    background: #222; 
+}
 
 /* Code from alex */
 .Us-Accidents {
     width: 100%;
     padding-top: 20px;
     float: center;
-    text-align: center; 
-    font-family: serif, Arial,sans-serif;
+    text-align: center;
+    font-family: serif, Arial, sans-serif;
     font-size: 20px;
 }
 
-/* Code from alex */
 .topnav a {
     color: orange;
     text-decoration: none;
     width: 100%;
     padding: 13px 16px;
     font-size: 22px;
-  
-  }
-  
+
+}
+
 .topnav a:hover {
     color: white;
-  } 
+}
+
 a:visited {
-    color: 	rgb(255,120,0);
-  }
-/* Code from alex */
+    color: rgb(255, 120, 0);
+} 
+/* End code from alex */
 
 
 #mainWrapper {
@@ -46,59 +50,13 @@ a:visited {
     grid-template-columns: 3fr 0.1fr 6fr;
 }
 
-#Tool {
-    background-color: rgb(0, 0, 0,0);
+#tool {
+    background-color: rgb(0, 0, 0, 0);
     color: orange;
-}
-
-#Tool p {
-    margin-bottom: 0;
-    font-size: 0.75em;
-}
-
-#Severity {
-    margin-bottom: 1em;
-}
-
-#AccidentsNumber input {
-    margin-bottom: 1em;
-}
-
-#AccidentAfterDate {
-    margin-top: 1em; 
 } 
 
-#AccidentBeforeDate {
-    margin-top: 1em; 
-} 
-
-.dot1 {
-    height: 0.5em;
-    width: 0.5em;
-    background-color: black;
-    border-radius: 50%;
-    display: inline-block; 
-    margin-left: 1em;
-    margin-right: 0.5em;
-}
-
-.dot2 {
-    height: 1em;
-    width: 1em;
-    background-color: black;
-    border-radius: 50%;
-    display: inline-block; 
-    margin-left: 0.75em;
-    margin-right: 0.2em;
-}
-
-.dot3 {
-    height: 1.5em;
-    width: 1.5em;
-    background-color: black;
-    border-radius: 50%;
-    display: inline-block; 
-    margin-left: 0.5em;  
+select {
+    display: block;
 }
 
 #mapWrapper {
@@ -107,23 +65,23 @@ a:visited {
     grid-template-columns: 2fr 15fr 2fr;
 }
 
-button { 
+button {
     display: block;
     height: 3em;
     width: 3em;
     color: #fff;
     border-color: white;
-    background-color: #363f4d; 
-} 
-
-.arrowsLR { 
-    width: 100%;
-    height: 24em; 
+    background-color: #363f4d;
 }
 
-.arrowsUD { 
+.arrowsLR {
     width: 100%;
-    height: 5em; 
+    height: 24em;
+}
+
+.arrowsUD {
+    width: 100%;
+    height: 5em;
 }
 
 #map {
@@ -131,11 +89,11 @@ button {
     width: 100%;
 }
 
-@media only screen and (max-width: 900px) { 
-    #mainWrapper { 
+@media only screen and (max-width: 900px) {
+    #mainWrapper {
         display: flex;
         flex-direction: column;
-    } 
+    }
 
     #legend {
         order: 2;
@@ -148,112 +106,114 @@ button {
     #mapWrapper {
         display: grid;
         grid-template-columns: 1fr 5fr 1fr;
-    }
-
-    html,body {
-        max-width: 100%;
-        overflow-x: hidden; 
-        margin-left: 0em;
-        margin-right: 0em;
-        background-color: black;
-        color: orange;
     } 
 
     /* Code from alex */
-    .topnav, .Us-Accidents{ 
-        float: none; 
+    .topnav,
+    .Us-Accidents {
+        float: none;
     }
 }
 
 
 /* code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL */
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400);
-body{
-  font-family: 'Source Sans Pro', sans-serif;
-  font-weight:300;
- 
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+
 }
-section{
-  text-align:center;
-  color: white;
+
+section {
+    text-align: center;
+    color: white;
 }
-.footer #button{
-	width:35px;
-	height:35px;
-	border: #727172 12px solid;
-	border-radius:35px;
-	margin:0 auto;
-	position:relative;
-	-webkit-transition: all 1s ease;
+
+.footer #button {
+    width: 35px;
+    height: 35px;
+    border: #727172 12px solid;
+    border-radius: 35px;
+    margin: 0 auto;
+    position: relative;
+    -webkit-transition: all 1s ease;
     -moz-transition: all 1s ease;
     -o-transition: all 1s ease;
     -ms-transition: all 1s ease;
     transition: all 1s ease;
 }
 
-.footer #button:hover{
-	width:35px;
-	height:35px;
-	border: rgb(0, 0, 0) 12px solid;
-	-webkit-transition: all 1s ease;
+.footer #button:hover {
+    width: 35px;
+    height: 35px;
+    border: rgb(0, 0, 0) 12px solid;
+    -webkit-transition: all 1s ease;
     -moz-transition: all 1s ease;
     -o-transition: all 1s ease;
     -ms-transition: all 1s ease;
     transition: all 1s ease;
-	position:relative;
+    position: relative;
 }
+
 .footer {
-	bottom:0;
-	left:0;
-	position:fixed;
+    bottom: 0;
+    left: 0;
+    position: fixed;
     width: 100%;
     height: 2em;
-    overflow:hidden;
-    margin:0 auto;
-	-webkit-transition: all 1s ease;
+    overflow: hidden;
+    margin: 0 auto;
+    -webkit-transition: all 1s ease;
     -moz-transition: all 1s ease;
     -o-transition: all 1s ease;
     -ms-transition: all 1s ease;
     transition: all 1s ease;
-	z-index:999;
+    z-index: 999;
 }
+
 .footer:hover {
-	-webkit-transition: all 1s ease;
+    -webkit-transition: all 1s ease;
     -moz-transition: all 1s ease;
     -o-transition: all 1s ease;
     -ms-transition: all 1s ease;
     transition: all 1s ease;
-	height: 10em;
+    height: 10em;
 }
-.footer #container{
-	margin-top:5px;
-	width:100%;
-height:100%;
-  position:relative;
-  top:0;
-  left:0;
-	background: #3A3A3A;
+
+.footer #container {
+    margin-top: 5px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    background: #3A3A3A;
 }
-.footer #cont{
-  position:relative;
-  top:-45px;
-  right:190px;
-	width:150px;
-	height:auto;
-	margin:0 auto;
+
+.footer #cont {
+    position: relative;
+    top: -45px;
+    right: 190px;
+    width: 150px;
+    height: auto;
+    margin: 0 auto;
 }
-.footer_center{
-	width:500px;
-	float:left;
-  text-align:center;
+
+.footer_center {
+    width: 500px;
+    float: left;
+    text-align: center;
 }
-.footer h3{
-  text-align: center;
-  color: white;
-	font-family: 'Helvetica';
-	font-size: 30px;
-	font-weight: 100;
-	margin-top:70px;
-	margin-left:40px;
+
+.footer h3 {
+    text-align: center;
+    color: white;
+    font-family: 'Helvetica';
+    font-size: 30px;
+    font-weight: 100;
+    margin-top: 70px;
+    margin-left: 40px;
 }
+
 /* code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL */

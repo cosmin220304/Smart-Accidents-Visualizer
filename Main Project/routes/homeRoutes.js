@@ -13,13 +13,13 @@ async function route(request, response){
     if (url == '/home' || url == '/') 
         url = '/home.html' 
     const resource = homeViewPath + url
-
+ 
     //Send to controller the request
-    if (query){
-        homeController.getHandler(response, resource, query) 
+    if (query === undefined){ 
+        homeController.getHandler(response, resource) 
     }  
-    else {
-        homeController.getHandler(response, resource)
+    else {  
+        homeController.getHandlerWithQuery(response, resource, query) 
     }
 }    
 

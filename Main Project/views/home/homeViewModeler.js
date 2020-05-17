@@ -1,3 +1,6 @@
+const selectParent = document.getElementById('emptySelectParent');
+let selectGenerator = document.getElementById('addSelect');
+
 function makeSearch() {  
   //Get the form from html
   const form = document.getElementById('form');
@@ -12,7 +15,7 @@ function makeSearch() {
   } 
   
   //Call function
-  values = values.slice(0, -3);
+  values = values.slice(0, -1);
   console.log(values);
   postReq(values);
   return false;
@@ -43,4 +46,29 @@ function getReq(params) {
   })
   .then((res) => res.json())
   .then((data) => console.log(data)) 
+} 
+
+//Creates a new html select 
+function newSelect(name){
+  //Intialize variables
+  let select = document.createElement("select"); 
+  select.name = name;
+  selectParent.appendChild(select);
+
+  //Values of select
+  var values = ["1","12","123","1234"];
+ 
+  //Add data for that select
+  for (var i = 0; i < values.length; i++) {
+    let option = document.createElement("option");
+    option.value = values[i];
+    option.text = values[i];
+    select.appendChild(option);
+  }
 }
+
+// Event listeners
+selectGenerator.addEventListener('change', function() {
+  addSelect.value='0';
+  newSelect("da"); 
+});

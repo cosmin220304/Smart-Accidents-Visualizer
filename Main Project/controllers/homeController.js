@@ -3,7 +3,7 @@ const qs = require('querystring');
 const path = require('path'); 
 const homeModel = require('../models/model')
 
-async function getHandler(response, resource){  
+async function getHandler(response, resource){   
     fs.readFile(resource, function(error, content) 
     {   
         response.writeHead(200, { 'Content-Type': getContentType(resource) });
@@ -12,14 +12,14 @@ async function getHandler(response, resource){
 }  
 
 //TODO: finish this
-async function getHandler(response, resource, queryString){ 
+async function getHandlerWithQuery(response, resource, queryString){ 
     //Use query to search throw model
-    
+     
     
     fs.readFile(resource, function(error, content) 
     {   
-        response.writeHead(200, { 'Content-Type': getContentType(resource) });
-        response.end(content); 
+       response.writeHead(200, { 'Content-Type': getContentType(resource) });
+       response.end(content); 
     });  
 }  
 

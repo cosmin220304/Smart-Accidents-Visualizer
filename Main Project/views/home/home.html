@@ -29,9 +29,16 @@
   <div id="mainWrapper">  
 
     <!-- Tool for manipulating and seeing data-->
-    <div id="Tool">
-      <form id="form" name="search" onsubmit="return makeSearch()" >
-      <div id="Severity">
+    <div id="tool">
+      <select id="addSelect">
+        <option value="0"> Choose searching criteria (or leave empty) </option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <form id="form" name="search" onsubmit="return makeSearch()" > 
+      <div id="emptySelectParent"></div>
+      <!-- <div id="Severity">
         <span> Choose Severity Level:</span>
         <br>
         <input type="checkbox" name="Severity" value="4" checked>
@@ -50,132 +57,14 @@
           <span  style="color: #6fe203;">
             1 (Green)
           </span>  
-      </div> 
+      </div>  -->
 
-      <div id="AccidentAfterDate"> 
-        <span > Accidents that happened after: </span> 
-        <select name="AfterDay" id="AfterDay"> 
-          <option value="1">01</option>
-          <option value="2">02</option>
-          <option value="3">03</option>
-          <option value="4">04</option>
-          <option value="5">05</option>
-          <option value="6">06</option>
-          <option value="7">07</option>
-          <option value="8">08</option>
-          <option value="9">09</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-          <option value="13">13</option>
-          <option value="14">14</option>
-          <option value="15">15</option>
-          <option value="16">16</option>
-          <option value="17">17</option>
-          <option value="18">18</option>
-          <option value="19">19</option>
-          <option value="20">20</option>
-          <option value="21">21</option>
-          <option value="22">22</option>
-          <option value="23">23</option>
-          <option value="24">24</option>
-          <option value="25">25</option>
-          <option value="26">26</option>
-          <option value="27">27</option>
-          <option value="28">28</option>
-          <option value="29">29</option>
-          <option value="30">30</option>
-          <option value="31">31</option>
-        </select> 
-        <select name="AfterMonth" id="AfterMonth"> 
-          <option value="1">01</option>
-          <option value="2">02</option>
-          <option value="3">03</option>
-          <option value="4">04</option>
-          <option value="5">05</option>
-          <option value="6">06</option>
-          <option value="7">07</option>
-          <option value="8">08</option>
-          <option value="9">09</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-        </select> 
-        <select name="AfterYear" id="AfterYear"> 
-          <option value="2016">2016</option>
-          <option value="2017">2017</option>
-          <option value="2018">2018</option>
-          <option value="2019">2019</option>
-        </select>  
-      </div> 
-
-      <p>(leave empty if field does not matter)</p> 
-
-      <div id="AccidentBeforeDate"> 
-        <span > Accidents that happened before: </span> 
-        <select name="BeforeDay" id="BeforeDay"> 
-          <option value="1">01</option>
-          <option value="2">02</option>
-          <option value="3">03</option>
-          <option value="4">04</option>
-          <option value="5">05</option>
-          <option value="6">06</option>
-          <option value="7">07</option>
-          <option value="8">08</option>
-          <option value="9">09</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-          <option value="13">13</option>
-          <option value="14">14</option>
-          <option value="15">15</option>
-          <option value="16">16</option>
-          <option value="17">17</option>
-          <option value="18">18</option>
-          <option value="19">19</option>
-          <option value="20">20</option>
-          <option value="21">21</option>
-          <option value="22">22</option>
-          <option value="23">23</option>
-          <option value="24">24</option>
-          <option value="25">25</option>
-          <option value="26">26</option>
-          <option value="27">27</option>
-          <option value="28">28</option>
-          <option value="29">29</option>
-          <option value="30">30</option>
-          <option value="31">31</option>
-        </select> 
-        <select name ="BeforeMonth" id="BeforeMonth"> 
-          <option value="1">01</option>
-          <option value="2">02</option>
-          <option value="3">03</option>
-          <option value="4">04</option>
-          <option value="5">05</option>
-          <option value="6">06</option>
-          <option value="7">07</option>
-          <option value="8">08</option>
-          <option value="9">09</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-        </select> 
-        <select name ="BeforeYear" id="BeforeYear"> 
-          <option value="2016">2016</option>
-          <option value="2017">2017</option>
-          <option value="2018">2018</option>
-          <option value="2019">2019</option>
-        </select>  
-      </div> 
       
-      <p>(leave empty if field does not matter)</p>
-      
-      <input type="submit"/>
-      <input type="time" name="time" />
-    </form>
+
+      <input type="submit"/> 
+      </form>
     </div>  
-
-
+   
     <!-- White space used by grid -->
     <span></span>
 
@@ -200,24 +89,24 @@
     </div> 
   </div>
   <div id="mouse-position">asdsad</div>
+  </div>
+
+  <!--  code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL --> 
+  <div class="footer">
+    <div id="button"></div>
+      <div id="container">
+        <div id="cont">
+        <div class="footer_center">
+            <h3>
+              <a href="/">Contact</a>
+            </h3>
+        </div>
+        </div>
+      </div>
+  <!--  code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL -->
+
+  <!-- Scripts at the end of html file -->
   <script id="script1" type="text/javascript" src="homeMapRenderer.js"></script> 
   <script id="script2" type="text/javascript" src="homeViewModeler.js"></script> 
-   
 </body>
-<!--  code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL --> 
-<div class="footer">
-  <div id="button"></div>
-    <div id="container">
-      <div id="cont">
-      <div class="footer_center">
-          <h3>
-            <a href="/">Contact</a>
-          </h3>
-      </div>
-      </div>
-    </div>
-</div>
-<!--  code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL -->
-
-
 </html>
