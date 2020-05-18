@@ -30,37 +30,15 @@
 
     <!-- Tool for manipulating and seeing data-->
     <div id="tool">
+      <!-- This will be automatically generated via homeViewModeler.js -->
       <select id="addSelect">
-        <option value="0"> Choose searching criteria (or leave empty) </option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
+        <option value="0"> Choose searching criteria (or leave empty) </option>  
       </select>
+      <button onclick="createColorPicker()" id="todo">todo:</button>
+      <!-- Form that sends all data to server -->
       <form id="form" name="search" onsubmit="return makeSearch()" > 
-      <div id="emptySelectParent"></div>
-      <!-- <div id="Severity">
-        <span> Choose Severity Level:</span>
-        <br>
-        <input type="checkbox" name="Severity" value="4" checked>
-          <span  style="color: #e22903;">
-            4 (Red)
-          </span>  
-        <input type="checkbox" name="Severity" value="3" checked>
-          <span  style="color: #e29f03;">
-            3 (Orange)
-          </span>  
-        <input type="checkbox" name="Severity" value="2" checked>
-          <span  style="color: #d7e203;">
-            2 (Yellow)
-          </span>  
-        <input type="checkbox" name="Severity" value="1" checked>
-          <span  style="color: #6fe203;">
-            1 (Green)
-          </span>  
-      </div>  -->
-
-      
-
+        <!-- Select/checkboxes/etc will be appended to this div -->
+        <div id="emptySelectParent"></div>  
       <input type="submit"/> 
       </form>
     </div>  

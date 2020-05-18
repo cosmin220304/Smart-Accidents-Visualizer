@@ -1,0 +1,54 @@
+
+
+Source 
+Severity 
+Side 
+State 
+Country 
+Timezone 
+
+Start_Time 
+End_Time 
+Weather_Timestamp: 2016-02-08 05:58:00
+
+City 
+County 
+
+ID 
+Temperature(F) 
+Wind_Chill(F) 
+Humidity(%) 
+Pressure(in) 
+Visibility(mi) 
+Wind_Speed(mph) 
+Precipitation(in) 
+TMC 
+Distance(mi): 0.01
+
+Amenity 
+Bump 
+Crossing 
+Give_Way 
+Junction 
+No_Exit 
+Railway 
+Roundabout 
+Station 
+Stop 
+Traffic_Calming 
+Traffic_Signal 
+Turning_Loop 
+Sunrise_Sunset 
+Civil_Twilight 
+Nautical_Twilight 
+Astronomical_Twilight 
+
+Description: Right lane blocked due to accident on I-70 Eastbound at Exit 41 OH-235 State Route 4.
+Number:
+Street: I-70 E
+Zipcode: 45424
+Distance(mi): 0.01
+Airport_Code: KFFO
+
+Weather_Condition: Light Rain
+Wind_Direction:Calm (https://en.wikipedia.org/wiki/Points_of_the_compass all directions)

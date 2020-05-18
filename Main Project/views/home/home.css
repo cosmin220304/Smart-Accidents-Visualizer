@@ -53,10 +53,17 @@ a:visited {
 #tool {
     background-color: rgb(0, 0, 0, 0);
     color: orange;
-} 
+}  
 
-select {
-    display: block;
+#tool button {
+    display: inline;
+    height: 1.2em;
+    width: 1.2em; 
+}  
+
+#colorPicker{
+    height: 1.2em;
+    width: 1.2em; 
 }
 
 #mapWrapper {

@@ -1,0 +1,68 @@
+    -deleted (self-evident):
+_id: 5eb583a534574229a8239c65 ObjectId 
+Start_Lat: 39.865147
+Start_Lng:-84.058723
+End_Lat:
+End_Lng:
+
+    -select
+Source: MapQuest
+Severity: 3
+Side: R
+State: OH
+Country: US 
+Timezone: US/Eastern
+
+    -date
+Start_Time: 2016-02-08 05:46:00
+End_Time: 2016-02-08 11:00:00
+Weather_Timestamp: 2016-02-08 05:58:00
+
+    -text area(todo later:maybe select)
+City: Dayton
+County: Montgomery
+
+    -slider
+ID: A-1
+Temperature(F): 36.9
+Wind_Chill(F):
+Humidity(%): 91.0
+Pressure(in): 29.68
+Visibility(mi): 10.0
+Wind_Speed(mph):
+Precipitation(in): 0.02
+TMC: 201.0
+Distance(mi): 0.01
+
+    -checkboxes
+Amenity: False
+Bump: False
+Crossing: False
+Give_Way: False
+Junction: False
+No_Exit: False
+Railway: False
+Roundabout: False
+Station: False
+Stop: False
+Traffic_Calming: False
+Traffic_Signal: False
+Turning_Loop: False
+Sunrise_Sunset: Night
+Civil_Twilight: Night
+Nautical_Twilight: Night
+Astronomical_Twilight: Night
+
+  
+    -description if you hover over point?
+Description: Right lane blocked due to accident on I-70 Eastbound at Exit 41 OH-235 State Route 4.
+Number:
+Street: I-70 E
+Zipcode: 45424
+Distance(mi): 0.01
+Airport_Code: KFFO
+
+
+    -!harder to implement!
+Weather_Condition: Light Rain
+Wind_Direction:Calm (https://en.wikipedia.org/wiki/Points_of_the_compass all directions)
