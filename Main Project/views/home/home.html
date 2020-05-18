@@ -34,12 +34,12 @@
       <select id="addSelect">
         <option value="0"> Choose searching criteria (or leave empty) </option>  
       </select>
-      <button onclick="createColorPicker()" id="todo">todo:</button>
+      <button  id="createBlock" onclick="createBlock()"> new </button>
       <!-- Form that sends all data to server -->
-      <form id="form" name="search" onsubmit="return makeSearch()" > 
+      <form id="form" onsubmit="return makeSearch()" > 
         <!-- Select/checkboxes/etc will be appended to this div -->
-        <div id="emptySelectParent"></div>  
-      <input type="submit"/> 
+        <div id="searchBlockStart"></div>  
+      <input type="submit"  value="search"/> 
       </form>
     </div>  
    
