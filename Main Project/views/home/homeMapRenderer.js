@@ -45,7 +45,7 @@ function addRandomPoints() {
   }
 }
 
-function addPointToMap(posX, posY, size, color) {
+function addPointToMap(posX, posY, size, color) { 
   var layer = new ol.layer.Vector({
     source: new ol.source.Vector({
       features: [
@@ -129,6 +129,6 @@ var mousePositionControl = new ol.control.MousePosition({
 });
 
 renderMap();
-addRandomPoints();
+// addRandomPoints();
 moving();
 

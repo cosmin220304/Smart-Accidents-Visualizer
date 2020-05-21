@@ -236,29 +236,45 @@ function makeSearch() {
     //Add the color
     let color = "rgb(0, 0, 0)";
     if (searchBlocks[index].id != "searchBlockStart")
-      color =  searchBlocks[index].style.backgroundColor;
-    queryString = queryString + "col=" + color;
+      color =  searchBlocks[index].style.backgroundColor; 
 
     //Print the result locally + send it to server
     console.log("For block number " + index + " we have: " + queryString);
-    //getReq(values);
+    queryToPoints(queryString, color);
   }
 
   return false;
 }  
 
+async function queryToPoints(queryString, color){
+  var coordList = await getReq(queryString);
+  var ceva = Object.values(coordList); 
+  for (var i = 0; i< ceva.length; i++){
+    var lat = ceva[i].Start_Lat;
+    var long = ceva[i].Start_Lng;
+    console.log(lat, long);
+    addPointToMap(long, lat, 4, color); 
+  } 
+}
 
 //Get data from db
-function getReq(params) {
-  fetch("http://127.0.0.1:8128/home?" + params, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json, */*',
-      'Content-type': 'application/json'
-    }, 
-  })
-  .then((res) => res.json())
-  .then((data) => console.log(data)) 
+async function getReq(queryString) {
+  return new Promise((resolve, reject) => {
+    try {
+        fetch("http://127.0.0.1:8128/home?" + queryString, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json, */*',
+            'Content-type': 'application/json'
+          }, 
+        })
+        .then((res) => res.json())
+        .then((data) => resolve(data));
+    }
+    catch (error){
+        reject(error);
+    }
+  });
 } 
 
 

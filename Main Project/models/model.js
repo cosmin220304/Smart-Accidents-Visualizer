@@ -61,25 +61,23 @@ const MyModel = mongoose.model("data", mySchema, "data");
 async function start(){
     mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true})
     .then(() => console.log('Connected to DB!'))
-    .catch(err => console.log('DB conn error: ${err.message}')); 
+    .catch(err => console.log('DB conn error:' + err)); 
     db = mongoose.connection;  
 }
  
-let i = 0;
-async function find (body)
-{
-    console.log(body);
-    var formatedReqBody = qs.parse(body);  
-    console.log(formatedReqBody); 
-    var firstKey = Object.keys(formatedReqBody)[0];
-    var value = formatedReqBody[firstKey]
-    console.log(firstKey, value)
-    var test = parseInt(value);
-    var n = "" + firstKey;
-    i++;
-    console.log(i, n,test)
-    MyModel.find({[n]: test}, function(err, doc){ if(err) throw err; console.log((doc)) })
-}
+
+//This will be moved in homeModel
+function findASD (body)
+{  
+    return new Promise((resolve, reject) => {
+        try {
+            MyModel.find(body).select("Start_Lat Start_Lng -_id").exec((err, res) => {resolve(res)}) 
+        }
+        catch (error){
+            reject(error)
+        }
+    })
+} 
 
 function save(obj)
 {
@@ -93,4 +91,4 @@ function save(obj)
 module.exports = mongoose.model("data", mySchema);
 module.exports.save = save;
 module.exports.start = start;
-module.exports.find = find;
+module.exports.findASD = findASD;
