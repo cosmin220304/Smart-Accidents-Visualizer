@@ -23,7 +23,7 @@ async function postHandler(request, response){
         DB.countDocuments(payload)
         .then((countDocuments) => {
           if (countDocuments > 0) {
-            token = jwt.sign(payload, 'SecretKey');
+            token = jwt.sign(payload, key.secretKey);
             response.write(JSON.stringify({"logged": true, "token": token }))
             response.end();
         } else {
@@ -47,7 +47,7 @@ async function getHandler(request, response){
         console.log(e)
         response.writeHead(403, 'aplication/json')
         response.write(JSON.stringify({ "Response" : "Failed to auth" }))
-        response.end()
+        response.end()  
     }
 }
 
