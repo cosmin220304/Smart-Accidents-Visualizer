@@ -247,14 +247,26 @@ function makeSearch() {
 }  
 
 async function queryToPoints(queryString, color){
-  var coordList = await getReq(queryString);
-  var ceva = Object.values(coordList); 
-  for (var i = 0; i< ceva.length; i++){
-    var lat = ceva[i].Start_Lat;
-    var long = ceva[i].Start_Lng;
-    console.log(lat, long);
-    addPointToMap(long, lat, 4, color); 
+  //Refresh the points on map
+  removeAllPoints();
+  //todo add loading
+
+  //Get json from server
+  var json = await getReq(queryString); 
+  var coordonatesObject = Object.values(json);   
+
+  //Transform object into array of coordonates
+  var coordonatesArray = [];
+  for (var i = 0; i< coordonatesObject.length; i++){
+    var lat = coordonatesObject[i].Start_Lat;
+    var long = coordonatesObject[i].Start_Lng;  
+    coordonatesArray.push([long, lat])
   } 
+  
+  //Add coordonates to map
+  console.log(coordonatesArray);
+  addPointsToMap(coordonatesArray, color); 
+  console.log("done");
 }
 
 //Get data from db
