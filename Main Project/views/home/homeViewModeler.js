@@ -16,7 +16,14 @@ const dateMap = {
   "Weather_Timestamp" : ["2016-02-08", "2020-01-01"]
 }
 const sliderMap = {
-
+  "Temperature(F)" : ["-78" , "167"],
+  "Wind_Chill(F)" : ["-54", "115"],
+  "Humidity(%)" : ["0", "100"],
+  "Pressure(in)" : ["0", "33"],
+  "Visibility(mi)" : ["0", "111"],
+  "Wind_Speed(mph)" : ["0", "823"],
+  "Precipitation(in)" : ["0", "25"],
+  "TMC" : ["200", "406"]
 }
 const nameToFunc = { 
   "Source" : newSelect, 
@@ -28,6 +35,15 @@ const nameToFunc = {
   "Start_Time" : newDate,
   "End_Time" : newDate,
   "Weather_Timestamp" : newDate,
+  "Temperature(F)" : newSlider,
+  "Wind_Chill(F)" : newSlider,
+  "Humidity(%)" : newSlider,
+  "Pressure(in)" : newSlider,
+  "Visibility(mi)" : newSlider,
+  "Wind_Speed(mph)" :newSlider,
+  "Precipitation(in)": newSlider,
+  "TMC" : newSlider,  
+  "Distance(mi)" : newSlider,
   "Amenity" : newCheckbox,
   "Bump" : newCheckbox,
   "Crossing" : newCheckbox,
@@ -140,7 +156,32 @@ function newCheckbox(){
   //Add data around this input
   addTextToElement(checkBox, checkBox.name);
 }
- 
+
+function newSlider(){
+    let slider = document.createElement("input");
+    let out = document.createElement("span");
+    out.id = "demo";
+    slider.type="range";
+    slider.step="0.1";
+    slider.id="myRange";
+    slider.class="slider";
+    slider.name = addSelect.value;
+    slider.min= sliderMap[slider.name][0];
+    slider.max= sliderMap[slider.name][1];
+    
+   // var slide = document.getElementById("myRange");
+   // var output = document.getElementById("demo");
+    out.innerHTML = slider.value;
+    slider.oninput = function() {
+      out.innerHTML = slider.value;
+    }
+  //Add it to current searchBlock 
+  searchBlocks[searchBlockNo].appendChild(slider); 
+  searchBlocks[searchBlockNo].appendChild(out); 
+  //Add data around this input
+  addTextToElement(slider, slider.name);
+  addTextToElement(out, out.name)
+}
 
 // Appends a new searchBlock to the last searchBlock
 function createBlock(){
