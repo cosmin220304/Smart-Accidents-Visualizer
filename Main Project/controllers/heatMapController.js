@@ -6,13 +6,25 @@ const mongoose = require('mongoose')
 
 async function getHandler(filePath, response){ 
     //Open and return it if is .html,.css or .js
-    fs.readFile(filePath, function(error, content) 
-    {  
-        response.writeHead(200, { 'Content-Type': getContentType(filePath) });
-        response.end(content); 
-    }); 
+    if(!filePath.includes('?'))
+    {
+        fs.readFile(filePath, function(error, content) 
+        {  
+            response.writeHead(200, { 'Content-Type': getContentType(filePath) });
+            response.end(content); 
+        }); 
+    }
+    else{
+        response.writeHead(200, { 'Content-Type': 'application/json' });
+        console.log(filePath.split('?')[1]);
+        var json = qs.parse(filePath.split('?')[1]);
+        console.log(json);
+        var rez = await model.count(json);
+        console.log(rez);
+        response.end(JSON.stringify(rez))
+    }
 }  
- 
+  
 async function postHandler(filePath, response){  
     //Used for getting the request data
     let reqBody = '';

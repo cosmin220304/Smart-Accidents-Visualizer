@@ -78,6 +78,21 @@ function findASD (body)
         }
     })
 } 
+function count (body)
+{  
+    return new Promise((resolve, reject) => {
+        try {
+            MyModel.aggregate
+            ([
+                {$match: body},
+                {"$group": {_id:"$State",counter:{$sum:1}}}    
+            ]).exec((err, res) => {resolve(res)}); 
+        }
+        catch (error){
+            reject(error)
+        }
+    })
+} 
 
 function save(obj)
 {
@@ -92,3 +107,4 @@ module.exports = mongoose.model("data", mySchema);
 module.exports.save = save;
 module.exports.start = start;
 module.exports.findASD = findASD;
+module.exports.count = count;

@@ -10,6 +10,7 @@
     <title> US Accidents </title>
     
     <script type="module" src="heatMap.js"></script>
+
     <link rel="stylesheet" type="text/css" href="heatMap.css">
 
   </head>
@@ -31,23 +32,20 @@
   <div id="geochart"></div>
 
   <div id='download'>Download</div>
-  <form action="/" method="post">
-  <div id="menu2">
-    <ul>
-      <li>
-                 Armed Assault          
-                   <input type='checkbox' name="Armed Assault" checked>     
-      </li>
-               <li>
-                  Assasination          
-                    <input type='checkbox' name="Assasination" checked>     
-                </li>
-                <li>
-                  Car accidents          
-                    <input type='checkbox' name="Car accidents" checked>     
-                </li>
-    </ul>
-</div>
+
+  <!-- Tool for manipulating and seeing data-->
+    <div id="tool">
+      <!-- This will be automatically generated via homeViewModeler.js -->
+      <select id="addSelect">
+        <option value="0"> Choose searching criteria (or leave empty) </option>  
+      </select>
+      <!-- Form that sends all data to server -->
+      <form id="form" onsubmit="return makeSearch()" > 
+        <!-- Select/checkboxes/etc will be appended to this div -->
+        <div id="searchBlockStart"></div>  
+      <input type="submit"  value="search"/> 
+      </form>
+    </div> 
 
 </body>
 <!--  code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL -->
@@ -66,6 +64,7 @@
       </div>
 </div>
 <!--  code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL -->
-
+  <script id="script2" type="text/javascript" src="/heatMapViewModeler.js"></script> 
+<br><br><br><br>
 
 </html>

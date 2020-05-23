@@ -18,6 +18,7 @@ const routesMap = {
     '/homeMapRenderer.js' : homeRoutes, 
     '/homeViewModeler.js' : homeRoutes, 
     '/home.css' : homeRoutes,
+    '/heatMapViewModeler.js' : heatMapRoutes, 
     '/heatMap' : heatMapRoutes,
     '/heatMap.html' : heatMapRoutes,
     '/heatMap.css' : heatMapRoutes,
