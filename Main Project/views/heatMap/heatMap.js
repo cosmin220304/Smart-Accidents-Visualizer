@@ -135,13 +135,14 @@ async function getReq(queryString) {
       ["UM",0]
     ];
     if(statesValueArr != undefined){
-      var states = Object.keys(statesValueArr);
-      for(var i = 0; i < states.length; i++)
-      {
-        console.log(data[i][0]);
-        console.log(states[i][0]);
-      }
-  }
+      var states = Object.values(statesValueArr); 
+      for(var i = 0; i < states.length; i++) 
+        for (var j = 0; j < data.length; j++)
+        {
+          if(data[j][0] == states[i][0]) 
+           data[j][1] = states[i][1]; 
+        }  
+    } 
     //var data2 = google.visualization.arrayToDataTable();
     var options = {
       colorAxis: {colors: ['#FEFFD2', '#EFFF00', '#8B0000']},
