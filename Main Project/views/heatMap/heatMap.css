@@ -1,7 +1,8 @@
 html {
-  background: linear-gradient(to right, rgb(120, 2, 6), rgb(6, 17, 97)),  
-  no-repeat, center, center,  fixed;
+  background-color:  #222;
   background-size: cover;
+  color: orange;
+
 }
 
 
@@ -30,7 +31,11 @@ a:visited {
 .topnav a:hover {
   color: white;
 } 
-
+#tool button {
+  display: inline;
+  height: 1.2em;
+  width: 1.2em; 
+} 
 .map {
         padding-top: 2em;
         width: 100%;
