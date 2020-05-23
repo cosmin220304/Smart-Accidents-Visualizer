@@ -26,9 +26,9 @@ const routesMap = {
     '/pieChart.html' : pieChartRoutes,
     '/pieChart.css' : pieChartRoutes,
     '/pieChart.js' : pieChartRoutes,
-    '/barGraph' : barGraphRoutes
+    '/barGraph' : barGraphRoutes,
     // '/bar.css' : barGraphRoutes,
-    // '/barGraph.html' : barGraphRoutes
+    // '/barGraph.html' : barGraphRoutes,
 }
 
 const endPointsMap = {
