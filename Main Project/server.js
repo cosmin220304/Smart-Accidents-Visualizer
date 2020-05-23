@@ -3,7 +3,8 @@ const model = require('./models/model')
 const homeRoutes = require('./routes/homeRoutes');
 const heatMapRoutes = require('./routes/heatMapRoutes');
 const pieChartRoutes = require('./routes/pieChartRoutes');
-const authRoutes = require('./routes/authRoutes')
+const authRoutes = require('./routes/authRoutes');
+const barGraphRoutes =  require('./routes/barGraphRoutes');
 port = 8128;      
 
 //Start the model
@@ -24,7 +25,10 @@ const routesMap = {
     '/pieChart' : pieChartRoutes,
     '/pieChart.html' : pieChartRoutes,
     '/pieChart.css' : pieChartRoutes,
-    '/pieChart.js' : pieChartRoutes
+    '/pieChart.js' : pieChartRoutes,
+    '/barGraph' : barGraphRoutes
+    // '/bar.css' : barGraphRoutes,
+    // '/barGraph.html' : barGraphRoutes
 }
 
 const endPointsMap = {
