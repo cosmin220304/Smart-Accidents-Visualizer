@@ -81,6 +81,10 @@ function addTextToElement(element, text){
   let button = document.createElement("button"); 
   const br = document.createElement("br");
 
+  let sliderText = undefined;
+  if (element.type == "range")
+    sliderText = element.nextSibling;
+
   //Text before field
   text = text.replace("_", " ") + " : ";
   span.innerHTML = text; 
@@ -92,6 +96,8 @@ function addTextToElement(element, text){
     span.remove();
     element.remove();
     br.remove();
+    if (!(sliderText === undefined))
+      sliderText.remove();
     button.remove();
   }
   element.parentNode.insertBefore(button, element.nextSibling);
@@ -158,29 +164,27 @@ function newCheckbox(){
 }
 
 function newSlider(){
-    let slider = document.createElement("input");
-    let out = document.createElement("span");
-    out.id = "demo";
-    slider.type="range";
-    slider.step="0.1";
-    slider.id="myRange";
-    slider.class="slider";
-    slider.name = addSelect.value;
-    slider.min= sliderMap[slider.name][0];
-    slider.max= sliderMap[slider.name][1];
-    
-   // var slide = document.getElementById("myRange");
-   // var output = document.getElementById("demo");
-    out.innerHTML = slider.value;
-    slider.oninput = function() {
-      out.innerHTML = slider.value;
-    }
+  //Creating slider
+  let slider = document.createElement("input");
+  slider.type="range";
+  slider.class="slider"; 
+  slider.name = addSelect.value;
+  slider.min= sliderMap[slider.name][0];
+  slider.max= sliderMap[slider.name][1];
+  slider.step="0.1"; 
+
+  //Creating slider text displaying values
+  let sliderText = document.createElement("span");   
+  sliderText.setAttribute("name", addSelect.value); 
+  sliderText.innerHTML = slider.value;
+  slider.oninput = ()=> { sliderText.innerHTML = slider.value; }
+
   //Add it to current searchBlock 
   searchBlocks[searchBlockNo].appendChild(slider); 
-  searchBlocks[searchBlockNo].appendChild(out); 
+  slider.parentNode.insertBefore(sliderText, slider.nextSibling);
+
   //Add data around this input
   addTextToElement(slider, slider.name);
-  addTextToElement(out, out.name)
 }
 
 // Appends a new searchBlock to the last searchBlock
