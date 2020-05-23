@@ -21,7 +21,8 @@ function renderMap() {
       center: ol.proj.fromLonLat([startPosX, startPosY]),
       zoom: startZoom
     }),
-    controls: ol.control.defaults({ attribution: false, rotate: false }).extend([mousePositionControl])
+    //controls: ol.control.defaults({ attribution: false, rotate: false }).extend([mousePositionControl])
+    interactions: ol.interaction.defaults({ attribution: false, rotate: false }).extend([new ol.interaction.DragAndDrop()]),
   }); 
 }
 
@@ -58,14 +59,35 @@ function addPointsToMap(coordonates, color) {
         features: features
         })
     }),
-    style: new ol.style.Style({
-      image: new ol.style.Circle({
-        radius: 3,
-        fill: new ol.style.Fill({
-          color : color
-        }) 
-      })
-    }),
+    style: function(feature) {
+      var points_no = feature.get('features').length;
+
+      var radius = points_no;
+      if (radius > 15)
+        radius = 15;
+      if (radius < 8)
+        radius = 8;
+
+      var textColor = 'black';
+      console.log(color)
+      if (color == "rgb(0, 0, 0)")
+        textColor = 'white';
+
+      return new ol.style.Style({
+        image: new ol.style.Circle({
+          radius: radius,
+          fill: new ol.style.Fill({
+            color : color
+          }) 
+        }),
+        text: new ol.style.Text({
+          text: points_no.toString(),
+          fill: new ol.style.Fill({
+            color: textColor
+          })
+        })
+      });
+    },
     name: "points"
   }); 
 
@@ -134,52 +156,14 @@ async function moving() {
 }
  
 
-var mousePositionControl = new ol.control.MousePosition({
-  coordinateFormat: ol.coordinate.createStringXY(1),
-  projection: mercatorProjection,
-  className: 'mousePos',
-  target: document.getElementById('mouse-position')
-});
+// var mousePositionControl = new ol.control.MousePosition({
+//   coordinateFormat: ol.coordinate.createStringXY(1),
+//   projection: mercatorProjection,
+//   className: 'mousePos',
+//   target: document.getElementById('mouse-position')
+// });
 
 
 renderMap();
 addRandomPoints2();
 moving();
-
-// TO BE REMOVED
-// function addRandomPoints() {
-//   for (var i = 1; i <= 30; i++) {
-//     var R = Math.random() * 10;
-//     var posX = startPosX + R;
-//     R = Math.random() * 10;
-//     var posY = startPosY + R;
-//     R = Math.floor(Math.random() * 3);
-//     var size = sizes[0];
-//     R = Math.floor(Math.random() * 4);
-//     var color = colors[R]; 
-//     addPointToMap(posX, posY, size, color);
-//   }
-// }
-
-// function addPointToMap(posX, posY, size, color) { 
-//   // var layer = new ol.layer.Vector({
-//   //   source: new ol.source.Vector({
-//   //     features: [
-//   //       new ol.Feature({
-//   //         geometry: new ol.geom.Point(ol.proj.fromLonLat([posX, posY])),
-//   //       })
-//   //     ]
-//   //   }),
-//   //   style: new ol.style.Style({
-//   //     image: new ol.style.Circle({
-//   //       radius: size,
-//   //       fill: new ol.style.Fill({
-//   //         color : color
-//   //       }) 
-//   //     })
-//   //   }),
-//   //   name: "point"
-//   // });
- 
-//   map.addLayer(layer);
-// }

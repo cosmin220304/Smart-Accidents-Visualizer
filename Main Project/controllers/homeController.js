@@ -13,9 +13,8 @@ async function getHandler(response, resource){
 
 //TODO: finish this
 async function getHandlerWithQuery(response, resource, queryString){ 
-    //Use query to search throw model  
-    queryJson = qs.parse(queryString) 
-    const test = await homeModel.findASD(queryJson) 
+    //Use query to search throw model
+    const test = await homeModel.findASD(qs.parse(queryString) ) 
     response.writeHead(200, { 'Content-Type': 'application/json' })
     response.end(JSON.stringify(test))
 }  

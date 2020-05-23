@@ -21,6 +21,10 @@ Weather_Timestamp: 2016-02-08 05:58:00
     -text area(todo later:maybe select)
 City: Dayton
 County: Montgomery
+Number:
+Street: I-70 E
+Zipcode: 45424 
+Airport_Code: KFFO
 
     -slider
 ID: A-1
@@ -56,11 +60,6 @@ Astronomical_Twilight: Night
   
     -description if you hover over point?
 Description: Right lane blocked due to accident on I-70 Eastbound at Exit 41 OH-235 State Route 4.
-Number:
-Street: I-70 E
-Zipcode: 45424
-Distance(mi): 0.01
-Airport_Code: KFFO
 
 
     -!harder to implement!
