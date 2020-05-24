@@ -2,11 +2,26 @@ const fs = require('fs');
 const qs = require('querystring');  
 const path = require('path'); 
 const homeModel = require('../models/model')
+const parser = require('node-html-parser');
 
 async function getHandler(response, resource){   
-    fs.readFile(resource, function(error, content) 
+    fs.readFile(resource, 'utf8', function(error, content) 
     {   
-        response.writeHead(200, { 'Content-Type': getContentType(resource) })
+        var type = getContentType(resource);
+        response.writeHead(200, { 'Content-Type': type })
+        if (type == 'text/html')
+        {    
+            var htmlFromAlex = `<div class="topnav">
+            <a href="/">Home</a> 
+            <a href="../heatMap">Heat Map</a>
+            <a href="../pieChart">Pie chart</a>
+            <a>Bar Graph</a>
+            <a>Sankey diagram</a>
+            <a>Contacts</a>
+          </div>`
+            content = content.replace(/^(.*){topnav}(.*)/gm, htmlFromAlex)
+           // response.end(root) 
+        }
         response.end(content) 
     });  
 }  
