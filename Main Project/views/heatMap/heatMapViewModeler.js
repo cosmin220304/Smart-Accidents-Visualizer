@@ -148,7 +148,6 @@ function newDate(){
   addTextToElement(date, date.name);
 }
 
-
 //Creates a new html checkbox 
 function newCheckbox(){
    //Intialize variable
@@ -187,47 +186,6 @@ function newSlider(){
   addTextToElement(slider, slider.name);
 }
 
-// Appends a new searchBlock to the last searchBlock
-// function createBlock(){
-//   //Get this element
-//   let createBlock = document.getElementById("createBlock");
-
-//   //Add color picker 
-//   let colorPicker = document.createElement("input"); 
-//   colorPicker.type = "color";
-//   colorPicker.name = "color";
-//   colorPicker.className = "colorPicker";
-
-//   //Replace createBlock button with color picker
-//   createBlock.parentNode.insertBefore(colorPicker, createBlock); 
-//   createBlock.remove();
-
-//   //When choosing color, color picker will create the actual search block and recreate the "createBlock" button
-//   colorPicker.onchange = function(){ 
-
-//     //Add the search block
-//     newSearchBlock = document.createElement("div");
-//     newSearchBlock.id = "searchBlock" + searchBlockNo;
-//     lastSearchBlock = searchBlocks[searchBlockNo]; 
-//     lastSearchBlock.parentNode.insertBefore(newSearchBlock, lastSearchBlock.nextSibling); 
-
-//     //Add to our array
-//     searchBlockNo += 1;
-//     searchBlocks.push(newSearchBlock);
-
-//     //Add the collor
-//     newSearchBlock.style.backgroundColor = colorPicker.value;
-
-//     //Add the "createBlock" button back
-//     let button = createBlock.cloneNode(true); 
-//     selectGenerator.parentNode.insertBefore(button, selectGenerator.nextSibling);
-
-//     //Remove color picker
-//     colorPicker.remove(); 
-//   }
-// }  
-
-
 // Event listeners 
 selectGenerator.addEventListener('change', function() {
   console.log(addSelect.value)
@@ -235,8 +193,5 @@ selectGenerator.addEventListener('change', function() {
   func()
   addSelect.value='0';
 });  
-
-
-
 
 IntializeSelectGenerator();

@@ -15,77 +15,25 @@
   <header class="Us-Accidents">
     <h1>US Accidents Visualizer</h1>
   <br>
-    <!-- <div class="topnav">
-      <a href="/">Home</a> 
-      <a href="../heatMap">Heat Map</a>
-      <a href="../pieChart">Pie chart</a>
-      <a>Bar Graph</a>
-      <a>Sankey diagram</a>
-      <a>Contacts</a>
-    </div> -->
+
     {topnav}
   </header>
   <!-- End Code from alex-->
   <h2>My Map</h2> 
   <div id="mainWrapper">  
-
-    <!-- Tool for manipulating and seeing data-->
-    <div id="tool">
-      <!-- This will be automatically generated via homeViewModeler.js -->
-      <select id="addSelect">
-        <option value="0"> Choose searching criteria (or leave empty) </option>  
-      </select>
-      <button  id="createBlock" onclick="createBlock()"> new </button>
-      <!-- Form that sends all data to server -->
-      <form id="form" onsubmit="return makeSearch()" > 
-        <!-- Select/checkboxes/etc will be appended to this div -->
-        <div id="searchBlockStart"></div>  
-      <input type="submit"  value="search"/> 
-      </form>
-    </div>  
-   
-    <!-- White space used by grid -->
+      <!-- Tool for manipulating and seeing data-->
+     {tool}
     <span></span>
-
     <!-- Map render surrounded by buttons -->
-    <div id="mapContainer">  
-      <!-- Upper button -->
-      <button class="button arrowsUD" onmousedown="moveAround(`up`)" onmouseup="stopMove()"> &uarr; </button> 
-
-      <div id="mapWrapper"> 
-        <!-- Left button -->
-        <button class="button arrowsLR"  onmousedown="moveAround(`left`)" onmouseup="stopMove()"> &larr; </button> 
-        
-        <!-- Map render using openlayers api -->
-        <div id="map" class="map"></div>  
-
-        <!-- Right button -->
-        <button class="button arrowsLR"  onmousedown="moveAround(`right`)" onmouseup="stopMove()"> &rarr; </button> 
-      </div> 
-
-      <!-- Lower button -->
-      <button class="button arrowsUD" onmousedown="moveAround(`down`)" onmouseup="stopMove()">  &darr; </button>  
-    </div> 
+    {mapContainer}
   </div>
+
   <div id="mouse-position">asdsad</div>
+
   </div>
 
-  <!--  code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL --> 
-  <div class="footer">
-    <div id="button"></div>
-      <div id="container">
-        <div id="cont">
-        <div class="footer_center">
-            <h3>
-              <a href="/">Contact</a>
-            </h3>
-        </div>
-        </div>
-      </div>
-  <!--  code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL -->
+      {footer}
 
-  <!-- Scripts at the end of html file -->
-  <script id="script1" type="text/javascript" src="homeMapRenderer.js"></script> 
-  <script id="script2" type="text/javascript" src="homeViewModeler.js"></script> 
 </body>
+
 </html>

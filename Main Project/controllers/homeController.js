@@ -1,8 +1,9 @@
 const fs = require('fs'); 
 const qs = require('querystring');  
 const path = require('path'); 
+const html = require('../templates/HtmlAux');
 const homeModel = require('../models/model')
-const parser = require('node-html-parser');
+
 
 async function getHandler(response, resource){   
     fs.readFile(resource, 'utf8', function(error, content) 
@@ -11,15 +12,14 @@ async function getHandler(response, resource){
         response.writeHead(200, { 'Content-Type': type })
         if (type == 'text/html')
         {    
-            var htmlFromAlex = `<div class="topnav">
-            <a href="/">Home</a> 
-            <a href="../heatMap">Heat Map</a>
-            <a href="../pieChart">Pie chart</a>
-            <a>Bar Graph</a>
-            <a>Sankey diagram</a>
-            <a>Contacts</a>
-          </div>`
-            content = content.replace(/^(.*){topnav}(.*)/gm, htmlFromAlex)
+            var topNavHTML =  html.getTopNavHTML;
+            content = content.replace(/^(.*){topnav}(.*)/gm, topNavHTML)
+            var footerHTML = html.getFooterHTML;
+            content = content.replace(/^(.*){footer}(.*)/gm, footerHTML)
+            var tool = html.getTool;
+            content = content.replace(/^(.*){tool}(.*)/gm, tool)
+            var map = html.getMapContaioner;
+            content = content.replace(/^(.*){mapContainer}(.*)/gm, map)
            // response.end(root) 
         }
         response.end(content) 

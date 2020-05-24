@@ -75,7 +75,7 @@ async function getReq(queryString) {
     if(statesValueArr != undefined)
       console.log(statesValueArr);
     var data = [
-      ['State', 'Select'],
+      ['State', 'Accidents'],
       ["AZ",0],
       ["AL",0],
       ["AK",0],
