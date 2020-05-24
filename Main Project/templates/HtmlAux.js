@@ -18,10 +18,12 @@ function getTopNavHTML()
         return topNavHTML;
 }
 
-//  code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL 
+
 function getFooterHTML()
 {
-    var footerHTML = `<br><br><br><br><br><br>
+    var footerHTML = `
+    <!-- code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL  -->
+    <br><br><br><br><br><br>
     <div class="footer">
     <div id="button"></div>
       <div id="container">
@@ -32,10 +34,11 @@ function getFooterHTML()
             </h3>
         </div>
         </div>
-      </div>`
+      </div>
+      <!-- code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL  -->
+      `
       return footerHTML;
 }
-//  code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL
 
 
 function getTool()

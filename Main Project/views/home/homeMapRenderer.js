@@ -21,7 +21,7 @@ function renderMap() {
       center: ol.proj.fromLonLat([startPosX, startPosY]),
       zoom: startZoom
     }),
-    //controls: ol.control.defaults({ attribution: false, rotate: false }).extend([mousePositionControl])
+    controls: ol.control.defaults({ attribution: false, rotate: false }).extend([mousePositionControl]),
     interactions: ol.interaction.defaults({ attribution: false, rotate: false }).extend([new ol.interaction.DragAndDrop()]),
   }); 
 }
