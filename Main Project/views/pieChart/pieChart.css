@@ -1,5 +1,6 @@
 html {
-    background: linear-gradient(to right, rgb(120, 2, 6), rgb(6, 17, 97)),  
+    background: linear-gradient(to right, rgb(15, 32, 39),
+     rgb(32, 58, 67), rgb(44, 83, 100)),  
     no-repeat, center, center,  fixed;
     background-size: cover;
   }
