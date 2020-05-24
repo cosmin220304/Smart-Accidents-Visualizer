@@ -29,8 +29,12 @@ const routesMap = {
     '/barGraph' : barGraphRoutes,
     '/bar.css' : barGraphRoutes,
     '/barGraph.html' : barGraphRoutes,
+    '/tool.html' : publicRoutes,
     '/tool.js' : publicRoutes,
+    '/topNav.html' : publicRoutes,
     '/topNav.css' : publicRoutes,
+    '/footer.html' : publicRoutes,
+    '/footer.css': publicRoutes,
 }
 
 const endPointsMap = {

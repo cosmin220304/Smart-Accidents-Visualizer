@@ -22,20 +22,21 @@ function getTopNavHTML()
 function getFooterHTML()
 {
     var footerHTML = `
+    <link rel="stylesheet" href="footer.css" type="text/css">
     <!-- code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL  -->
     <br><br><br><br><br><br>
     <div class="footer">
     <div id="button"></div>
-      <div id="container">
+        <div id="container">
         <div id="cont">
         <div class="footer_center">
             <h3>
-              <a href="/">Contact</a>
+                <a href="/">Contact</a>
             </h3>
         </div>
         </div>
-      </div>
-      <!-- code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL  -->
+        </div>
+    <!-- code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL  -->
       `
       return footerHTML;
 }
