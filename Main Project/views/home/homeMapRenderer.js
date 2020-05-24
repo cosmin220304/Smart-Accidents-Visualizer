@@ -156,12 +156,53 @@ async function moving() {
 }
  
 
-// var mousePositionControl = new ol.control.MousePosition({
-//   coordinateFormat: ol.coordinate.createStringXY(1),
-//   projection: mercatorProjection,
-//   className: 'mousePos',
-//   target: document.getElementById('mouse-position')
-// });
+var mousePositionControl = new ol.control.MousePosition({
+  coordinateFormat: ol.coordinate.createStringXY(1),
+  projection: mercatorProjection,
+  className: 'mousePos',
+  target: document.getElementById('mouse-position')
+});
+
+
+// Appends a new searchBlock to the last searchBlock
+function createBlock(){
+  //Get this element
+  let createBlock = document.getElementById("createBlock");
+
+  //Add color picker 
+  let colorPicker = document.createElement("input"); 
+  colorPicker.type = "color";
+  colorPicker.name = "color";
+  colorPicker.className = "colorPicker";
+
+  //Replace createBlock button with color picker
+  createBlock.parentNode.insertBefore(colorPicker, createBlock); 
+  createBlock.remove();
+
+  //When choosing color, color picker will create the actual search block and recreate the "createBlock" button
+  colorPicker.onchange = function(){ 
+
+    //Add the search block
+    newSearchBlock = document.createElement("div");
+    newSearchBlock.id = "searchBlock" + searchBlockNo;
+    lastSearchBlock = searchBlocks[searchBlockNo]; 
+    lastSearchBlock.parentNode.insertBefore(newSearchBlock, lastSearchBlock.nextSibling); 
+
+    //Add to our array
+    searchBlockNo += 1;
+    searchBlocks.push(newSearchBlock);
+
+    //Add the collor
+    newSearchBlock.style.backgroundColor = colorPicker.value;
+
+    //Add the "createBlock" button back
+    let button = createBlock.cloneNode(true); 
+    selectGenerator.parentNode.insertBefore(button, selectGenerator.nextSibling);
+
+    //Remove color picker
+    colorPicker.remove(); 
+  }
+}  
 
 
 //Used when submit button is pressed
@@ -204,49 +245,6 @@ function makeSearch() {
       //We get the name and values and add it to our query string
       queryString = queryString + e.name + "=" + e.value + "&";
     } 
-    //Get data from db
-
-
-
-// Appends a new searchBlock to the last searchBlock
-function createBlock(){
-  //Get this element
-  let createBlock = document.getElementById("createBlock");
-
-  //Add color picker 
-  let colorPicker = document.createElement("input"); 
-  colorPicker.type = "color";
-  colorPicker.name = "color";
-  colorPicker.className = "colorPicker";
-
-  //Replace createBlock button with color picker
-  createBlock.parentNode.insertBefore(colorPicker, createBlock); 
-  createBlock.remove();
-
-  //When choosing color, color picker will create the actual search block and recreate the "createBlock" button
-  colorPicker.onchange = function(){ 
-
-    //Add the search block
-    newSearchBlock = document.createElement("div");
-    newSearchBlock.id = "searchBlock" + searchBlockNo;
-    lastSearchBlock = searchBlocks[searchBlockNo]; 
-    lastSearchBlock.parentNode.insertBefore(newSearchBlock, lastSearchBlock.nextSibling); 
-
-    //Add to our array
-    searchBlockNo += 1;
-    searchBlocks.push(newSearchBlock);
-
-    //Add the collor
-    newSearchBlock.style.backgroundColor = colorPicker.value;
-
-    //Add the "createBlock" button back
-    let button = createBlock.cloneNode(true); 
-    selectGenerator.parentNode.insertBefore(button, selectGenerator.nextSibling);
-
-    //Remove color picker
-    colorPicker.remove(); 
-  }
-}  
     //Add the color
     let color = "rgb(0, 0, 0)";
     if (searchBlocks[index].id != "searchBlockStart")
@@ -259,6 +257,8 @@ function createBlock(){
 
   return false;
 }  
+
+
 //Get data from db
 async function getReq(queryString) {
   return new Promise((resolve, reject) => {
@@ -278,6 +278,7 @@ async function getReq(queryString) {
     }
   });
 } 
+
 
 async function queryToPoints(queryString, color){
   //Refresh the points on map

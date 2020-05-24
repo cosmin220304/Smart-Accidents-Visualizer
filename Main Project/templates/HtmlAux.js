@@ -41,11 +41,10 @@ function getFooterHTML()
 function getTool()
 { 
     var tool = `<div id="tool">
-    <!-- This will be automatically generated via homeViewModeler.js -->
+    <!-- This will be automatically generated via tool.js -->
     <select id="addSelect">
       <option value="0"> Choose searching criteria (or leave empty) </option>  
     </select>
-    <button  id="createBlock" onclick="createBlock()"> new </button>
     <!-- Form that sends all data to server -->
     <form id="form" onsubmit="return makeSearch()" > 
       <!-- Select/checkboxes/etc will be appended to this div -->

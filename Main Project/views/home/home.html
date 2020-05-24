@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" href="home.css">
   <!-- css used only for map drag using mouse click -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
+  <!-- end of css -->
   <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script> 
   <title>US Accidents Visualizer</title>
 </head>
@@ -17,8 +18,12 @@
   
   <h2>My Map</h2> 
   <div id="mainWrapper">  
-      <!-- Tool for manipulating and seeing data-->
-     {tool}
+    <!-- Search area where you can manipulate data -->
+    <div id="SearchArea">
+      <button  id="createBlock" onclick="createBlock()"> new </button>
+      {tool}
+    </div>
+     
     <span></span>
     <!-- Map render surrounded by buttons -->
     <div id="mapContainer">  
@@ -38,16 +43,13 @@
   
       <!-- Lower button -->
       <button class="button arrowsUD" onmousedown="moveAround('down')" onmouseup="stopMove()">  &darr; </button>  
-      <script id="script1" type="text/javascript" src="homeMapRenderer.js"></script> 
     </div>
   </div>
 
   <div id="mouse-position">asdsad</div>
 
-  </div>
-
-      {footer}
-
+  {footer}
+  <script id="mapScript" type="text/javascript" src="homeMapRenderer.js"></script>
 </body>
 
 </html>
