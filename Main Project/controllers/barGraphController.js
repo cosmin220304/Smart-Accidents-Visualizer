@@ -2,15 +2,15 @@ const fs = require('fs');
 const qs = require('querystring');  
 const path = require('path'); 
 const homeModel = require('../models/model')
+const html = require('../templates/HtmlAux');
+
 
 async function getHandler(response, resource){   
-    fs.readFile(resource, function(error, content) 
+    fs.readFile(resource, 'utf8', function(error, content) 
     {   
-        // if(error) {
-        //     response.writeHead(500)
-        //     response.
-        // }
-        response.writeHead(200, { 'Content-Type': getContentType(resource) })
+        var type = getContentType(resource);
+        response.writeHead(200, { 'Content-Type': type })
+        content = html.transform(content)
         response.end(content) 
     });  
 }  

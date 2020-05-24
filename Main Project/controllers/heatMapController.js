@@ -13,17 +13,7 @@ async function getHandler(filePath, response){
         {   
             var type = getContentType(filePath);
             response.writeHead(200, { 'Content-Type': type })
-            if (type == 'text/html')
-            {    
-                var topNavHTML =  html.getTopNavHTML;
-                content = content.replace(/^(.*){topnav}(.*)/gm, topNavHTML)
-                var footerHTML = html.getFooterHTML;
-                content = content.replace(/^(.*){footer}(.*)/gm, footerHTML)
-                var tool = html.getTool;
-                content = content.replace(/^(.*){tool}(.*)/gm, tool)
-
-               // response.end(root) 
-            }
+            content = html.transform(content)
             response.end(content) 
         });  
     }

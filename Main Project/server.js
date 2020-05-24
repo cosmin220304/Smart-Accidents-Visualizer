@@ -1,10 +1,11 @@
 const http = require('http');
 const model = require('./models/model')
 const homeRoutes = require('./routes/homeRoutes');
-const heatMapRoutes = require('./routes/heatMapRoutes');
-const pieChartRoutes = require('./routes/pieChartRoutes');
-const authRoutes = require('./routes/authRoutes');
-const barGraphRoutes =  require('./routes/barGraphRoutes');
+const heatMapRoutes = require('./routes/heatMapRoutes')
+const pieChartRoutes = require('./routes/pieChartRoutes')
+const authRoutes = require('./routes/authRoutes')
+const barGraphRoutes =  require('./routes/barGraphRoutes')
+const publicRoutes = require('./routes/publicRoutes')
 port = 8128;      
 
 //Start the model
@@ -18,8 +19,6 @@ const routesMap = {
     '/homeMapRenderer.js' : homeRoutes, 
     '/homeViewModeler.js' : homeRoutes, 
     '/home.css' : homeRoutes,
-    '/heatMapViewModeler.js' : heatMapRoutes,
-    '/ToolTemplate.js' : heatMapRoutes,
     '/heatMap' : heatMapRoutes,
     '/heatMap.html' : heatMapRoutes,
     '/heatMap.css' : heatMapRoutes,
@@ -29,8 +28,10 @@ const routesMap = {
     '/pieChart.css' : pieChartRoutes,
     '/pieChart.js' : pieChartRoutes,
     '/barGraph' : barGraphRoutes,
-    // '/bar.css' : barGraphRoutes,
-    // '/barGraph.html' : barGraphRoutes,
+    '/bar.css' : barGraphRoutes,
+    '/barGraph.html' : barGraphRoutes,
+    '/tool.js' : publicRoutes,
+    '/topNav.css' : publicRoutes,
 }
 
 const endPointsMap = {

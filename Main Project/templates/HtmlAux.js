@@ -1,15 +1,23 @@
 function getTopNavHTML()
 {
-    var topNavHTML = `<div class="topnav">
-            <a href="/">Home</a> 
-            <a href="../heatMap">Heat Map</a>
-            <a href="../pieChart">Pie chart</a>
-            <a>Bar Graph</a>
-            <a>Sankey diagram</a>
-            <a>Contacts</a>
-          </div>`
+    var topNavHTML = `
+            <link rel="stylesheet" href="topNav.css" type="text/css">
+            <header class="Us-Accidents">
+            <h1>US Accidents Visualizer</h1>
+            <br>
+            <div class="topnav">
+              <a href="/">Home</a> 
+              <a href="../heatMap">Heat Map</a>
+              <a href="../pieChart">Pie chart</a>
+              <a href="../barGraph">Bar Graph</a>
+              <a>Sankey diagram</a>
+              <a>Contacts</a>
+            </div>
+            </header>
+          `
         return topNavHTML;
 }
+
 //  code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL 
 function getFooterHTML()
 {
@@ -45,37 +53,22 @@ function getTool()
     <input type="submit"  value="search"/> 
     </form>
   </div>
-  <script id="script2" type="text/javascript" src="heatMapViewModeler.js"></script>
+  <script id="script2" type="text/javascript" src="tool.js"></script>
   `
   return tool
 }
 
-function getMapContaioner()
-{
-    var map = `<div id="mapContainer">  
-    <!-- Upper button -->
-    <button class="button arrowsUD" onmousedown="moveAround('up')" onmouseup="stopMove()"> &uarr; </button> 
-
-    <div id="mapWrapper"> 
-      <!-- Left button -->
-      <button class="button arrowsLR"  onmousedown="moveAround('left')" onmouseup="stopMove()"> &larr; </button> 
-      
-      <!-- Map render using openlayers api -->
-      <div id="map" class="map"></div>  
-
-      <!-- Right button -->
-      <button class="button arrowsLR"  onmousedown="moveAround('right')" onmouseup="stopMove()"> &rarr; </button> 
-    </div> 
-
-    <!-- Lower button -->
-    <button class="button arrowsUD" onmousedown="moveAround('down')" onmouseup="stopMove()">  &darr; </button>  
-    <script id="script1" type="text/javascript" src="homeMapRenderer.js"></script> 
-  </div>`; 
-  return map;
+function transform(content)
+{ 
+  try{
+    content = content.replace(/^(.*){topnav}(.*)/gm, getTopNavHTML) 
+    content = content.replace(/^(.*){footer}(.*)/gm, getFooterHTML) 
+    content = content.replace(/^(.*){tool}(.*)/gm, getTool)  
+  }
+  catch(e){
+    console.log(e);
+  }
+  return content
 }
 
-
-module.exports.getTopNavHTML = getTopNavHTML();
-module.exports.getFooterHTML = getFooterHTML();
-module.exports.getMapContaioner = getMapContaioner();
-module.exports.getTool = getTool();
+module.exports.transform = transform

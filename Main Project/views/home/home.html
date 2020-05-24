@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png">
   <link rel="stylesheet" type="text/css" href="home.css">
   <!-- css used only for map drag using mouse click -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
@@ -11,21 +13,33 @@
 </head>
 
 <body>
-  <!-- Code from alex-->
-  <header class="Us-Accidents">
-    <h1>US Accidents Visualizer</h1>
-  <br>
-
-    {topnav}
-  </header>
-  <!-- End Code from alex-->
+  {topnav}
+  
   <h2>My Map</h2> 
   <div id="mainWrapper">  
       <!-- Tool for manipulating and seeing data-->
      {tool}
     <span></span>
     <!-- Map render surrounded by buttons -->
-    {mapContainer}
+    <div id="mapContainer">  
+      <!-- Upper button -->
+      <button class="button arrowsUD" onmousedown="moveAround('up')" onmouseup="stopMove()"> &uarr; </button> 
+  
+      <div id="mapWrapper"> 
+        <!-- Left button -->
+        <button class="button arrowsLR"  onmousedown="moveAround('left')" onmouseup="stopMove()"> &larr; </button> 
+        
+        <!-- Map render using openlayers api -->
+        <div id="map" class="map"></div>  
+  
+        <!-- Right button -->
+        <button class="button arrowsLR"  onmousedown="moveAround('right')" onmouseup="stopMove()"> &rarr; </button> 
+      </div> 
+  
+      <!-- Lower button -->
+      <button class="button arrowsUD" onmousedown="moveAround('down')" onmouseup="stopMove()">  &darr; </button>  
+      <script id="script1" type="text/javascript" src="homeMapRenderer.js"></script> 
+    </div>
   </div>
 
   <div id="mouse-position">asdsad</div>
