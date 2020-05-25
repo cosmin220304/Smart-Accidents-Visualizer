@@ -117,7 +117,7 @@ async function queryToPoints(queryString, color){
 
     //Add coordonates to map 
     addPointsToMap(coordonatesArray, descriptionArray, color);  
-    console.log("queryToPoints finished");
+    console.log("done last block");
 }
 
 

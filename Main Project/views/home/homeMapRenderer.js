@@ -15,7 +15,7 @@ var isMoving = false;
 var direction;  
 
 //Used for popup when hovering over point 
-var parsedCoordArray = [];
+var coordArray = [];
 var descArray = [];
 
 
@@ -53,14 +53,15 @@ function addRandomPoints() {
 
 function addPointsToMap(coordonates, desc, color) {  
 
-  //Create openlayers features and save parsed coordonates and descriptions in arrays
+  //Create openlayers features
   size = Object.keys(coordonates).length; 
   var points = new Array(size);  
   for (var i = 0; i < size; ++i) { 
-    points[i] = new ol.Feature(new ol.geom.Point(coordonates[i]).transform(worldGeodeticSystem, mercatorProjection));
-    parsedCoord = parseFloat(coordonates[i]).toFixed(13); 
-    parsedCoordArray.push(parsedCoord);
+    points[i] = new ol.Feature(new ol.geom.Point(coordonates[i]).transform(worldGeodeticSystem, mercatorProjection)); 
   }  
+
+  //Save coordonates and descriptions in arrays
+  coordArray = coordonates;
   descArray = desc;
 
   //Add points to layer
@@ -86,11 +87,10 @@ function stylePoints(feature, color){
   var points_no = feature.get('features').length;
 
   //Limit size of point
-  var radius = points_no;
-  if (radius > 15)
-    radius = 15;
-  if (radius < 8)
-    radius = 8;
+  var radius = points_no * 3 + 2;
+  const max = 16;
+  if (radius > max)
+    radius = max;  
 
   //Write cluster number over that point
   let textColor = 'black'; 
@@ -192,11 +192,24 @@ map.on('pointermove', (event) => {
     coord = ol.proj.transform(coord, mercatorProjection, worldGeodeticSystem);  
     
     //Get index for description for that point
-    let parsedCoord = parseFloat(coord).toFixed(13);  
-    let index = parsedCoordArray.indexOf(parsedCoord);
+    let parsedCoord = []
+    parsedCoord[0] = parseFloat(coord[0]).toFixed(6);  
+    parsedCoord[1] = parseFloat(coord[1]).toFixed(6);   
+    let index = -1;
+    for (var i = 0; i < coordArray.length; i++)
+    { 
+      if (coordArray[i][0] == parsedCoord[0] && coordArray[i][1] == parsedCoord[1])
+      {
+        index = i;
+        break;
+      }
+    } 
 
     //Check if we have a description
     if (index >= 0){ 
+      if (descArray[index] == undefined || descArray[index] == "" || descArray[index] == " ")
+        descArray[index] = "no data";
+
       //Add the description
       popup.innerHTML = descArray[index];
 
