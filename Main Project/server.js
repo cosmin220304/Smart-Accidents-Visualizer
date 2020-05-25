@@ -6,10 +6,14 @@ const pieChartRoutes = require('./routes/pieChartRoutes')
 const authRoutes = require('./routes/authRoutes')
 const barGraphRoutes =  require('./routes/barGraphRoutes')
 const publicRoutes = require('./routes/publicRoutes')
+const HtmlAux = require('./templates/HtmlAux')
 port = 8128;      
 
 //Start the model
-model.start();
+model.start()
+
+//Start html templater
+HtmlAux.start()
 
 //Map of routes 
 const routesMap = {

@@ -5,7 +5,9 @@ const html = require('../templates/HtmlAux');
 const homeModel = require('../models/model')
 
 
-async function getHandler(response, resource){   
+async function getHandler(request, response, resource){   
+    //Simply read and return the file after it gets processed by htmlAux
+    showCookies(request)
     fs.readFile(resource, 'utf8', function(error, content) 
     {   
         var type = getContentType(resource);
@@ -14,14 +16,55 @@ async function getHandler(response, resource){
         response.end(content) 
     });  
 }  
+ 
 
-//TODO: finish this
-async function getHandlerWithQuery(response, resource, queryString){ 
-    //Use query to search throw model
-    const test = await homeModel.findASD(qs.parse(queryString) ) 
-    response.writeHead(200, { 'Content-Type': 'application/json' })
-    response.end(JSON.stringify(test))
+async function getHandlerWithQuery(request, response, resource, queryString){  
+
+    //Transform query string into variable
+    let json = qs.parse(queryString)
+
+    //Check if user only want to save the current html page
+    if (isSaveCookieRequest(queryString))
+    { 
+        response.writeHead(200, 
+        {   
+            'Set-Cookie': queryString +'; Max-Age=20',
+            'Content-Type': 'text/html' 
+        })
+        response.end("Cookie saved!")
+    }
+    
+    //If not, it is a normal query search
+    else 
+    {
+        //Use query to search throw model 
+        const modelResult = await homeModel.findASD(json) 
+        response.writeHead(200, { 'Content-Type': 'application/json' })
+        response.end(JSON.stringify(modelResult))
+    }
 }  
+
+
+function isSaveCookieRequest(queryString)
+{
+    return queryString.includes("saveCookies=true")
+}
+
+
+function saveCookies(){
+
+}
+
+
+function showCookies(request){
+    var list = {},
+    rc = request.headers.cookie; 
+    if (rc)
+        console.log('Cookies:',rc);
+    else 
+        console.log('No cookies found!');
+}
+
 
 function getContentType(filePath)
 {
