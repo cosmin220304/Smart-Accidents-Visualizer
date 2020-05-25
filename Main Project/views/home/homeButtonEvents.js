@@ -60,7 +60,7 @@ function makeSearch() {
         //If checkbox we are interested in true/false value
         if (e.type == "checkbox")
         { 
-            queryString = queryString + e.name + "=" + e.checked + "&";
+            queryString = queryString + e.name + "=" + e.checked.toString().toUpperCase() + "&";
             continue;
         }
 
