@@ -20,6 +20,7 @@ const routesMap = {
     '/'  : homeRoutes,
     '/home' : homeRoutes,
     '/home.html' : homeRoutes, 
+    '/homeButtonEvents.js' : homeRoutes,
     '/homeMapRenderer.js' : homeRoutes,
     '/home.css' : homeRoutes,
     '/heatMap' : heatMapRoutes,

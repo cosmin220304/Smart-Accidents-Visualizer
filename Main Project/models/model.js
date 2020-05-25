@@ -70,14 +70,16 @@ async function start(){
 function findASD (body)
 {  
     return new Promise((resolve, reject) => {
-        try {
-            MyModel.find(body).select("Start_Lat Start_Lng -_id").exec((err, res) => {resolve(res)}) 
+        try { 
+            MyModel.find(body).select("Start_Lat Start_Lng Description -_id").exec((err, res) => {resolve(res)}) 
         }
         catch (error){
             reject(error)
         }
     })
 } 
+
+
 function count (body)
 {  
     return new Promise((resolve, reject) => {

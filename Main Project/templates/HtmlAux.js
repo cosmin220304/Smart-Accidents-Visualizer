@@ -114,6 +114,7 @@ function start()
   readFile("topNav")
   readFile("footer")
   readFile("tool")
+  console.log("all files were read!")
 }
 
 module.exports.transform = transform
