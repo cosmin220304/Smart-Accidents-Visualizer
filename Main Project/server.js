@@ -71,9 +71,9 @@ http.createServer(function (request, response) {
             response.end("404 not found")
         }
     }
-    else if (request.method == "PUT")
+    else if (request.method == "POST")
     {
-        deleteThisLater(request, response)
+        publicRoutes.route(request, response)
     }
     else if (request.method == "PATCH")
     {
