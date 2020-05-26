@@ -66,8 +66,7 @@ async function start(){
 }
  
 
-//This will be moved in homeModel
-function findASD (body)
+function findCoordonates (body)
 {  
     return new Promise((resolve, reject) => {
         try { 
@@ -108,5 +107,5 @@ function save(obj)
 module.exports = mongoose.model("data", mySchema);
 module.exports.save = save;
 module.exports.start = start;
-module.exports.findASD = findASD;
+module.exports.findCoordonates = findCoordonates;
 module.exports.count = count;

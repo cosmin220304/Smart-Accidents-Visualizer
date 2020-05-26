@@ -23,37 +23,23 @@ async function getHandlerWithQuery(request, response, resource, queryString){
     //Transform query string into variable
     let json = qs.parse(queryString)
 
-    //Check if user only want to save the current html page
-    if (isSaveCookieRequest(queryString))
-    { 
-        response.writeHead(200, 
-        {   
-            'Set-Cookie': queryString +'; Max-Age=20',
-            'Content-Type': 'text/html' 
-        })
-        response.end("Cookie saved!")
-    }
+/*  OBSOLETE/SCRAPED IDEA    */
+    // //Check if user only want to save the current html page
+    // if (queryString.includes("saveCookies=true"))
+    // { 
+    //     response.writeHead(200, 
+    //     {   
+    //         'Set-Cookie': queryString +'; Max-Age=20',
+    //         'Content-Type': 'text/html' 
+    //     })
+    //     response.end("Cookie saved!")
+    //}
     
-    //If not, it is a normal query search
-    else 
-    {
-        //Use query to search throw model 
-        const modelResult = await homeModel.findASD(json) 
-        response.writeHead(200, { 'Content-Type': 'application/json' })
-        response.end(JSON.stringify(modelResult))
-    }
+    //Use query to search throw model 
+    const modelResult = await homeModel.findCoordonates(json) 
+    response.writeHead(200, { 'Content-Type': 'application/json' })
+    response.end(JSON.stringify(modelResult))
 }  
-
-
-function isSaveCookieRequest(queryString)
-{
-    return queryString.includes("saveCookies=true")
-}
-
-
-function saveCookies(){
-
-}
 
 
 function showCookies(request){

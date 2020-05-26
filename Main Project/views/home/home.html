@@ -20,8 +20,9 @@
   <div id="mainWrapper">  
     <!-- Search area where you can manipulate data -->
     <div id="SearchArea">
-      <button  id="createBlock" onclick="createBlock()"> new </button>
-      <button  id="saveCookie"> new </button>
+      <button  id="createNewSearch" onclick="createNewSearch()"> New Search </button>
+      <button  id="saveCookie" onclick="saveData()"> save </button>
+      <button  id="saveCookie" onclick="loadData()"> load </button>
       {tool}
     </div>
      
@@ -48,7 +49,6 @@
   </div>
 
   <div id="mouseTest" style="height: 2.5em;"></div>
-  <div id="mouse-position"></div>
 
   {footer}
   <script id="mapScript" type="text/javascript" src="homeMapRenderer.js"></script>

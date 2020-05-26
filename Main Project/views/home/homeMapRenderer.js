@@ -18,7 +18,6 @@ var direction;
 var coordArray = [];
 var descArray = [];
 
-
 function renderMap() {
   map = new ol.Map({
     target: 'map',
@@ -191,10 +190,10 @@ map.on('pointermove', (event) => {
     //Transform in coord for our map
     coord = ol.proj.transform(coord, mercatorProjection, worldGeodeticSystem);  
     
-    //Get index for description for that point
+    //Get index for description for that point (double parse so )
     let parsedCoord = []
-    parsedCoord[0] = parseFloat(coord[0]).toFixed(6);  
-    parsedCoord[1] = parseFloat(coord[1]).toFixed(6);   
+    parsedCoord[0] = parseFloat(parseFloat(coord[0]).toFixed(6));  
+    parsedCoord[1] = parseFloat(parseFloat(coord[1]).toFixed(6));  
     let index = -1;
     for (var i = 0; i < coordArray.length; i++)
     { 
@@ -203,7 +202,7 @@ map.on('pointermove', (event) => {
         index = i;
         break;
       }
-    } 
+    }  
 
     //Check if we have a description
     if (index >= 0){ 

@@ -1,7 +1,10 @@
+var colorArray = []
+
 // Appends a new searchBlock to the last searchBlock
-function createBlock(){
+function createNewSearch(){
     //Get this element
-    let createBlock = document.getElementById("createBlock");
+    let createNewSearch = document.getElementById("createNewSearch");
+    let saveCookieButton = document.getElementById("saveCookie");
 
     //Add color picker 
     let colorPicker = document.createElement("input"); 
@@ -9,34 +12,43 @@ function createBlock(){
     colorPicker.name = "color";
     colorPicker.className = "colorPicker";
 
-    //Replace createBlock button with color picker
-    createBlock.parentNode.insertBefore(colorPicker, createBlock); 
-    createBlock.remove();
+    //Replace createNewSearch button with color picker
+    createNewSearch.parentNode.insertBefore(colorPicker, createNewSearch); 
+    createNewSearch.remove();
 
-    //When choosing color, color picker will create the actual search block and recreate the "createBlock" button
+    //When choosing color, color picker will create the actual search block and recreate the "createNewSearch" button
     colorPicker.onchange = function(){ 
 
-        //Add the search block
-        newSearchBlock = document.createElement("div");
-        newSearchBlock.id = "searchBlock" + searchBlockNo;
-        lastSearchBlock = searchBlocks[searchBlockNo]; 
-        lastSearchBlock.parentNode.insertBefore(newSearchBlock, lastSearchBlock.nextSibling); 
-
-        //Add to our array
-        searchBlockNo += 1;
-        searchBlocks.push(newSearchBlock);
-
-        //Add the collor
-        newSearchBlock.style.backgroundColor = colorPicker.value;
-
-        //Add the "createBlock" button back
-        let button = createBlock.cloneNode(true); 
-        selectGenerator.parentNode.insertBefore(button, selectGenerator.nextSibling);
+        //Creates new search block
+        createSearchBlock(colorPicker.value);
 
         //Remove color picker
         colorPicker.remove(); 
+
+        //Add the "createNewSearch" button back
+        let button = createNewSearch.cloneNode(true); 
+        saveCookieButton.parentNode.insertBefore(button, saveCookieButton);
     }
 }  
+
+
+//Creates new search block
+function createSearchBlock(color)
+{
+    //Add the search block
+    newSearchBlock = document.createElement("div");
+    newSearchBlock.id = "searchBlock" + searchBlockNo;
+    lastSearchBlock = searchBlocks[searchBlockNo]; 
+    lastSearchBlock.parentNode.insertBefore(newSearchBlock, lastSearchBlock.nextSibling); 
+
+    //Add to our array
+    searchBlockNo += 1;
+    searchBlocks.push(newSearchBlock);
+
+    //Add the collor
+    newSearchBlock.style.backgroundColor = color;
+    colorArray.push(color);
+}
 
 
 //Used when submit button is pressed
@@ -122,7 +134,7 @@ async function queryToPoints(queryString, color){
 
 
 //Get data from db
-function getReq(queryString) {
+async function getReq(queryString) {
     return new Promise((resolve, reject) => {
         try {
             fetch("http://127.0.0.1:8128/home?" + queryString, {
@@ -139,4 +151,100 @@ function getReq(queryString) {
             reject(error);
         }
     });
-} 
+}
+
+
+function saveData(){
+    //Delete last data
+    localStorage.clear();
+
+    //Prepare variables
+    let inputNames = [];
+    let inputValues = [];
+    let nameOfBlock = [];  
+
+    //Go through all searchblocks
+    for (var j = 0; j < searchBlocks.length; j++){
+        //Go through all searchblock nodes
+        children = searchBlocks[j].childNodes; 
+        for (var i = 0; i < children.length; i++){
+            //Get only inputs
+            if (children[i].name !== undefined && children[i].name != "")
+            {
+                inputNames.push(children[i].name);
+                inputValues.push(children[i].value);   
+                nameOfBlock.push(searchBlocks[j].id.toString());
+            }
+        } 
+    }
+
+    //Save everything on localStorage
+    if (typeof(Storage) !== "undefined") {
+        localStorage.setItem("inputNames", inputNames);
+        localStorage.setItem("inputValues", inputValues); 
+        localStorage.setItem("nameOfBlock", nameOfBlock); 
+        localStorage.setItem("colorArray", colorArray);
+    } 
+    else{ 
+        alert("Browser does not support localStorage") 
+    }
+}
+
+
+function loadData(){
+    if (typeof(Storage) !== "undefined"){
+        destroyAllBlocks();
+
+        //Load everything from localStorage
+        const inputNames = localStorage.getItem("inputNames").split(',');
+        const inputValues = localStorage.getItem("inputValues").split(',');
+        const nameOfBlock = localStorage.getItem("nameOfBlock").split(',');  
+        const colArr = localStorage.getItem("colorArray").split(',');  
+        colIndex = 0; 
+         
+        //Recreate each element
+        for (var i = 0; i < nameOfBlock.length; i++){   
+            //Find current searchBlock
+            let searchBlock = document.getElementById(nameOfBlock[i]);
+
+            //Add a new searchBlock if it doesn not exist
+            if (searchBlock == null){
+                createSearchBlock(colArr[colIndex++]);
+                searchBlock = document.getElementById(nameOfBlock[i]); 
+            }
+
+            //Add the inputs
+            addSelect.value = inputNames[i];
+            const func = nameToFunc[addSelect.value];
+            var select = func();
+            select.value = inputValues[i];
+        }   
+
+        //Reset selectGenerator
+        addSelect.value = '0';
+    }
+    else{
+        alert("Browser does not support localStorage") 
+    }
+}
+
+
+function destroyAllBlocks()
+{
+    //Remove all
+    for (var i = 0; i <= searchBlockNo; i++){   
+        searchBlocks[i].remove();
+    }
+
+    //Create searchblock start
+    let searchBlockStart = document.createElement("div");
+    searchBlockStart.id = "searchBlockStart";
+    
+    //Add child to form
+    const form = document.getElementById('form');
+    form.appendChild(searchBlockStart);
+
+    //Reset array
+    searchBlocks = [searchBlockStart];
+    searchBlockNo = 0;
+}

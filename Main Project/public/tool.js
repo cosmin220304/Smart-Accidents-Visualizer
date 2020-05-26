@@ -1,7 +1,7 @@
-// let searchBlock0 = document.getElementById('searchBlock0');
 let searchBlocks = [document.getElementById('searchBlockStart')]
 let searchBlockNo = 0;
 let selectGenerator = document.getElementById('addSelect'); 
+
 const selectMap = { 
   "Source" : ['MapQuest', 'Bing'],
   "Severity" : ['1', '2', '3', '4'],
@@ -10,11 +10,13 @@ const selectMap = {
   "Country" : ["US"],
   "Timezone" : ["US/Pacific", "US/Mountain", "US/Central", "US/Easter"]
 }
+
 const dateMap = {
   "Start_Time" : ["2015-03-09", "2020-01-01"],
   "End_Time" : ["2016-02-08", "2020-11-01"],
   "Weather_Timestamp" : ["2016-02-08", "2020-01-01"]
 }
+
 const sliderMap = {
   "Temperature(F)" : ["-78" , "167"],
   "Wind_Chill(F)" : ["-54", "115"],
@@ -25,6 +27,7 @@ const sliderMap = {
   "Precipitation(in)" : ["0", "25"],
   "TMC" : ["200", "406"]
 }
+
 const nameToFunc = { 
   "Source" : newSelect, 
   "Severity" : newSelect,
@@ -75,7 +78,7 @@ function IntializeSelectGenerator(){
 }
 
 
-//Collomn name + remove button to select
+//Adds collomn name + remove button to select
 function addTextToElement(element, text){
   let span = document.createElement("span");
   let button = document.createElement("button"); 
@@ -127,6 +130,8 @@ function newSelect(){
 
   //Add data around this input
   addTextToElement(select, select.name);
+
+  return select;
 }
 
 
@@ -146,6 +151,8 @@ function newDate(){
 
   //Add data around this input
   addTextToElement(date, date.name);
+
+  return date;
 }
 
 //Creates a new html checkbox 
@@ -160,8 +167,11 @@ function newCheckbox(){
 
   //Add data around this input
   addTextToElement(checkBox, checkBox.name);
+
+  return checkBox;
 }
 
+//Creates a new html slider 
 function newSlider(){
   //Creating slider
   let slider = document.createElement("input");
@@ -184,13 +194,15 @@ function newSlider(){
 
   //Add data around this input
   addTextToElement(slider, slider.name);
+
+  return slider;
 }
 
 // Event listeners 
 selectGenerator.addEventListener('change', function() {
-  console.log(addSelect.value)
+  console.log("found something")
   const func = nameToFunc[addSelect.value];
-  func()
+  func();
   addSelect.value='0';
 });  
 
