@@ -32,7 +32,7 @@ body {
 }
 
 button {
-    display: block;
+    /* display: block; */
     height: 3em;
     width: 3em;
     color: #fff;
@@ -81,7 +81,7 @@ button {
     }
 }
 
-#mouseTest { 
+#popup { 
     position: absolute;
     bottom : 0;
     right: 0;
@@ -91,4 +91,9 @@ button {
     font-size: 1em; 
     white-space: pre-line;
     overflow:hidden;
+}
+
+#SearchArea {
+    color: orange;
+    display: inline;
 }

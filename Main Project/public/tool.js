@@ -106,7 +106,10 @@ function addTextToElement(element, text){
   element.parentNode.insertBefore(button, element.nextSibling);
 
   //Break line
-  element.parentNode.insertBefore(br, button.nextSibling);
+  if (sliderText === undefined)
+    element.parentNode.insertBefore(br, button.nextSibling);
+  else 
+    element.parentNode.insertBefore(br, sliderText.nextSibling);
 } 
 
 

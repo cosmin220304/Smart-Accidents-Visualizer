@@ -193,6 +193,8 @@ function saveData(){
 
 function loadData(){
     if (typeof(Storage) !== "undefined"){
+
+        //Destroy everything
         destroyAllBlocks();
 
         //Load everything from localStorage

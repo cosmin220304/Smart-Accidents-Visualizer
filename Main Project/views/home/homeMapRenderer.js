@@ -1,5 +1,6 @@
 //Contains ol.map
 var map;
+var cluster;
 
 //Start variables for map
 var startPosX = 260;
@@ -63,14 +64,17 @@ function addPointsToMap(coordonates, desc, color) {
   coordArray = coordonates;
   descArray = desc;
 
+  //Save cluster for later use
+  cluster = new ol.source.Cluster({
+    distance: 20,
+    source: new ol.source.Vector({
+      features: points
+    })
+  })
+
   //Add points to layer
   var points = new ol.layer.Vector({
-    source: new ol.source.Cluster({
-      distance: 20,
-      source: new ol.source.Vector({
-        features: points
-      })
-    }),
+    source: cluster,
     style: (feature) => {return stylePoints(feature, color)},
     name: "points"
   }); 
@@ -169,7 +173,7 @@ moving();
 
 
 // Popup showing the position the user clicked
-var popup = document.getElementById('mouseTest');
+var popup = document.getElementById('popup');
 var overlay = new ol.Overlay({
   element: popup,
   stopEvent : false
@@ -225,4 +229,10 @@ map.on('pointermove', (event) => {
   else {
     overlay.setPosition(undefined);
   }
+});
+
+
+const clusterNumber = document.getElementById('clusterNumber');
+clusterNumber.addEventListener('input', function() {
+  cluster.setDistance(parseInt(clusterNumber.value, 10));
 });
