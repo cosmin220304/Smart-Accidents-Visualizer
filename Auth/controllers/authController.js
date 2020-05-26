@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken")
 const DB = require('../models/model')
 const key = require("../values.js")
+
 async function postHandler(request, response){  
     //Used for getting the request data
     let reqBody = '';
