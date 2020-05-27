@@ -38,17 +38,24 @@ async function postHandler(request, response){
 
 
 async function getHandler(request, response){  
-    const token = request.headers.authorization.split(' ')[1];
-    try {
-        var verif = jwt.verify(token, key.secretKey)
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-        response.write(JSON.stringify({ "Response" : "Auth successful" }))
-        response.end()
-    } catch (e) {
-        console.log(e)
-        response.writeHead(403, 'aplication/json')
-        response.write(JSON.stringify({ "Response" : "Failed to auth" }))
-        response.end()  
+    let token = request.headers.authorization
+    if (token == undefined){
+        response.writeHead(401, { 'Content-Type': 'application/json' });
+        response.end(JSON.stringify({ "Response": "No token found" }))
+    }
+    else{
+        token = token.split(' ')[1];
+        try {
+            var verif = jwt.verify(token, key.secretKey)
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.write(JSON.stringify({ "Response" : "Auth successful" }))
+            response.end()
+        } catch (e) {
+            console.log(e)
+            response.writeHead(403, 'aplication/json')
+            response.write(JSON.stringify({ "Response" : "Failed to auth" }))
+            response.end()  
+        }
     }
 }
 
