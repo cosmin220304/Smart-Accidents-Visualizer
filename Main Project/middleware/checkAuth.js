@@ -1,14 +1,22 @@
 const jwt = require('jsonwebtoken');
+const key = require("./values.js")
+const publicController = require("../controllers/publicController")
 
-module.exports = (req, res, next) => {
-    const JWT_TOKEN = 'YOUR secret';
+async function verify (request, response) {
     try {
-        const userData = jwt.verify(req.body.token, JWT_TOKEN);
-        req.userData = userData;
-        next();
-    } catch (e) {
-        return res.status(401).json({
-            message: 'AUTH FAILED'
-        })
+        const token = request.headers.authorization.split(' ')[1];
+        jwt.verify(token, key.secretKey)
+        if(request.method == 'POST')
+        {
+            publicController.postHandler(request,response)
+        }
+    }
+    catch (e){
+        console.log(e)
+        response.writeHead(403, 'aplication/json')
+        response.write(JSON.stringify({ "Response" : "Failed to auth" }))
+        response.end()  
     }
 }
+
+module.exports.verify = verify;

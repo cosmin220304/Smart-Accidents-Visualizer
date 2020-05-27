@@ -2,7 +2,7 @@ const http = require('http');
 const model = require('./models/model')
 const authController = require("./controllers/authController")
 
-port = 8128;      
+port = 8000;      
 
 //Start the model
 model.start();
