@@ -4,7 +4,7 @@ var colorArray = []
 function createNewSearch(){
     //Get this element
     let createNewSearch = document.getElementById("createNewSearch");
-    let saveCookieButton = document.getElementById("saveCookie");
+    let saveData = document.getElementById("saveData");
 
     //Add color picker 
     let colorPicker = document.createElement("input"); 
@@ -27,7 +27,7 @@ function createNewSearch(){
 
         //Add the "createNewSearch" button back
         let button = createNewSearch.cloneNode(true); 
-        saveCookieButton.parentNode.insertBefore(button, saveCookieButton);
+        saveData.parentNode.insertBefore(button, saveData);
     }
 }  
 
@@ -110,25 +110,33 @@ async function queryToPoints(queryString, color){
     removeAllPoints();
     //todo add loading
 
-    //Get json from server
-    var json = await getReq(queryString); 
-    var coordonatesObject = Object.values(json);   
+    //Make requests in wave
+    let offset = 0;
+    let limit = 1000;
+    while(true){
+        //Get json from server
+        var json = await getReq(queryString+"&Limit="+limit+"&Offset="+offset);  
+        var coordonatesObject = Object.values(json);   
+        console.log("got data from server");
 
-    console.log("got data from server");
+        offset += limit;
+        if (json.length == 0)
+            break
 
-    //Transform object into array of coordonates
-    var coordonatesArray = [];
-    var descriptionArray = [];
-    for (var i = 0; i< coordonatesObject.length; i++){
-        var lat = coordonatesObject[i].Start_Lat;
-        var long = coordonatesObject[i].Start_Lng;  
-        var desc = coordonatesObject[i].Description;
-        descriptionArray.push(desc);
-        coordonatesArray.push([long, lat]);
-    } 
+        //Transform object into array of coordonates
+        var coordonatesArray = [];
+        var descriptionArray = [];
+        for (var i = 0; i< coordonatesObject.length; i++){
+            var lat = coordonatesObject[i].Start_Lat;
+            var long = coordonatesObject[i].Start_Lng;  
+            var desc = coordonatesObject[i].Description;
+            descriptionArray.push(desc);
+            coordonatesArray.push([long, lat]);
+        } 
 
-    //Add coordonates to map 
-    addPointsToMap(coordonatesArray, descriptionArray, color);  
+        //Add coordonates to map 
+        addPointsToMap(coordonatesArray, descriptionArray, color);  
+    }
     console.log("done last block");
 }
 

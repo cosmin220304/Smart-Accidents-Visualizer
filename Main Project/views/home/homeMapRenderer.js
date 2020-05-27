@@ -1,6 +1,6 @@
 //Contains map and points
 let map;
-let cluster;
+let clusterArray = [];
 const clusterNumber = document.getElementById('clusterNumber');
 let textColorArray = []; //Color for each cluster
 let clusterNo = 0;
@@ -53,12 +53,13 @@ function addPointsToMap(coordonates, desc, color) {
   descArray = desc;
 
   //Save cluster for later use
-  cluster = new ol.source.Cluster({
+  var cluster = new ol.source.Cluster({
     distance: parseInt(clusterNumber.value),
     source: new ol.source.Vector({
       features: points
     })
   })
+  clusterArray.push(cluster)
 
   //Add points to layer
   var points = new ol.layer.Vector({
@@ -229,7 +230,8 @@ map.on('pointermove', (event) => {
 
 //Cluster points
 clusterNumber.addEventListener('input', function() {
-  cluster.setDistance(parseInt(clusterNumber.value, 10));
+  for (var i = 0; i < clusterNo; i++)
+    clusterArray[i].setDistance(parseInt(clusterNumber.value, 10));
 });
 
 
