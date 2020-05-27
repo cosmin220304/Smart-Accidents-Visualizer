@@ -133,6 +133,12 @@ async function queryToPoints(queryString, color){
 }
 
 
+//Initializes the map with some random points
+function addRandomPoints() {
+    queryToPoints("State=NE&Severity=1", "rgb(0, 0, 0)");
+} 
+addRandomPoints();
+
 //Get data from db
 async function getReq(queryString) {
     return new Promise((resolve, reject) => {

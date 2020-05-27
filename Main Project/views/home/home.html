@@ -20,10 +20,11 @@
   <div id="mainWrapper">  
     <!-- Search area where you can manipulate data -->
     <div id="SearchArea">
-      <input   id="clusterNumber"   type="range" min="0" max="50" value="30">
+      <input   id="clusterNumber"   type="range" min="0" max="50" value="30" step="0.1">
       <button  id="createNewSearch" onclick="createNewSearch()"> New </button>
-      <button  id="saveCookie"      onclick="saveData()"> save </button>
-      <button  id="saveCookie"      onclick="loadData()"> load </button>
+      <button  id="saveData"        onclick="saveData()"> save </button>
+      <button  id="loadData"        onclick="loadData()"> load </button>
+      <button  id="hideText"        onclick="OnOffText()"> Hide </button>
       {tool}
     </div>
      

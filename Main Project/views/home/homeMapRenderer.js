@@ -1,24 +1,29 @@
 //Contains map and points
-var map;
-var cluster;
+let map;
+let cluster;
+const clusterNumber = document.getElementById('clusterNumber');
+let textColorArray = []; //Color for each cluster
+let clusterNo = 0;
 
 //Start variables for map
-var startPosX = 260;
-var startPosY = 38;
-var startZoom = 3;
+let startPosX = 260;
+let startPosY = 38;
+let startZoom = 3;
 
 //Used for projection
-var mercatorProjection = `EPSG:3857`;
-var worldGeodeticSystem = `EPSG:4326`; //datum featuring coordinates that change with time.
+const mercatorProjection = `EPSG:3857`;
+const worldGeodeticSystem = `EPSG:4326`; //datum featuring coordinates that change with time.
 
 //Used for moving buttons
-var isMoving = false;
-var direction;  
+let isMoving = false;
+let direction;  
 
 //Used for popup when hovering over point 
-var coordArray = [];
-var descArray = [];
+let coordArray = [];
+let descArray = [];
 
+
+//Creates the map at the id="map" element
 function renderMap() {
   map = new ol.Map({
     target: 'map',
@@ -30,31 +35,14 @@ function renderMap() {
     interactions: ol.interaction.defaults({ attribution: false, rotate: false }).extend([new ol.interaction.DragAndDrop()]),
   }); 
 }
-
-
-function addRandomPoints() {
-  var colors = ['#6fe203', '#d7e203', '#e29f03', '#e22903']; 
-  var arr = []
-  var randomDesc = []
-  for (var i = 1; i <= 30; i++) {
-    var R = Math.random() * 10;
-    var posX = startPosX + R;
-    R = Math.random() * 10;
-    var posY = startPosY + R;
-    var coord = [posX, posY];
-    arr.push(coord);
-    randomDesc.push("Random Description No." + i);
-  }
-  R = Math.floor(Math.random() * 4);
-  var color = colors[R]; 
-  addPointsToMap(arr, randomDesc, color);
-} 
+renderMap(); 
 
 
 function addPointsToMap(coordonates, desc, color) {  
 
   //Create openlayers features
   size = Object.keys(coordonates).length; 
+  textColorArray.push(color)
   var points = new Array(size);  
   for (var i = 0; i < size; ++i) { 
     points[i] = new ol.Feature(new ol.geom.Point(coordonates[i]).transform(worldGeodeticSystem, mercatorProjection)); 
@@ -66,7 +54,7 @@ function addPointsToMap(coordonates, desc, color) {
 
   //Save cluster for later use
   cluster = new ol.source.Cluster({
-    distance: 20,
+    distance: parseInt(clusterNumber.value),
     source: new ol.source.Vector({
       features: points
     })
@@ -75,9 +63,11 @@ function addPointsToMap(coordonates, desc, color) {
   //Add points to layer
   var points = new ol.layer.Vector({
     source: cluster,
-    style: (feature) => {return stylePoints(feature, color)},
-    name: "points"
+    style: (feature) => {return stylePoints(feature, color, true)},
+    id: "points" + clusterNo,
+    class: "points"
   }); 
+  clusterNo++;
 
   //Add layer to map
   map.addLayer(points);
@@ -85,15 +75,16 @@ function addPointsToMap(coordonates, desc, color) {
 
 
 //Used to add color to points + also cluster them
-function stylePoints(feature, color){
+function stylePoints(feature, color, hasText){
   //Get no of points
   var points_no = feature.get('features').length;
 
   //Limit size of point
-  var radius = points_no * 3 + 2;
-  const max = 16;
-  if (radius > max)
-    radius = max;  
+  // var radius = points_no * 3 + 2;
+  // const max = 16;
+  // if (radius > max)
+  //   radius = max;  
+  var radius = Math.log(points_no) + 5;
 
   //Write cluster number over that point
   let textColor = 'black'; 
@@ -101,7 +92,7 @@ function stylePoints(feature, color){
     textColor = 'white';
   
   var textInside = points_no.toString();
-  if (points_no == 1)
+  if (hasText == false)
     textInside = "";
 
   var text = new ol.style.Text({
@@ -122,12 +113,14 @@ function stylePoints(feature, color){
   });
 }
 
-
+//Removes all points from map
 function removeAllPoints() {
-  map.getLayers().getArray().filter(layer => layer.get('name') === 'points').forEach(layer => map.removeLayer(layer));
+  textColorArray = [];
+  clusterNo = 0;
+  map.getLayers().getArray().filter(layer => layer.get('class') === 'points').forEach(layer => map.removeLayer(layer));
 }
 
-
+//Moves map to position startPosX, startPosY
 function updateMapView() {
   map.getView().setCenter(ol.proj.transform([startPosX, startPosY], worldGeodeticSystem, mercatorProjection)); 
 }
@@ -168,11 +161,6 @@ async function moving() {
     await sleep(10);
   } while(1);
 }
-
-
-//Intialization funcitons
-renderMap();
-addRandomPoints();
 moving();
 
 
@@ -185,7 +173,10 @@ var overlay = new ol.Overlay({
 map.addOverlay(overlay);
 
 
-//Event listeners
+///Event listeners
+
+
+//Popup over points
 map.on('pointermove', (event) => {
   //Get feature at mouse pos
   var point = map.forEachFeatureAtPixel(event.pixel, (feature) => { return feature;});
@@ -236,7 +227,41 @@ map.on('pointermove', (event) => {
 });
 
 
-const clusterNumber = document.getElementById('clusterNumber');
+//Cluster points
 clusterNumber.addEventListener('input', function() {
   cluster.setDistance(parseInt(clusterNumber.value, 10));
 });
+
+
+//Used to enable/disable text on points
+let styleRember = [];
+let state = true;
+
+function OnOffText(){
+  //Hide text
+  if (state){ 
+    styleRember = new Array(clusterNo);
+    for (var i = 0; i < clusterNo; i++){
+      map.getLayers().getArray().filter(layer => layer.get('id') === 'points'+i).forEach(
+        layer => {
+          //Remember the text + color for that cluster of points
+          styleRember[i] = layer.getStyle();    
+          layer.setStyle((feature) => {return stylePoints(feature, textColorArray[i], false)});
+        }
+      );
+    }
+    state = false;
+  }
+
+  //Show text
+  else{ 
+    for (var i = 0; i < clusterNo; i++){
+      map.getLayers().getArray().filter(layer => layer.get('id') === 'points'+i).forEach(
+        layer => {
+          layer.setStyle(styleRember[i]);
+        }
+      );
+    }
+    state = true;
+  } 
+}
