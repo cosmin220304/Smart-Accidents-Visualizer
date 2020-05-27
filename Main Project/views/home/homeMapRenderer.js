@@ -246,7 +246,10 @@ function OnOffText(){
         layer => {
           //Remember the text + color for that cluster of points
           styleRember[i] = layer.getStyle();    
-          layer.setStyle((feature) => {return stylePoints(feature, textColorArray[i], false)});
+
+          //Change style of points
+          var j = clusterNo - i;
+          layer.setStyle((feature) => {return stylePoints(feature, textColorArray[j], false)});
         }
       );
     }
