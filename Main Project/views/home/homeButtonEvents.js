@@ -243,8 +243,8 @@ function destroyAllBlocks()
     searchBlockStart.id = "searchBlockStart";
     
     //Add child to form
-    const form = document.getElementById('form');
-    form.appendChild(searchBlockStart);
+    const submit = document.getElementById('submit');
+    submit.parentNode.insertBefore(searchBlockStart, submit);
 
     //Reset array
     searchBlocks = [searchBlockStart];

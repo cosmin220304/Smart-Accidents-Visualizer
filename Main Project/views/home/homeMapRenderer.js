@@ -1,4 +1,4 @@
-//Contains ol.map
+//Contains map and points
 var map;
 var cluster;
 
@@ -99,9 +99,13 @@ function stylePoints(feature, color){
   let textColor = 'black'; 
   if (color == "rgb(0, 0, 0)")
     textColor = 'white';
+  
+  var textInside = points_no.toString();
+  if (points_no == 1)
+    textInside = "";
 
   var text = new ol.style.Text({
-    text: points_no.toString(),
+    text: textInside,
     fill: new ol.style.Fill({color: textColor})
   })
 
