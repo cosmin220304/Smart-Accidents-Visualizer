@@ -2,14 +2,11 @@ const jwt = require('jsonwebtoken');
 const key = require("./values.js")
 const publicController = require("../controllers/publicController")
 
-async function verify (request, response) {
+async function verify (request, response, next) {
     try {
         const token = request.headers.authorization.split(' ')[1];
         jwt.verify(token, key.secretKey)
-        if(request.method == 'POST')
-        {
-            publicController.postHandler(request,response)
-        }
+        next(request, response)
     }
     catch (e){
         console.log(e)
