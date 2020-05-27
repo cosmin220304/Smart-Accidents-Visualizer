@@ -49,6 +49,8 @@ const endPointsMap = {
     '/pieChart' : '/pieChart.html'
 }
 
+const acceptedSecuredRequests =  ["POST", "PATCH", "PUT", "DELETE"];
+
 //Start the server
 http.createServer(function (request, response) {
     //See request
@@ -71,18 +73,10 @@ http.createServer(function (request, response) {
             response.end("404 not found")
         }
     }
-    else if (request.method == "POST")
+    else if (acceptedSecuredRequests.includes(request.method))
     {
         publicRoutes.route(request, response)
-    }
-    else if (request.method == "PATCH")
-    {
-        deleteThisLater(request, response)
-    }
-    else if (request.method == "DELETE")
-    {
-        deleteThisLater(request, response)
-    }
+    } 
     else {
         response.writeHead(404, {'Content-Type' : 'text/html'})
         response.end("unrecognized method")

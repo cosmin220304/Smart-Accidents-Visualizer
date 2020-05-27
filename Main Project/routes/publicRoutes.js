@@ -14,6 +14,14 @@ async function route(request, response){
     else if (request.method == "POST"){ 
         checkAuth.verify(request, response,  publicController.postHandler)
     }
+    
+    else if (request.method == "PUT"){
+        checkAuth.verify(request, response,  publicController.putHandler)
+    }
+
+    else if (request.method == "PATCH"){
+        checkAuth.verify(request, response,  publicController.patchHandler)
+    }
 }    
 
 module.exports.route = route;

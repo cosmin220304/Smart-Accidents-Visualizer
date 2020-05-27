@@ -58,7 +58,8 @@ var mySchema = new Schema({
 }); 
 const MyModel = mongoose.model("data", mySchema, "data");
 
-async function start(){
+async function start ()
+{
     mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true})
     .then(() => console.log('Connected to DB!'))
     .catch(err => console.log('DB conn error:' + err)); 
@@ -95,17 +96,55 @@ function count (body)
     })
 } 
 
+
 function save(obj)
 {
-   var abc = new MyModel(obj);
-   abc.save(function (err, book) {
-    if (err) return console.error(err);
-    console.log(book.name + " saved collection");
+   var newModel = new MyModel(obj);
+   newModel.save(function (err, element) {
+    if (err) console.log(err);
+    console.log("object saved in collection");
   });
 }
 
-module.exports = mongoose.model("data", mySchema);
-module.exports.save = save;
-module.exports.start = start;
-module.exports.findCoordonates = findCoordonates;
-module.exports.count = count;
+
+function update(ID, obj, upsertOk)
+{
+    return new Promise((resolve, reject) => {
+        try {
+            MyModel.updateOne(
+                {"ID" : ID}, 
+                { $set: obj }, 
+                { upsert: upsertOk },
+
+                (err, result, upserted) => {
+                    let new_obj = {}
+                    let name = ""
+
+                    if (err) {
+                        console.log(err)
+                        new_obj["Response"] = "Something went wrong"
+                    }
+                    else if (upserted){
+                        new_obj["Response"] = "Object created with Success!"
+                        name = "New Data"
+                    }
+                    else {
+                        new_obj["Response"] = "Object updated with Success!"
+                        name = "Updated Data"
+                    }
+                    new_obj[name] = result
+                    resolve(new_obj)
+                }
+            );
+        }
+        catch (error){
+            reject(error)
+        }
+    })
+}
+
+module.exports.save = save
+module.exports.start = start
+module.exports.count = count
+module.exports.update = update
+module.exports.findCoordonates = findCoordonates
