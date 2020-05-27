@@ -22,6 +22,9 @@ async function getHandlerWithQuery(request, response, resource, queryString){
 
     //Transform query string into variable
     let json = qs.parse(queryString)
+    let modelResult
+    let offset = 0
+    let limit = 0
 
 /*  OBSOLETE/SCRAPED IDEA    */
     // //Check if user only want to save the current html page
@@ -34,9 +37,22 @@ async function getHandlerWithQuery(request, response, resource, queryString){
     //     })
     //     response.end("Cookie saved!")
     //}
-    
+
+    //Check if any specification was sent through query
+    if (json["Limit"] )
+    {
+        limit = parseInt(json["Limit"])
+        delete json.Limit
+    }
+    if (json["Offset"]){ 
+        offset = parseInt(json["Offset"])
+        delete json.Offset 
+    }
+
     //Use query to search throw model 
-    const modelResult = await homeModel.findCoordonates(json) 
+    modelResult = await homeModel.findCoordonates(json, offset, limit) 
+    
+    //Send back data
     response.writeHead(200, { 'Content-Type': 'application/json' })
     response.end(JSON.stringify(modelResult))
 }  
