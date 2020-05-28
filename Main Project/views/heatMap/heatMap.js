@@ -144,9 +144,6 @@ function drawRegionsMap(statesValueArr) {
 
   document.getElementById("downloadCSV").onclick = function () {
     var csvFormattedDataTable = google.visualization.dataTableToCsv(google.visualization.arrayToDataTable(data));
-    console.log("Data:")
-    console.log(csvFormattedDataTable)
-
     var encodedUri = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csvFormattedDataTable);
     this.href = encodedUri;
     this.download = 'table-data.csv';
@@ -170,30 +167,14 @@ function drawRegionsMap(statesValueArr) {
 }
 
 function showDocument(_base64Url) {
-  var win = window.open();
-  win.document.write("<iframe src=" + _base64Url + " width = 100% height = 100%> <\/iframe>");
-  win.top.location.href = _base64Url
-}
-
-function downloadJPG() {
   var downBtn = document.getElementById('download')
-  showDocument(chart.getImageURI());
-}
-
-function downloadCSV() {
-  var downBtn = document.getElementById('downloadCSV')
-  var csvFormattedDataTable = google.visualization.dataTableToCsv(statesValueArr);
-  var encodedUri = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csvFormattedDataTable);
+  var encodedUri = chart.getImageURI();
+  console.log(encodedUri)
   downBtn.href = encodedUri;
-  downBtn.download = 'table-data.csv';
+  downBtn.download = 'img';
   downBtn.target = '_blank';
 }
 
-function debugBase64(base64URL) {
-  var canvas = document.getElementById("geochart");
-  var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); //Convert image to 'octet-stream' (Just a download, really)
-  var link = document.createElement('a');
-  link.download = 'download.jpg';
-  link.href = image;
-  link.click();
+function downloadJPG() {
+  showDocument(chart.getImageURI());
 }
