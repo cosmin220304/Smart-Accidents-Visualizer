@@ -1,4 +1,4 @@
-var colorArray = []
+var colorArray = ["#000000"];
 
 // Appends a new searchBlock to the last searchBlock
 function createNewSearch(){
@@ -53,6 +53,17 @@ function createSearchBlock(color)
 
 //Used when submit button is pressed
 function makeSearch() { 
+    //Refresh the points on map
+    removeAllPoints();
+
+    //Does the actual queryString constructing, sending it to server and adding points to map
+    makeSearchHandler()
+
+    //Stop form from changing url
+    return false;
+}  
+
+async function makeSearchHandler(){
     //We make a different search for every searchBlock   
     for (var index = 0; index <= searchBlockNo; index++)
     {  
@@ -98,16 +109,15 @@ function makeSearch() {
 
         //Print the result locally + send it to server
         console.log("For block number " + index + " we have: " + queryString);
-        queryToPoints(queryString, color);
-    }
 
-    return false;
-}  
+        await queryToPoints(queryString, color);
+
+        console.log("Block number " + index + " finised!");
+    }
+}
 
 
 async function queryToPoints(queryString, color){
-    //Refresh the points on map
-    removeAllPoints();
     //todo add loading
 
     //Make requests in wave
@@ -136,8 +146,7 @@ async function queryToPoints(queryString, color){
 
         //Add coordonates to map 
         addPointsToMap(coordonatesArray, descriptionArray, color);  
-    }
-    console.log("done last block");
+    } 
 }
 
 
@@ -175,8 +184,8 @@ function saveData(){
     //Prepare variables
     let inputNames = [];
     let inputValues = [];
-    let nameOfBlock = [];  
-
+    let nameOfBlock = [];   
+    
     //Go through all searchblocks
     for (var j = 0; j < searchBlocks.length; j++){
         //Go through all searchblock nodes
@@ -215,9 +224,8 @@ function loadData(){
         const inputNames = localStorage.getItem("inputNames").split(',');
         const inputValues = localStorage.getItem("inputValues").split(',');
         const nameOfBlock = localStorage.getItem("nameOfBlock").split(',');  
-        const colArr = localStorage.getItem("colorArray").split(',');  
-        colIndex = 0; 
-         
+        const colArr = localStorage.getItem("colorArray").split(',');
+        
         //Recreate each element
         for (var i = 0; i < nameOfBlock.length; i++){   
             //Find current searchBlock
@@ -225,7 +233,7 @@ function loadData(){
 
             //Add a new searchBlock if it doesn not exist
             if (searchBlock == null){
-                createSearchBlock(colArr[colIndex++]);
+                createSearchBlock(colArr[i]);
                 searchBlock = document.getElementById(nameOfBlock[i]); 
             }
 
@@ -263,4 +271,71 @@ function destroyAllBlocks()
     //Reset array
     searchBlocks = [searchBlockStart];
     searchBlockNo = 0;
+    colorArray = ["#000000"];
+}
+
+//DOWNLOAD BUTTONS
+let downloadPNG = document.getElementById('downloadPNG');
+downloadPNG.addEventListener('click', function() {
+    //Get the map synced
+    map.renderSync();
+
+    //Create canvas
+    let canvas = document.createElement('canvas');
+
+    //Get drawing context of the canvas
+    let context = canvas.getContext('2d');
+        
+/*  Simplified CODE FROM OPENLAYERS DOCUMENTAION https://openlayers.org/en/latest/examples/export-pdf.html?q=export    */
+    canvas.width = map.getSize()[0];
+    canvas.height = map.getSize()[1]; 
+    Array.prototype.forEach.call(document.querySelectorAll('.ol-layer canvas'), function(canvas) {
+        context.drawImage(canvas, 0, 0); 
+    });
+/*  Simplified CODE FROM OPENLAYERS DOCUMENTAION https://openlayers.org/en/latest/examples/export-pdf.html?q=export    */ 
+    
+    downloadPNG.href = canvas.toDataURL();
+});
+ 
+let downloadCSV = document.getElementById('downloadCSV');
+downloadCSV.addEventListener('click', function() { 
+    var content = 'longitude,latitude,description\n';
+    for (var i = 0; i < coordArray.length; i++) {
+        content += coordArray[i][0]+','+coordArray[i][1]+','+descArray[i]+'\n';
+    }
+    var csvFile = new Blob([content], { type: 'text/csv;charset=utf-8;'});
+    downloadCSV.href = URL.createObjectURL(csvFile); 
+});
+ 
+let downloadSVG = document.getElementById('downloadSVG');
+downloadSVG.addEventListener('click', async function() {  
+    let svgText = await getUsaSvg();
+    let points = "";
+    for (var i = 0; i < coordArray.length; i++) {
+        let x = -6 * coordArray[i][0] + 8;
+        let y = 6 * coordArray[i][1] - 15;
+        points += '<circle cx="'+x+'" cy="'+y+'" r="4" stroke="black" stroke-width="1" fill="red" />\n' 
+    }
+    svgText = await svgText.replace(/^(.*){points}(.*)/gm, points);
+    var svgFile = new Blob([svgText], { type: 'text/csv;charset=utf-8;'});
+    downloadSVG.href = URL.createObjectURL(svgFile); 
+});
+
+function getUsaSvg(){
+    return new Promise((resolve, reject) => {
+        try {
+            fetch("http://127.0.0.1:8128/usaSVG.txt", {
+            method: 'GET',
+            headers: {
+                'Accept': 'text/plain, */*',
+                'Content-type': 'text/plain'
+            }, 
+            })
+            .then((res) => res.text())
+            .then((data) => resolve(data)) 
+        }
+        catch (error){
+            reject(error);
+        }
+    });
 }

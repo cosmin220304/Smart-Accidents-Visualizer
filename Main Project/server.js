@@ -40,6 +40,7 @@ const routesMap = {
     '/topNav.css' : publicRoutes,
     '/footer.html' : publicRoutes,
     '/footer.css': publicRoutes,
+    '/usaSVG.txt': publicRoutes
 }
 
 const endPointsMap = {

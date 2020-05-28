@@ -20,10 +20,10 @@
   <div id="mainWrapper">  
     <!-- Search area where you can manipulate data -->
     <div id="SearchArea">
-      <input   id="clusterNumber"   type="range" min="0" max="50" value="30" step="0.1">
+      <input   id="clusterNumber"   type="range" min="0" max="100" value="30" step="0.1">
       <button  id="createNewSearch" onclick="createNewSearch()"> New </button>
-      <button  id="saveData"        onclick="saveData()"> save </button>
-      <button  id="loadData"        onclick="loadData()"> load </button>
+      <button  id="saveData"        onclick="saveData()"> Save </button>
+      <button  id="loadData"        onclick="loadData()"> Load </button>
       <button  id="hideText"        onclick="OnOffText()"> Hide </button>
       {tool}
     </div>
@@ -47,6 +47,9 @@
   
       <!-- Lower button -->
       <button class="button arrowsUD" onmousedown="moveAround('down')" onmouseup="stopMove()">  &darr; </button>  
+      <a id="downloadPNG" download ="mapPNG">Download PNG</a>
+      <a id="downloadCSV" download ="mapCSV.svg">Download CSV</a>
+      <a id="downloadSVG" download ="mapSVG.svg">Download SVG</a>
     </div>
   </div>
 

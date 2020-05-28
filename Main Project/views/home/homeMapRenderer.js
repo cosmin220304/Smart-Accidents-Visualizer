@@ -1,9 +1,8 @@
 //Contains map and points
 let map;
-let clusterArray = [];
-const clusterNumber = document.getElementById('clusterNumber');
-let textColorArray = []; //Color for each cluster
+const clusterNumber = document.getElementById('clusterNumber'); 
 let clusterNo = 0;
+var test=[]
 
 //Start variables for map
 let startPosX = 260;
@@ -42,7 +41,7 @@ function addPointsToMap(coordonates, desc, color) {
 
   //Create openlayers features
   size = Object.keys(coordonates).length; 
-  textColorArray.push(color)
+
   var points = new Array(size);  
   for (var i = 0; i < size; ++i) { 
     points[i] = new ol.Feature(new ol.geom.Point(coordonates[i]).transform(worldGeodeticSystem, mercatorProjection)); 
@@ -54,12 +53,11 @@ function addPointsToMap(coordonates, desc, color) {
 
   //Save cluster for later use
   var cluster = new ol.source.Cluster({
-    distance: parseInt(clusterNumber.value),
+    distance: parseInt(clusterNumber.value, 10),
     source: new ol.source.Vector({
       features: points
     })
   })
-  clusterArray.push(cluster)
 
   //Add points to layer
   var points = new ol.layer.Vector({
@@ -67,7 +65,8 @@ function addPointsToMap(coordonates, desc, color) {
     style: (feature) => {return stylePoints(feature, color, true)},
     id: "points" + clusterNo,
     class: "points"
-  }); 
+  });
+  test.push(color) 
   clusterNo++;
 
   //Add layer to map
@@ -81,11 +80,7 @@ function stylePoints(feature, color, hasText){
   var points_no = feature.get('features').length;
 
   //Limit size of point
-  // var radius = points_no * 3 + 2;
-  // const max = 16;
-  // if (radius > max)
-  //   radius = max;  
-  var radius = Math.log(points_no) + 5;
+  var radius = Math.log2(points_no) + 5;
 
   //Write cluster number over that point
   let textColor = 'black'; 
@@ -116,8 +111,8 @@ function stylePoints(feature, color, hasText){
 
 //Removes all points from map
 function removeAllPoints() {
-  textColorArray = [];
   clusterNo = 0;
+  test = [];
   descArray = [];
   coordArray = [];
   map.getLayers().getArray().filter(layer => layer.get('class') === 'points').forEach(layer => map.removeLayer(layer));
@@ -231,9 +226,10 @@ map.on('pointermove', (event) => {
 
 
 //Cluster points
-clusterNumber.addEventListener('input', function() {
-  for (var i = 0; i < clusterNo; i++)
-    clusterArray[i].setDistance(parseInt(clusterNumber.value, 10));
+clusterNumber.addEventListener('input', function() { 
+  map.getLayers().getArray().filter(layer => layer.get('class') === 'points').forEach(
+    layer => { layer.getSource().setDistance(parseInt(clusterNumber.value, 10)) }
+  );
 });
 
 
@@ -251,8 +247,7 @@ function OnOffText(){
           styleRember[i] = layer.getStyle();    
 
           //Change style of points
-          var j = clusterNo - i;
-          layer.setStyle((feature) => {return stylePoints(feature, textColorArray[j], false)});
+          // layer.setStyle((feature) => {return stylePoints(feature, test[i], false)});
         }
       );
     }

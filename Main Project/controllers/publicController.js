@@ -116,6 +116,7 @@ function getContentType(filePath) {
         '.js': 'text/javascript',
         '.css': 'text/css',
         '.json': 'application/json',
+        '.txt': 'text/plain',
     }
     var contentType = contentTypeMap[extensionName]
     return contentType
