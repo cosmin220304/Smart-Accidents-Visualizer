@@ -46,11 +46,11 @@ function addPointsToMap(coordonates, desc, color) {
   var points = new Array(size);  
   for (var i = 0; i < size; ++i) { 
     points[i] = new ol.Feature(new ol.geom.Point(coordonates[i]).transform(worldGeodeticSystem, mercatorProjection)); 
-  }  
 
-  //Save coordonates and descriptions in arrays
-  coordArray = coordonates;
-  descArray = desc;
+    //Save coordonates and descriptions in arrays
+    coordArray.push(coordonates[i]);
+    descArray.push(desc[i])
+  }
 
   //Save cluster for later use
   var cluster = new ol.source.Cluster({
@@ -118,6 +118,8 @@ function stylePoints(feature, color, hasText){
 function removeAllPoints() {
   textColorArray = [];
   clusterNo = 0;
+  descArray = [];
+  coordArray = [];
   map.getLayers().getArray().filter(layer => layer.get('class') === 'points').forEach(layer => map.removeLayer(layer));
 }
 
@@ -237,11 +239,10 @@ clusterNumber.addEventListener('input', function() {
 
 //Used to enable/disable text on points
 let styleRember = [];
-let state = true;
-
+let state = "on";
 function OnOffText(){
   //Hide text
-  if (state){ 
+  if (state == "on"){ 
     styleRember = new Array(clusterNo);
     for (var i = 0; i < clusterNo; i++){
       map.getLayers().getArray().filter(layer => layer.get('id') === 'points'+i).forEach(
@@ -255,7 +256,7 @@ function OnOffText(){
         }
       );
     }
-    state = false;
+    state = "off";
   }
 
   //Show text
@@ -267,6 +268,6 @@ function OnOffText(){
         }
       );
     }
-    state = true;
+    state = "on";
   } 
 }
