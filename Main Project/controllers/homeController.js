@@ -1,16 +1,15 @@
-const fs = require('fs'); 
-const qs = require('querystring');  
-const path = require('path'); 
-const html = require('../templates/HtmlAux');
+const fs = require('fs')
+const qs = require('querystring')
+const path = require('path')
+const html = require('../templates/HtmlAux')
 const homeModel = require('../models/model')
 
 
 async function getHandler(request, response, resource){   
-    //Simply read and return the file after it gets processed by htmlAux
-    showCookies(request)
+    //Simply read and return the file after it gets processed by htmlAux 
     fs.readFile(resource, 'utf8', function(error, content) 
     {   
-        var type = getContentType(resource);
+        var type = getContentType(resource)
         response.writeHead(200, { 'Content-Type': type })
         content = html.transform(content)
         response.end(content) 
@@ -60,11 +59,11 @@ async function getHandlerWithQuery(request, response, resource, queryString){
 
 function showCookies(request){
     var list = {},
-    rc = request.headers.cookie; 
+    rc = request.headers.cookie
     if (rc)
-        console.log('Cookies:',rc);
+        console.log('Cookies:',rc)
     else 
-        console.log('No cookies found!');
+        console.log('No cookies found!')
 }
 
 

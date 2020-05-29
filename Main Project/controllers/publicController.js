@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const model = require('../models/model')
 const mongoose = require('mongoose')
-
+const publicResources = path.join(__dirname, '..', 'public')
 
 async function getHandler(resource, response) {
     fs.readFile(resource, function (error, content) {
@@ -117,13 +117,25 @@ function getContentType(filePath) {
         '.css': 'text/css',
         '.json': 'application/json',
         '.txt': 'text/plain',
+        '.jpeg': 'image/jpeg',
+        '.webp': 'image/webp',
+        '.png': 'image/png',
     }
     var contentType = contentTypeMap[extensionName]
     return contentType
 }
 
 
+async function resourceNotFound(response){
+    const file404 = publicResources + '/404.html' 
+    fs.readFile(file404, function (error, content) { 
+        response.writeHead(404, { 'Content-Type': getContentType(file404)})
+        response.end(content)
+    })
+}
+
 module.exports.getHandler = getHandler
 module.exports.postHandler = postHandler
 module.exports.putHandler = putHandler
 module.exports.patchHandler = patchHandler
+module.exports.resourceNotFound = resourceNotFound

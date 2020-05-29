@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png">
+  <link rel="stylesheet" type="text/css" href="404.css">
+  <title>US Accidents Visualizer</title>
+</head>
+
+<body>
+    <img id="jpeg404">
+    <h1><b>Oops..</b></h1>
+    <h2>Page you were looking for could not be found!</h2>
+
+    <a href="/home">
+      <button> &lt;&lt; Take me back to Home Page</button>
+    </a>
+    <script>
+      var img = document.getElementById("jpeg404");
+      var id = Math.floor(Math.random() * 4) + 1;
+      var imageName = "404_"+id+".jpeg";
+      img.src = imageName
+    </script>
+</body>
+
+</html>

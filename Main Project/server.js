@@ -7,6 +7,7 @@ const authRoutes = require('./routes/authRoutes')
 const barGraphRoutes =  require('./routes/barGraphRoutes')
 const publicRoutes = require('./routes/publicRoutes')
 const HtmlAux = require('./templates/HtmlAux')
+const publicController = require('./controllers/publicController')
 port = 8128;      
 
 //Start the model
@@ -41,7 +42,13 @@ const routesMap = {
     '/topNav.css' : publicRoutes,
     '/footer.html' : publicRoutes,
     '/footer.css': publicRoutes,
-    '/usaSVG.txt': publicRoutes
+    '/usaSVG.txt': publicRoutes, 
+    '/404.html': publicRoutes,
+    '/404.css': publicRoutes,
+    '/404_1.jpeg': publicRoutes, 
+    '/404_2.jpeg': publicRoutes, 
+    '/404_3.jpeg': publicRoutes, 
+    '/404_4.jpeg': publicRoutes, 
 }
 
 const endPointsMap = {
@@ -69,10 +76,9 @@ http.createServer(function (request, response) {
         {
             routeFound.route(request, response)
         }
-        else
+        else 
         {
-            response.writeHead(404, {'Content-Type' : 'text/html'})
-            response.end("404 not found")
+            publicController.resourceNotFound(response)
         }
     }
     else if (acceptedSecuredRequests.includes(request.method))
@@ -80,17 +86,11 @@ http.createServer(function (request, response) {
         publicRoutes.route(request, response)
     } 
     else {
-        response.writeHead(404, {'Content-Type' : 'text/html'})
-        response.end("unrecognized method")
+        response.writeHead(405, {'Content-Type' : 'text/html'})
+        response.end("method is not supported")
     }
       
 }).listen(port) 
-
-function deleteThisLater(request, response)
-{
-    response.writeHead(404, {'Content-Type' : 'text/html'})
-    response.end("unrecognized method :" + request.method)
-}
 
 //Show server running
 serverRunningTxt = 'Server running at http://127.0.0.1:' + port + '/'
