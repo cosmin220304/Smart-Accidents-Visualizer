@@ -69,6 +69,8 @@ async function getReq(queryString) {
 var data;
 var chart;
 var statesValueArr;
+var options;
+
 function drawRegionsMap(statesValueArr) {
   if (statesValueArr != undefined) {
     console.log(statesValueArr);
@@ -149,7 +151,7 @@ function drawRegionsMap(statesValueArr) {
     this.download = 'table-data.csv';
     this.target = '_blank';
   };
-  var options = {
+   options = {
     colorAxis: { colors: ['#FEFFD2', '#EFFF00', '#8B0000'] },
     region: 'US',
     displayMode: 'regions',
@@ -162,7 +164,7 @@ function drawRegionsMap(statesValueArr) {
   chart = new google.visualization.GeoChart(document.getElementById('geochart'))
   var chart_div = document.getElementById('geochart');
   //chart.clearChart();
-
+  
   chart.draw(google.visualization.arrayToDataTable(data), options);
 }
 
@@ -178,3 +180,11 @@ function showDocument(_base64Url) {
 function downloadJPG() {
   showDocument(chart.getImageURI());
 }
+
+function resize () {
+  chart = new google.visualization.GeoChart(document.getElementById('geochart'))
+  console.log("resize()");
+  chart.draw(google.visualization.arrayToDataTable(data), options);
+}
+
+window.onresize = resize;
