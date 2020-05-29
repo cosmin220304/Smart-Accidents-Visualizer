@@ -16,10 +16,10 @@ async function route(request, response){
  
     //Send to controller the request
     if (query === undefined){ 
-        homeController.getHandler(response, resource) 
+        homeController.getHandler(request, response, resource) 
     }  
     else {  
-        homeController.getHandlerWithQuery(response, resource, query) 
+        homeController.getHandlerWithQuery(request, response, resource, query) 
     }
 }    
 

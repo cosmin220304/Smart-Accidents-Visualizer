@@ -1,3 +1,35 @@
+const fs = require('fs');  
+const path = require('path'); 
+const publicResources = path.join(__dirname, '..', 'public')
+
+let topNav = ""
+let footer = ""
+let tool = ""
+
+function readFile(name)
+{
+  var fileName = publicResources + '\\' + name + '.html'
+  fs.readFile(fileName, 'utf8', function(error, content) 
+  {    
+    if (error){
+      console.log(error)
+      return
+    }
+    switch(name){
+      case "topNav":
+        topNav = content
+        break
+      case "footer":
+        footer = content
+        break
+      case "tool":
+        tool = content
+        break
+    }
+  });  
+}
+
+
 function getTopNavHTML()
 {
     var topNavHTML = `
@@ -18,34 +50,39 @@ function getTopNavHTML()
         return topNavHTML;
 }
 
-//  code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL 
+
+
 function getFooterHTML()
 {
-    var footerHTML = `<br><br><br><br><br><br>
+    var footerHTML = `
+    <link rel="stylesheet" href="footer.css" type="text/css">
+    <!-- code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL  -->
+    <br><br><br><br><br><br>
     <div class="footer">
     <div id="button"></div>
-      <div id="container">
+        <div id="container">
         <div id="cont">
         <div class="footer_center">
             <h3>
-              <a href="/">Contact</a>
+                <a href="/">Contact</a>
             </h3>
         </div>
         </div>
-      </div>`
+        </div>
+    <!-- code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL  -->
+      `
       return footerHTML;
 }
-//  code from https://codepen.io/Anurag-Chitnis/pen/jOEYpKL
+
 
 
 function getTool()
 { 
     var tool = `<div id="tool">
-    <!-- This will be automatically generated via homeViewModeler.js -->
+    <!-- This will be automatically generated via tool.js -->
     <select id="addSelect">
       <option value="0"> Choose searching criteria (or leave empty) </option>  
     </select>
-    <button  id="createBlock" onclick="createBlock()"> new </button>
     <!-- Form that sends all data to server -->
     <form id="form" onsubmit="return makeSearch()" > 
       <!-- Select/checkboxes/etc will be appended to this div -->
@@ -58,12 +95,13 @@ function getTool()
   return tool
 }
 
+
 function transform(content)
 { 
   try{
-    content = content.replace(/^(.*){topnav}(.*)/gm, getTopNavHTML) 
-    content = content.replace(/^(.*){footer}(.*)/gm, getFooterHTML) 
-    content = content.replace(/^(.*){tool}(.*)/gm, getTool)  
+    content = content.replace(/^(.*){topnav}(.*)/gm, topNav) 
+    content = content.replace(/^(.*){footer}(.*)/gm, footer) 
+    content = content.replace(/^(.*){tool}(.*)/gm, tool)  
   }
   catch(e){
     console.log(e);
@@ -71,4 +109,13 @@ function transform(content)
   return content
 }
 
+function start()
+{
+  readFile("topNav")
+  readFile("footer")
+  readFile("tool")
+  console.log("all files were read!")
+}
+
 module.exports.transform = transform
+module.exports.start = start

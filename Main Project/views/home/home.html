@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" href="home.css">
   <!-- css used only for map drag using mouse click -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
+  <!-- end of css -->
   <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script> 
   <title>US Accidents Visualizer</title>
 </head>
@@ -17,8 +18,16 @@
   
   <h2>My Map</h2> 
   <div id="mainWrapper">  
-      <!-- Tool for manipulating and seeing data-->
-     {tool}
+    <!-- Search area where you can manipulate data -->
+    <div id="SearchArea">
+      <input   id="clusterNumber"   type="range" min="0" max="100" value="30" step="0.1">
+      <button  id="createNewSearch" onclick="createNewSearch()"> New </button>
+      <button  id="saveData"        onclick="saveData()"> Save </button>
+      <button  id="loadData"        onclick="loadData()"> Load </button>
+      <button  id="hideText"        onclick="OnOffText()"> Hide </button>
+      {tool}
+    </div>
+     
     <span></span>
     <!-- Map render surrounded by buttons -->
     <div id="mapContainer">  
@@ -38,16 +47,17 @@
   
       <!-- Lower button -->
       <button class="button arrowsUD" onmousedown="moveAround('down')" onmouseup="stopMove()">  &darr; </button>  
-      <script id="script1" type="text/javascript" src="homeMapRenderer.js"></script> 
+      <a id="downloadPNG" download ="mapPNG">Download PNG</a>
+      <a id="downloadCSV" download ="mapCSV.svg">Download CSV</a>
+      <a id="downloadSVG" download ="mapSVG.svg">Download SVG</a>
     </div>
   </div>
 
-  <div id="mouse-position">asdsad</div>
+  <div id="popup" style="height: 2.5em;"></div>
 
-  </div>
-
-      {footer}
-
+  {footer}
+  <script id="mapScript" type="text/javascript" src="homeMapRenderer.js"></script>
+  <script id="buttonEvents" type="text/javascript" src="homeButtonEvents.js"></script>
 </body>
 
 </html>

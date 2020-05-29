@@ -6,18 +6,22 @@ const pieChartRoutes = require('./routes/pieChartRoutes')
 const authRoutes = require('./routes/authRoutes')
 const barGraphRoutes =  require('./routes/barGraphRoutes')
 const publicRoutes = require('./routes/publicRoutes')
+const HtmlAux = require('./templates/HtmlAux')
 port = 8128;      
 
 //Start the model
-model.start();
+model.start()
+
+//Start html templater
+HtmlAux.start()
 
 //Map of routes 
 const routesMap = {
     '/'  : homeRoutes,
     '/home' : homeRoutes,
     '/home.html' : homeRoutes, 
-    '/homeMapRenderer.js' : homeRoutes, 
-    '/homeViewModeler.js' : homeRoutes, 
+    '/homeButtonEvents.js' : homeRoutes,
+    '/homeMapRenderer.js' : homeRoutes,
     '/home.css' : homeRoutes,
     '/heatMap' : heatMapRoutes,
     '/heatMap.html' : heatMapRoutes,
@@ -30,8 +34,13 @@ const routesMap = {
     '/barGraph' : barGraphRoutes,
     '/bar.css' : barGraphRoutes,
     '/barGraph.html' : barGraphRoutes,
+    '/tool.html' : publicRoutes,
     '/tool.js' : publicRoutes,
+    '/topNav.html' : publicRoutes,
     '/topNav.css' : publicRoutes,
+    '/footer.html' : publicRoutes,
+    '/footer.css': publicRoutes,
+    '/usaSVG.txt': publicRoutes
 }
 
 const endPointsMap = {
@@ -40,6 +49,8 @@ const endPointsMap = {
     '/heatMap' : '/heatMap.html',
     '/pieChart' : '/pieChart.html'
 }
+
+const acceptedSecuredRequests =  ["POST", "PATCH", "PUT", "DELETE"];
 
 //Start the server
 http.createServer(function (request, response) {
@@ -63,18 +74,10 @@ http.createServer(function (request, response) {
             response.end("404 not found")
         }
     }
-    else if (request.method == "PUT")
+    else if (acceptedSecuredRequests.includes(request.method))
     {
-        deleteThisLater(request, response)
-    }
-    else if (request.method == "PATCH")
-    {
-        deleteThisLater(request, response)
-    }
-    else if (request.method == "DELETE")
-    {
-        deleteThisLater(request, response)
-    }
+        publicRoutes.route(request, response)
+    } 
     else {
         response.writeHead(404, {'Content-Type' : 'text/html'})
         response.end("unrecognized method")

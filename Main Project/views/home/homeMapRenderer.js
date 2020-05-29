@@ -1,106 +1,124 @@
-var map;
-var startPosX = 260;
-var startPosY = 38;
-var startZoom = 3;
-var mercatorProjection = `EPSG:3857`;
-var worldGeodeticSystem = `EPSG:4326`; //datum featuring coordinates that change with time.
-var isMoving = false;
-var direction; 
-var red = '#e22903',  orange = '#e29f03', yellow = '#d7e203', green = '#6fe203'; 
-var colors = [green, yellow, orange, red]; 
+//Contains map and points
+let map;
+const clusterNumber = document.getElementById('clusterNumber'); 
+let clusterNo = 0;
+var test=[]
 
+//Start variables for map
+let startPosX = 260;
+let startPosY = 38;
+let startZoom = 3;
+
+//Used for projection
+const mercatorProjection = `EPSG:3857`;
+const worldGeodeticSystem = `EPSG:4326`; //datum featuring coordinates that change with time.
+
+//Used for moving buttons
+let isMoving = false;
+let direction;  
+
+//Used for popup when hovering over point 
+let coordArray = [];
+let descArray = [];
+
+
+//Creates the map at the id="map" element
 function renderMap() {
   map = new ol.Map({
     target: 'map',
-    layers: [
-      new ol.layer.Tile({
-        source: new ol.source.OSM()
-      })
-    ],
+    layers: [ new ol.layer.Tile({source: new ol.source.OSM()})],
     view: new ol.View({
       center: ol.proj.fromLonLat([startPosX, startPosY]),
       zoom: startZoom
-    }),
-    //controls: ol.control.defaults({ attribution: false, rotate: false }).extend([mousePositionControl])
+    }), 
     interactions: ol.interaction.defaults({ attribution: false, rotate: false }).extend([new ol.interaction.DragAndDrop()]),
   }); 
 }
+renderMap(); 
 
 
-function addRandomPoints2() {
-  var arr = []
-  for (var i = 1; i <= 30; i++) {
-    var R = Math.random() * 10;
-    var posX = startPosX + R;
-    R = Math.random() * 10;
-    var posY = startPosY + R;
-    var coord = [posX, posY];
-    arr.push(coord);
-  }
-  R = Math.floor(Math.random() * 4);
-  var color = colors[R]; 
-  addPointsToMap(arr, color);
-} 
+function addPointsToMap(coordonates, desc, color) {  
 
-
-function addPointsToMap(coordonates, color) {    
-  //Get all coordonates and create points
+  //Create openlayers features
   size = Object.keys(coordonates).length; 
-  var features = new Array(size); 
+
+  var points = new Array(size);  
   for (var i = 0; i < size; ++i) { 
-    features[i] = new ol.Feature(new ol.geom.Point(coordonates[i]).transform(worldGeodeticSystem, mercatorProjection));
-  }  
+    points[i] = new ol.Feature(new ol.geom.Point(coordonates[i]).transform(worldGeodeticSystem, mercatorProjection)); 
+
+    //Save coordonates and descriptions in arrays
+    coordArray.push(coordonates[i]);
+    descArray.push(desc[i])
+  }
+
+  //Save cluster for later use
+  var cluster = new ol.source.Cluster({
+    distance: parseInt(clusterNumber.value, 10),
+    source: new ol.source.Vector({
+      features: points
+    })
+  })
 
   //Add points to layer
   var points = new ol.layer.Vector({
-    source: new ol.source.Cluster({
-      distance: 20,
-      source: new ol.source.Vector({
-        features: features
-        })
-    }),
-    style: function(feature) {
-      var points_no = feature.get('features').length;
-
-      var radius = points_no;
-      if (radius > 15)
-        radius = 15;
-      if (radius < 8)
-        radius = 8;
-
-      var textColor = 'black';
-      console.log(color)
-      if (color == "rgb(0, 0, 0)")
-        textColor = 'white';
-
-      return new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: radius,
-          fill: new ol.style.Fill({
-            color : color
-          }) 
-        }),
-        text: new ol.style.Text({
-          text: points_no.toString(),
-          fill: new ol.style.Fill({
-            color: textColor
-          })
-        })
-      });
-    },
-    name: "points"
-  }); 
+    source: cluster,
+    style: (feature) => {return stylePoints(feature, color, true)},
+    id: "points" + clusterNo,
+    class: "points"
+  });
+  test.push(color) 
+  clusterNo++;
 
   //Add layer to map
   map.addLayer(points);
 }
 
 
-function removeAllPoints() {
-  map.getLayers().getArray().filter(layer => layer.get('name') === 'points').forEach(layer => map.removeLayer(layer));
+//Used to add color to points + also cluster them
+function stylePoints(feature, color, hasText){
+  //Get no of points
+  var points_no = feature.get('features').length;
+
+  //Limit size of point
+  var radius = Math.log2(points_no) + 5;
+
+  //Write cluster number over that point
+  let textColor = 'black'; 
+  if (color == "rgb(0, 0, 0)")
+    textColor = 'white';
+  
+  var textInside = points_no.toString();
+  if (hasText == false)
+    textInside = "";
+
+  var text = new ol.style.Text({
+    text: textInside,
+    fill: new ol.style.Fill({color: textColor})
+  })
+
+  //Our "points" are small circles
+  var circle = new ol.style.Circle({
+    radius: radius,
+    fill: new ol.style.Fill({ color : color })
+  });
+
+  //Return the style
+  return new ol.style.Style({
+    image: circle,
+    text: text
+  });
 }
 
+//Removes all points from map
+function removeAllPoints() {
+  clusterNo = 0;
+  test = [];
+  descArray = [];
+  coordArray = [];
+  map.getLayers().getArray().filter(layer => layer.get('class') === 'points').forEach(layer => map.removeLayer(layer));
+}
 
+//Moves map to position startPosX, startPosY
 function updateMapView() {
   map.getView().setCenter(ol.proj.transform([startPosX, startPosY], worldGeodeticSystem, mercatorProjection)); 
 }
@@ -128,180 +146,123 @@ async function moving() {
     if (isMoving) 
     {
       force = 2 * startZoom /  Math.exp(map.getView().getZoom());
-
       if (direction == "up") 
-      {
         startPosY += 1 * force;
-      } 
-
       else if (direction == "down") 
-      {
         startPosY -= 1 * force;
-      } 
-
       else if (direction == "right") 
-      {
         startPosX += 1 * force;
-      } 
-
       else 
-      {
         startPosX -= 1 * force;
-      }
-
       updateMapView();
     }
     await sleep(10);
   } while(1);
 }
- 
-
-// var mousePositionControl = new ol.control.MousePosition({
-//   coordinateFormat: ol.coordinate.createStringXY(1),
-//   projection: mercatorProjection,
-//   className: 'mousePos',
-//   target: document.getElementById('mouse-position')
-// });
-
-
-//Used when submit button is pressed
-function makeSearch() { 
-  //We make a different search for every searchBlock   
-  for (var index = 0; index <= searchBlockNo; index++)
-  {  
-    //Get the block from searchBlocks list
-    let block = searchBlocks[index]; 
-
-    //If block is empty continue
-    if (block.childNodes.length == 0)
-      continue;
-
-    //Copy each value from that searchBlock into queryString
-    let queryString = "";
-    for ( var i = 0; i < block.childNodes.length; i++ ) {
-      //Get the elements from that block
-      var e = block.childNodes[i];  
-
-      //If checkbox we are interested in true/false value
-      if (e.type == "checkbox")
-      { 
-        queryString = queryString + e.name + "=" + e.checked + "&";
-        continue;
-      }
-
-      //If is a remove button/div/span we skip it
-      if (e.className == "removeButton" || e.value == undefined)
-      {
-        continue;
-      }
-
-      //If is text area/date that was uncompleted we simply ignore it (and show a message)
-      if (e.value == ""){
-        alert("empty data in " + e.name + " will not be sent to server!");
-        continue;
-      }
-
-      //We get the name and values and add it to our query string
-      queryString = queryString + e.name + "=" + e.value + "&";
-    } 
-    //Get data from db
-
-
-
-// Appends a new searchBlock to the last searchBlock
-function createBlock(){
-  //Get this element
-  let createBlock = document.getElementById("createBlock");
-
-  //Add color picker 
-  let colorPicker = document.createElement("input"); 
-  colorPicker.type = "color";
-  colorPicker.name = "color";
-  colorPicker.className = "colorPicker";
-
-  //Replace createBlock button with color picker
-  createBlock.parentNode.insertBefore(colorPicker, createBlock); 
-  createBlock.remove();
-
-  //When choosing color, color picker will create the actual search block and recreate the "createBlock" button
-  colorPicker.onchange = function(){ 
-
-    //Add the search block
-    newSearchBlock = document.createElement("div");
-    newSearchBlock.id = "searchBlock" + searchBlockNo;
-    lastSearchBlock = searchBlocks[searchBlockNo]; 
-    lastSearchBlock.parentNode.insertBefore(newSearchBlock, lastSearchBlock.nextSibling); 
-
-    //Add to our array
-    searchBlockNo += 1;
-    searchBlocks.push(newSearchBlock);
-
-    //Add the collor
-    newSearchBlock.style.backgroundColor = colorPicker.value;
-
-    //Add the "createBlock" button back
-    let button = createBlock.cloneNode(true); 
-    selectGenerator.parentNode.insertBefore(button, selectGenerator.nextSibling);
-
-    //Remove color picker
-    colorPicker.remove(); 
-  }
-}  
-    //Add the color
-    let color = "rgb(0, 0, 0)";
-    if (searchBlocks[index].id != "searchBlockStart")
-      color =  searchBlocks[index].style.backgroundColor; 
-
-    //Print the result locally + send it to server
-    console.log("For block number " + index + " we have: " + queryString);
-    queryToPoints(queryString, color);
-  }
-
-  return false;
-}  
-//Get data from db
-async function getReq(queryString) {
-  return new Promise((resolve, reject) => {
-    try {
-        fetch("http://127.0.0.1:8128/home?" + queryString, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json, */*',
-            'Content-type': 'application/json'
-          }, 
-        })
-        .then((res) => res.json())
-        .then((data) => resolve(data));
-    }
-    catch (error){
-        reject(error);
-    }
-  });
-} 
-
-async function queryToPoints(queryString, color){
-  //Refresh the points on map
-  removeAllPoints();
-  //todo add loading
-
-  //Get json from server
-  var json = await getReq(queryString); 
-  var coordonatesObject = Object.values(json);   
-
-  //Transform object into array of coordonates
-  var coordonatesArray = [];
-  for (var i = 0; i< coordonatesObject.length; i++){
-    var lat = coordonatesObject[i].Start_Lat;
-    var long = coordonatesObject[i].Start_Lng;  
-    coordonatesArray.push([long, lat])
-  } 
-  
-  //Add coordonates to map
-  console.log(coordonatesArray);
-  addPointsToMap(coordonatesArray, color); 
-  console.log("done");
-}
-
-renderMap();
-addRandomPoints2();
 moving();
+
+
+// Popup showing the position the user clicked
+var popup = document.getElementById('popup');
+var overlay = new ol.Overlay({
+  element: popup,
+  stopEvent : false
+});
+map.addOverlay(overlay);
+
+
+///Event listeners
+
+
+//Popup over points
+map.on('pointermove', (event) => {
+  //Get feature at mouse pos
+  var point = map.forEachFeatureAtPixel(event.pixel, (feature) => { return feature;});
+  
+  //Do something with that point(Show details)
+  if (point) {    
+    //Get map coord
+    var coord = point.getGeometry().getCoordinates();
+
+    //Transform in coord for our map
+    coord = ol.proj.transform(coord, mercatorProjection, worldGeodeticSystem);  
+    
+    //Get index for description for that point (double parse so )
+    let parsedCoord = []
+    parsedCoord[0] = parseFloat(parseFloat(coord[0]).toFixed(6));  
+    parsedCoord[1] = parseFloat(parseFloat(coord[1]).toFixed(6));  
+    let index = -1;
+    for (var i = 0; i < coordArray.length; i++)
+    { 
+      if (coordArray[i][0] == parsedCoord[0] && coordArray[i][1] == parsedCoord[1])
+      {
+        index = i;
+        break;
+      }
+    }  
+
+    //Check if we have a description
+    if (index >= 0){ 
+      if (descArray[index] == undefined || descArray[index] == "" || descArray[index] == " ")
+        descArray[index] = "no data";
+
+      //Add the description
+      popup.innerHTML = descArray[index];
+
+      //If box is too small make it bigger
+      var textSize = descArray[index].length;
+      var elemSize = textSize/10 + '.' + textSize%10 + 'em';
+      popup.setAttribute('style', 'height:' + elemSize);
+
+      //Show pop-up 
+      overlay.setPosition(event.coordinate);
+    }
+  }
+  //Don't show pop-up
+  else {
+    overlay.setPosition(undefined);
+  }
+});
+
+
+//Cluster points
+clusterNumber.addEventListener('input', function() { 
+  map.getLayers().getArray().filter(layer => layer.get('class') === 'points').forEach(
+    layer => { layer.getSource().setDistance(parseInt(clusterNumber.value, 10)) }
+  );
+});
+
+
+//Used to enable/disable text on points
+let styleRember = [];
+let state = "on";
+function OnOffText(){
+  //Hide text
+  if (state == "on"){ 
+    styleRember = new Array(clusterNo);
+    for (var i = 0; i < clusterNo; i++){
+      map.getLayers().getArray().filter(layer => layer.get('id') === 'points'+i).forEach(
+        layer => {
+          //Remember the text + color for that cluster of points
+          styleRember[i] = layer.getStyle();    
+
+          //Change style of points
+          // layer.setStyle((feature) => {return stylePoints(feature, test[i], false)});
+        }
+      );
+    }
+    state = "off";
+  }
+
+  //Show text
+  else{ 
+    for (var i = 0; i < clusterNo; i++){
+      map.getLayers().getArray().filter(layer => layer.get('id') === 'points'+i).forEach(
+        layer => {
+          layer.setStyle(styleRember[i]);
+        }
+      );
+    }
+    state = "on";
+  } 
+}

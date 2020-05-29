@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-const qs = require('querystring'); 
-const dbUrl = 'mongodb+srv://admin:proiectTW2020@cluster0-3dd1j.gcp.mongodb.net/SAV?retryWrites=true&w=majority';
-let db;
+const mongoose = require('mongoose')
+const qs = require('querystring') 
+const dbUrl = 'mongodb+srv://admin:proiectTW2020@cluster0-3dd1j.gcp.mongodb.net/SAV?retryWrites=true&w=majority'
+let db
 
-var Schema = mongoose.Schema;
+var Schema = mongoose.Schema
 var mySchema = new Schema({
     _id: mongoose.Types.ObjectId,
     ID:  String, 
@@ -55,29 +55,35 @@ var mySchema = new Schema({
     Civil_Twilight: String,
     Nautical_Twilight: String,
     Astronomical_Twilight: String
-}); 
-const MyModel = mongoose.model("data", mySchema, "data");
+}) 
+const MyModel = mongoose.model("data", mySchema, "data")
 
-async function start(){
+async function start ()
+{
     mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true})
     .then(() => console.log('Connected to DB!'))
-    .catch(err => console.log('DB conn error:' + err)); 
-    db = mongoose.connection;  
+    .catch(err => console.log('DB conn error:' + err)) 
+    db = mongoose.connection  
 }
  
 
-//This will be moved in homeModel
-function findASD (body)
+function findCoordonates (body, offset, limit)
 {  
     return new Promise((resolve, reject) => {
-        try {
-            MyModel.find(body).select("Start_Lat Start_Lng -_id").exec((err, res) => {resolve(res)}) 
+        try { 
+            MyModel.find(body).skip(offset).limit(limit).select("Start_Lat Start_Lng Description -_id")
+            .exec((err, res) => {
+                if (err) console.log(err)
+                resolve(res)
+            })   
         }
         catch (error){
             reject(error)
         }
     })
 } 
+
+
 function count (body)
 {  
     return new Promise((resolve, reject) => {
@@ -86,7 +92,7 @@ function count (body)
             ([
                 {$match: body},
                 {"$group": {_id:"$State",counter:{$sum:1}}}    
-            ]).exec((err, res) => {resolve(res)}); 
+            ]).exec((err, res) => {resolve(res)}) 
         }
         catch (error){
             reject(error)
@@ -94,17 +100,55 @@ function count (body)
     })
 } 
 
+
 function save(obj)
 {
-   var abc = new MyModel(obj);
-   abc.save(function (err, book) {
-    if (err) return console.error(err);
-    console.log(book.name + " saved collection");
-  });
+   var newModel = new MyModel(obj)
+   newModel.save(function (err, element) {
+    if (err) console.log(err)
+    console.log("object saved in collection")
+  })
 }
 
-module.exports = mongoose.model("data", mySchema);
-module.exports.save = save;
-module.exports.start = start;
-module.exports.findASD = findASD;
-module.exports.count = count;
+
+function update(ID, obj, upsertOk)
+{
+    return new Promise((resolve, reject) => {
+        try {
+            MyModel.updateOne(
+                {"ID" : ID}, 
+                { $set: obj }, 
+                { upsert: upsertOk },
+
+                (err, result, upserted) => {
+                    let new_obj = {}
+                    let name = ""
+
+                    if (err) {
+                        console.log(err)
+                        new_obj["Response"] = "Something went wrong"
+                    }
+                    else if (upserted){
+                        new_obj["Response"] = "Object created with Success!"
+                        name = "New Data"
+                    }
+                    else {
+                        new_obj["Response"] = "Object updated with Success!"
+                        name = "Updated Data"
+                    }
+                    new_obj[name] = result
+                    resolve(new_obj)
+                }
+            )
+        }
+        catch (error){
+            reject(error)
+        }
+    })
+}
+
+module.exports.save = save
+module.exports.start = start
+module.exports.count = count
+module.exports.update = update
+module.exports.findCoordonates = findCoordonates
