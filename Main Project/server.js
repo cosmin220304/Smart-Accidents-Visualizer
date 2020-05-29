@@ -30,7 +30,6 @@ const routesMap = {
     '/barGraph' : barGraphRoutes,
     '/bar.css' : barGraphRoutes,
     '/barGraph.html' : barGraphRoutes,
-    '/barGraph.js' : barGraphRoutes,
     '/tool.js' : publicRoutes,
     '/topNav.css' : publicRoutes,
 }
