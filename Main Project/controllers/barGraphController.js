@@ -19,7 +19,7 @@ async function getHandler(response, resource){
 async function getHandlerWithQuery(response, resource, queryString){ 
     //Use query to search throw model  
     queryJson = qs.parse(queryString) 
-    const test = await homeModel.findASD(queryJson) 
+    const test = await homeModel.count(queryJson) 
     response.writeHead(200, { 'Content-Type': 'application/json' })
     response.end(JSON.stringify(test))
 }  
