@@ -1,5 +1,12 @@
 google.charts.load('current', { 'packages': ['geochart'] });
 google.charts.setOnLoadCallback(drawRegionsMap);
+
+var data;
+var chart;
+var statesValueArr;
+var options;
+
+
 //Used when submit button is pressed
 function makeSearch() {
   //Copy each value from that searchBlock into queryString
@@ -33,10 +40,8 @@ function makeSearch() {
   return false;
 }
 async function qsToArr(queryString) {
-  console.log(queryString);
   var dataJS = await getReq(queryString);
   var coordonatesObject = Object.values(dataJS);
-  console.log(coordonatesObject);
 
   var statesValueArr = [];
   for (var i = 0; i < coordonatesObject.length; i++) {
@@ -50,7 +55,7 @@ async function qsToArr(queryString) {
 async function getReq(queryString) {
   return new Promise((resolve, reject) => {
     try {
-      fetch("http://127.0.0.1:8128/heatMap?" + queryString, {
+      fetch("/heatMap?" + queryString, {
         method: 'GET',
         headers: {
           'Accept': 'application/json, */*',
@@ -58,7 +63,7 @@ async function getReq(queryString) {
         },
       })
         .then((res) => res.json())
-        .then((data) => { console.log(data); resolve(data); });
+        .then((data) => { resolve(data); });
 
     }
     catch (error) {
@@ -66,15 +71,9 @@ async function getReq(queryString) {
     }
   });
 }
-var data;
-var chart;
-var statesValueArr;
-var options;
+
 
 function drawRegionsMap(statesValueArr) {
-  if (statesValueArr != undefined) {
-    console.log(statesValueArr);
-  }
   data = [
     ['State', 'Accidents'],
     ["AZ", 0],
@@ -151,7 +150,7 @@ function drawRegionsMap(statesValueArr) {
     this.download = 'table-data.csv';
     this.target = '_blank';
   };
-   options = {
+  options = {
     colorAxis: { colors: ['#FEFFD2', '#EFFF00', '#8B0000'] },
     region: 'US',
     displayMode: 'regions',
@@ -162,16 +161,15 @@ function drawRegionsMap(statesValueArr) {
     }
   }
   chart = new google.visualization.GeoChart(document.getElementById('geochart'))
-  var chart_div = document.getElementById('geochart');
-  //chart.clearChart();
-  
   chart.draw(google.visualization.arrayToDataTable(data), options);
+  window.onresize = function () {
+    chart.draw(google.visualization.arrayToDataTable(data), options);
+  }
 }
 
 function showDocument(_base64Url) {
   var downBtn = document.getElementById('download')
   var encodedUri = chart.getImageURI();
-  console.log(encodedUri)
   downBtn.href = encodedUri;
   downBtn.download = 'img';
   downBtn.target = '_blank';
@@ -180,11 +178,3 @@ function showDocument(_base64Url) {
 function downloadJPG() {
   showDocument(chart.getImageURI());
 }
-
-function resize () {
-  chart = new google.visualization.GeoChart(document.getElementById('geochart'))
-  console.log("resize()");
-  chart.draw(google.visualization.arrayToDataTable(data), options);
-}
-
-window.onresize = resize;
