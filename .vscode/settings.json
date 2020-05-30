@@ -1,9 +1,8 @@
 {
-    "liveServer.settings.port": 5501,
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
     ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/10de2038-0374-4e61-81fb-48f1b6388048/resourceGroups/US-Accidents-Visualizer/providers/Microsoft.Web/sites/USAccidentsVisualizer",
+    "appService.defaultWebAppToDeploy": "/subscriptions/10de2038-0374-4e61-81fb-48f1b6388048/resourceGroups/TWProject/providers/Microsoft.Web/sites/USAccidents",
     "appService.deploySubpath": "."
 }
