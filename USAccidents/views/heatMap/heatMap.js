@@ -1,4 +1,3 @@
-window.onload = function () {
   google.charts.load('current', { 'packages': ['geochart'] });
   google.charts.setOnLoadCallback(drawRegionsMap);
 
@@ -179,4 +178,3 @@ window.onload = function () {
   function downloadJPG() {
     showDocument(chart.getImageURI());
   }
-}
