@@ -1,6 +1,7 @@
-google.charts.load('current', { 'packages': ['geochart'] });
+google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(drawRegionsMap);
 //Used when submit button is pressed
+
 function makeSearch() {
   //Copy each value from that searchBlock into queryString
   let queryString = "";
@@ -50,7 +51,7 @@ async function qsToArr(queryString) {
 async function getReq(queryString) {
   return new Promise((resolve, reject) => {
     try {
-      fetch("http://127.0.0.1:8128/heatMap?" + queryString, {
+      fetch("http://127.0.0.1:8128/pieChart?" + queryString, {
         method: 'GET',
         headers: {
           'Accept': 'application/json, */*',
@@ -66,74 +67,68 @@ async function getReq(queryString) {
     }
   });
 }
-var data;
-var chart;
-var statesValueArr;
-var options;
 
 function drawRegionsMap(statesValueArr) {
-  if (statesValueArr != undefined) {
-    console.log(statesValueArr);
-  }
-  data = [
+  var data = [
     ['State', 'Accidents'],
-    ["AZ", 0],
-    ["AL", 0],
-    ["AK", 0],
-    ["AR", 0],
-    ["CA", 0],
-    ["CO", 0],
-    ["CT", 0],
-    ["DC", 0],
-    ["DE", 0],
-    ["FL", 0],
-    ["GA", 0],
-    ["HI", 0],
-    ["ID", 0],
-    ["IL", 0],
-    ["IN", 0],
-    ["IA", 0],
-    ["KS", 0],
-    ["KY", 0],
-    ["LA", 0],
-    ["ME", 0],
-    ["MD", 0],
-    ["MA", 0],
-    ["MI", 0],
-    ["MN", 0],
-    ["MS", 0],
-    ["MO", 0],
-    ["MT", 0],
-    ["NE", 0],
-    ["NV", 0],
-    ["NH", 0],
-    ["NJ", 0],
-    ["NM", 0],
-    ["NY", 0],
-    ["NC", 0],
-    ["ND", 0],
-    ["OH", 0],
-    ["OK", 0],
-    ["OR", 0],
-    ["PA", 0],
-    ["RI", 0],
-    ["SC", 0],
-    ["SD", 0],
-    ["TN", 0],
-    ["TX", 0],
-    ["UT", 0],
-    ["VT", 0],
-    ["VA", 0],
-    ["WA", 0],
-    ["WV", 0],
-    ["WI", 0],
-    ["WY", 0],
-    ["AS", 0],
-    ["GU", 0],
-    ["MP", 0],
-    ["PR", 0],
-    ["VI", 0],
-    ["UM", 0]
+    ["States", 1],
+    ["AZ",0],
+    ["AL",0],
+    ["AK",0],
+    ["AR",0],
+    ["CA",0],
+    ["CO",0],
+    ["CT",0],
+    ["DC",0],
+    ["DE",0],
+    ["FL",0],
+    ["GA",0],
+    ["HI",0],
+    ["ID",0],
+    ["IL",0],
+    ["IN",0],
+    ["IA",0],
+    ["KS",0],
+    ["KY",0],
+    ["LA",0],
+    ["ME",0],
+    ["MD",0],
+    ["MA",0],
+    ["MI",0],
+    ["MN",0],
+    ["MS",0],
+    ["MO",0],
+    ["MT",0],
+    ["NE",0],
+    ["NV",0],
+    ["NH",0],
+    ["NJ",0],
+    ["NM",0],
+    ["NY",0],
+    ["NC",0],
+    ["ND",0],
+    ["OH",0],
+    ["OK",0],
+    ["OR",0],
+    ["PA",0],
+    ["RI",0],
+    ["SC",0],
+    ["SD",0],
+    ["TN",0],
+    ["TX",0],
+    ["UT",0],
+    ["VT",0],
+    ["VA",0],
+    ["WA",0],
+    ["WV",0],
+    ["WI",0],
+    ["WY",0],
+    ["AS",0],
+    ["GU",0],
+    ["MP",0],
+    ["PR",0],
+    ["VI",0],
+    ["UM",0]
   ];
   if (statesValueArr != undefined) {
     var states = Object.values(statesValueArr);
@@ -151,7 +146,7 @@ function drawRegionsMap(statesValueArr) {
     this.download = 'table-data.csv';
     this.target = '_blank';
   };
-   options = {
+  options = {
     colorAxis: { colors: ['#FEFFD2', '#EFFF00', '#8B0000'] },
     region: 'US',
     displayMode: 'regions',
@@ -161,17 +156,16 @@ function drawRegionsMap(statesValueArr) {
       backgroundColor: 'transparent',
     }
   }
-  chart = new google.visualization.GeoChart(document.getElementById('geochart'))
-  var chart_div = document.getElementById('geochart');
-  //chart.clearChart();
-  
+  chart = new google.visualization.PieChart(document.getElementById('pieChart'));
   chart.draw(google.visualization.arrayToDataTable(data), options);
+  window.onresize = function () {
+    chart.draw(google.visualization.arrayToDataTable(data), options);
+  }
 }
 
 function showDocument(_base64Url) {
   var downBtn = document.getElementById('download')
   var encodedUri = chart.getImageURI();
-  console.log(encodedUri)
   downBtn.href = encodedUri;
   downBtn.download = 'img';
   downBtn.target = '_blank';
@@ -181,10 +175,3 @@ function downloadJPG() {
   showDocument(chart.getImageURI());
 }
 
-function resize () {
-  chart = new google.visualization.GeoChart(document.getElementById('geochart'))
-  console.log("resize()");
-  chart.draw(google.visualization.arrayToDataTable(data), options);
-}
-
-window.onresize = resize;
