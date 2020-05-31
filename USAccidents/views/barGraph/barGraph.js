@@ -86,14 +86,14 @@ async function test(queryString){
         data.push(json[Object.keys(json)[i]].counter);
     }
     console.log(states);
-    console.log(data);
+    console.log(data);  
     updateGraph(states,data);
 }
 
 async function getReq(queryString) {
     return new Promise((resolve, reject) => {
       try {
-          fetch("http://127.0.0.1:8128/barGraph?" + queryString, {
+          fetch("/barGraph?" + queryString, {
             method: 'GET',
             headers: {
               'Accept': 'application/json, */*',

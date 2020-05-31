@@ -51,7 +51,7 @@ async function qsToArr(queryString) {
 async function getReq(queryString) {
   return new Promise((resolve, reject) => {
     try {
-      fetch("http://127.0.0.1:8128/pieChart?" + queryString, {
+      fetch("/pieChart?" + queryString, {
         method: 'GET',
         headers: {
           'Accept': 'application/json, */*',

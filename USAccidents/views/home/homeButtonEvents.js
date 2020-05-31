@@ -160,7 +160,7 @@ addRandomPoints();
 async function getReq(queryString) {
     return new Promise((resolve, reject) => {
         try {
-            fetch("http://127.0.0.1:8128/home?" + queryString, {
+            fetch("/home?" + queryString, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json, */*',
