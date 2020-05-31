@@ -1,13 +1,18 @@
 <div id="tool">
     <!-- This will be automatically generated via tool.js -->
+
     <select id="addSelect">
-    <option value="0"> Choose searching criteria (or leave empty) </option>  
+        <option value="0"> Choose searching criteria (or leave empty) </option>
     </select>
+    <label for="addSelect">Filter your data</label>
     <!-- Form that sends all data to server -->
-    <form id="form" onsubmit="return makeSearch()" > 
-    <!-- Select/checkboxes/etc will be appended to this div -->
-    <div id="searchBlockStart"></div>  
-    <input id ="submit" type="submit"  value="search"/> 
+    <form id="form" onsubmit="return makeSearch()">
+        <!-- Select/checkboxes/etc will be appended to this div -->
+        <div id="searchBlockStart"></div>
+        <label for="searchBlockStart"></label>
+
+        <input id="submit" type="submit" value="search" />
+        <label for="submit">Search data</label>
     </form>
 </div>
 <script id="script2" type="text/javascript" src="tool.js"></script>

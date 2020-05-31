@@ -71,6 +71,7 @@ const nameToFunc = {
 function IntializeSelectGenerator(){ 
   for(var name in nameToFunc) {
     let option = document.createElement("option");
+    option.id = name;
     option.value = name;
     option.text = name;
     selectGenerator.appendChild(option);
@@ -80,6 +81,9 @@ function IntializeSelectGenerator(){
 var idNumber = 1; 
 //Adds collomn name + remove button to select
 function addTextToElement(element, text){ 
+  //get option 
+  let option = document.getElementById(element.name);
+
   //Creating a random id
   let idElement = "SelectId" + idNumber;
   element.id = idElement;
