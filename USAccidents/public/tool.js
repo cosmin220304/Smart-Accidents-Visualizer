@@ -25,7 +25,8 @@ const sliderMap = {
   "Visibility(mi)" : ["0", "111"],
   "Wind_Speed(mph)" : ["0", "823"],
   "Precipitation(in)" : ["0", "25"],
-  "TMC" : ["200", "406"]
+  "TMC" : ["200", "406"],
+  "Distance(mi)": ["0", "100"]
 }
 
 const nameToFunc = { 
@@ -113,6 +114,7 @@ function addTextToElement(element, text){
 
   //Remove button
   button.className = "removeButton";
+  button.name = "Delete element";
   button.onclick = function(){
     label.remove();
     element.remove();
