@@ -297,45 +297,38 @@ downloadPNG.addEventListener('click', function() {
     downloadPNG.href = canvas.toDataURL();
 });
  
+
 let downloadCSV = document.getElementById('downloadCSV');
 downloadCSV.addEventListener('click', function() { 
+    //Create collumns
     var content = 'longitude,latitude,description\n';
+
+    //Add for each coord in array lon,lat + descArray for that coord
     for (var i = 0; i < coordArray.length; i++) {
         content += coordArray[i][0]+','+coordArray[i][1]+','+descArray[i]+'\n';
     }
+
+    //Create new csv blob
     var csvFile = new Blob([content], { type: 'text/csv;charset=utf-8;'});
     downloadCSV.href = URL.createObjectURL(csvFile); 
 });
  
+
 let downloadSVG = document.getElementById('downloadSVG');
-downloadSVG.addEventListener('click', async function() {  
-    let svgText = await getUsaSvg();
-    let points = "";
-    for (var i = 0; i < coordArray.length; i++) {
-        let x = -6 * coordArray[i][0] + 8;
-        let y = 6 * coordArray[i][1] - 15;
-        points += '<circle cx="'+x+'" cy="'+y+'" r="4" stroke="black" stroke-width="1" fill="red" />\n' 
-    }
-    svgText = await svgText.replace(/^(.*){points}(.*)/gm, points);
-    var svgFile = new Blob([svgText], { type: 'text/csv;charset=utf-8;'});
+downloadSVG.addEventListener('click', async function() { 
+    //Get the map synced
+    map.renderSync();
+
+    //Create canvas
+    let ctx = new C2S(map.getSize()[0], map.getSize()[1]); 
+
+    //Do the same thing as "download png" to draw the canvas over context 
+    //  (again code is changed a bit, but is from ol documentation)
+    Array.prototype.forEach.call(document.querySelectorAll('.ol-layer canvas'), function(canvas) {
+        ctx.drawImage(canvas, 0, 0); 
+    });
+
+    //Create new svg blob
+    var svgFile = new Blob([ctx.getSerializedSvg(true)], { type: 'text/svg;charset=utf-8;'});
     downloadSVG.href = URL.createObjectURL(svgFile); 
 });
-
-function getUsaSvg(){
-    return new Promise((resolve, reject) => {
-        try {
-            fetch("http://127.0.0.1:8128/usaSVG.txt", {
-            method: 'GET',
-            headers: {
-                'Accept': 'text/plain, */*',
-                'Content-type': 'text/plain'
-            }, 
-            })
-            .then((res) => res.text())
-            .then((data) => resolve(data)) 
-        }
-        catch (error){
-            reject(error);
-        }
-    });
-}

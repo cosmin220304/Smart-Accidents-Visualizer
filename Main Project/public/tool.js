@@ -77,33 +77,46 @@ function IntializeSelectGenerator(){
   }
 }
 
-
+var idNumber = 1; 
 //Adds collomn name + remove button to select
-function addTextToElement(element, text){
-  let span = document.createElement("span");
+function addTextToElement(element, text){ 
+  //Creating a random id
+  let idElement = "SelectId" + idNumber;
+  element.id = idElement;
+  idNumber ++;
+
+  //Creating label for that select
+  let label = document.createElement("LABEL");
+  label.setAttribute("for", idElement);
+  element.parentNode.insertBefore(label, element);
+  
+  //Setting the text for label
+  text = text.replace("_", " ") + " : ";
+  label.innerHTML = text; 
+
+  //Create remove button and line break
   let button = document.createElement("button"); 
   const br = document.createElement("br");
 
+  //If element is a text add a slider text
   let sliderText = undefined;
-  if (element.type == "range")
+  if (element.type == "range"){
     sliderText = element.nextSibling;
-
-  //Text before field
-  text = text.replace("_", " ") + " : ";
-  span.innerHTML = text; 
-  element.parentNode.insertBefore(span, element);
+    sliderText.parentNode.insertBefore(button, sliderText);
+  }
+  else
+    element.parentNode.insertBefore(button, element.nextSibling);
 
   //Remove button
   button.className = "removeButton";
   button.onclick = function(){
-    span.remove();
+    label.remove();
     element.remove();
     br.remove();
     if (!(sliderText === undefined))
       sliderText.remove();
     button.remove();
   }
-  element.parentNode.insertBefore(button, element.nextSibling);
 
   //Break line
   if (sliderText === undefined)
