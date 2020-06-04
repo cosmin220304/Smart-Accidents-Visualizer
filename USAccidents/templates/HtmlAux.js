@@ -99,27 +99,6 @@ function getTool()
 function transform(content)
 { 
   try{
-    if (topNav == ""){
-      readFile("topNav")
-      while(topNav == "")
-      {
-
-      }
-    }
-    if (footer == ""){
-      readFile("footer")
-      while(footer == "")
-      {
-        
-      }
-    }
-    if (tool == ""){
-      readFile("tool")
-      while(tool == "")
-      {
-        
-      }
-    }
     content = content.replace(/^(.*){topnav}(.*)/gm, topNav) 
     content = content.replace(/^(.*){footer}(.*)/gm, footer) 
     content = content.replace(/^(.*){tool}(.*)/gm, tool)  
@@ -130,7 +109,7 @@ function transform(content)
   return content
 }
 
-function start()
+async function start()
 {
   readFile("topNav")
   readFile("footer")
