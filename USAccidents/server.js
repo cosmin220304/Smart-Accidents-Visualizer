@@ -38,6 +38,7 @@ const routesMap = {
     '/barGraph.js' : barGraphRoutes,
     '/tool.html' : publicRoutes,
     '/tool.js' : publicRoutes,
+    '/tool.css' : publicRoutes,
     '/topNav.html' : publicRoutes,
     '/topNav.css' : publicRoutes,
     '/footer.html' : publicRoutes,

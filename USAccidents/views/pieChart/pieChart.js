@@ -11,9 +11,10 @@ function makeSearch() {
     var e = block.childNodes[i];
 
     //If checkbox we are interested in true/false value
-    if (e.type == "checkbox") {
-      queryString = queryString + e.name + "=" + e.checked + "&";
-      continue;
+    if (e.type == "checkbox")
+    { 
+        queryString = queryString + e.name + "=" + e.checked.toString().toUpperCase() + "&";
+        continue;
     }
 
     //If is a remove button/div/span we skip it

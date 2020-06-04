@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const qs = require('querystring') 
+const qs = require('querystring')
 //const oldbUrl = 'mongodb+srv://admin:proiectTW2020@cluster0-3dd1j.gcp.mongodb.net/SAV?retryWrites=true&w=majority'
 const dbUrl = 'mongodb://cosminDBAdmin:20a4506524433eff9804e3b4eea35c64@centos-uni.zicar.info:27017/proiectTW_Cosmin?retryWrites=true&w=majority'
 let db
@@ -7,9 +7,9 @@ let db
 var Schema = mongoose.Schema
 var mySchema = new Schema({
     _id: mongoose.Types.ObjectId,
-    ID:  String, 
+    ID: String,
     Source: String,
-    TMC:   String,
+    TMC: String,
     Severity: String,
     Start_Time: String,
     End_Time: String,
@@ -56,69 +56,64 @@ var mySchema = new Schema({
     Civil_Twilight: String,
     Nautical_Twilight: String,
     Astronomical_Twilight: String
-}) 
+})
 const MyModel = mongoose.model("data", mySchema, "data")
 
-async function start ()
-{
-    mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true})
-    .then(() => console.log('Connected to DB!'))
-    .catch(err => console.log('DB conn error:' + err)) 
-    db = mongoose.connection  
+async function start() {
+    mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true })
+        .then(() => console.log('Connected to DB!'))
+        .catch(err => console.log('DB conn error:' + err))
+    db = mongoose.connection
 }
- 
 
-function findCoordonates (body, offset, limit)
-{  
+
+function findCoordonates(body, offset, limit) {
     return new Promise((resolve, reject) => {
-        try { 
+        try {
             MyModel.find(body).skip(offset).limit(limit).select("Start_Lat Start_Lng Description -_id")
-            .exec((err, res) => {
-                if (err) console.log(err)
-                resolve(res)
-            })   
+                .exec((err, res) => {
+                    if (err) console.log(err)
+                    resolve(res)
+                })
         }
-        catch (error){
+        catch (error) {
             reject(error)
         }
     })
-} 
+}
 
 
-function count (body)
-{  
+function count(body) {
     return new Promise((resolve, reject) => {
         try {
             MyModel.aggregate
-            ([
-                {$match: body},
-                {"$group": {_id:"$State",counter:{$sum:1}}}    
-            ]).exec((err, res) => {resolve(res)}) 
+                ([
+                    { $match: body },
+                    { "$group": { _id: "$State", counter: { $sum: 1 } } }
+                ]).exec((err, res) => { resolve(res) })
         }
-        catch (error){
+        catch (error) {
             reject(error)
         }
     })
-} 
-
-
-function save(obj)
-{
-   var newModel = new MyModel(obj)
-   newModel.save(function (err, element) {
-    if (err) console.log(err)
-    console.log("object saved in collection")
-  })
 }
 
 
-function update(ID, obj, upsertOk)
-{
+function save(obj) {
+    var newModel = new MyModel(obj)
+    newModel.save(function (err, element) {
+        if (err) console.log(err)
+        console.log("object saved in collection")
+    })
+}
+
+
+function update(ID, obj, upsertOk) {
     return new Promise((resolve, reject) => {
         try {
             MyModel.updateOne(
-                {"ID" : ID}, 
-                { $set: obj }, 
+                { "ID": ID },
+                { $set: obj },
                 { upsert: upsertOk },
 
                 (err, result, upserted) => {
@@ -129,7 +124,7 @@ function update(ID, obj, upsertOk)
                         console.log(err)
                         new_obj["Response"] = "Something went wrong"
                     }
-                    else if (upserted){
+                    else if (upserted) {
                         new_obj["Response"] = "Object created with Success!"
                         name = "New Data"
                     }
@@ -142,7 +137,7 @@ function update(ID, obj, upsertOk)
                 }
             )
         }
-        catch (error){
+        catch (error) {
             reject(error)
         }
     })
