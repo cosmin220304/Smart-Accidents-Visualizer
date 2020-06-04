@@ -99,7 +99,7 @@ function getTool()
 function transform(content)
 { 
   try{
-    content = content.replace(/^(.*){topnav}(.*)/gm, topNav) 
+    content = content.replace(/^(.*){topnav}(.*)/gm, getTopNavHTML()) 
     content = content.replace(/^(.*){footer}(.*)/gm, footer) 
     content = content.replace(/^(.*){tool}(.*)/gm, tool)  
   }
