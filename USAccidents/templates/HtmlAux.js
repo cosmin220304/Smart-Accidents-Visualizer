@@ -8,7 +8,7 @@ let tool = ""
 
 function readFile(name)
 {
-  var fileName = publicResources + '\\' + name + '.html'
+  var fileName = publicResources + '\/' + name + '.html'
   fs.readFile(fileName, 'utf8', function(error, content) 
   {    
     if (error){
