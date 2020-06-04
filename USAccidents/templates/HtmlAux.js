@@ -99,7 +99,7 @@ function getTool()
 function transform(content)
 { 
   try{
-    content = content.replace(/^(.*){topnav}(.*)/gm, getTopNavHTML()) 
+    content = content.replace(/^(.*){topnav}(.*)/gm, topNav) 
     content = content.replace(/^(.*){footer}(.*)/gm, footer) 
     content = content.replace(/^(.*){tool}(.*)/gm, tool)  
   }
@@ -109,7 +109,7 @@ function transform(content)
   return content
 }
 
-function start()
+async function start()
 {
   readFile("topNav")
   readFile("footer")
