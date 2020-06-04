@@ -8,7 +8,7 @@ const barGraphRoutes =  require('./routes/barGraphRoutes')
 const publicRoutes = require('./routes/publicRoutes')
 const HtmlAux = require('./templates/HtmlAux')
 const publicController = require('./controllers/publicController')
-port = 8128;      
+const port = process.env.PORT || 8128;      
 
 //Start the model
 model.start()
