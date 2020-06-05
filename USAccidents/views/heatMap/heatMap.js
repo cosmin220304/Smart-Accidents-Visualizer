@@ -40,6 +40,7 @@
     qsToArr(queryString);
     return false;
   }
+  
   async function qsToArr(queryString) {
     var dataJS = await getReq(queryString);
     var coordonatesObject = Object.values(dataJS);
