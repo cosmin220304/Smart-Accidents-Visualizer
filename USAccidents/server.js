@@ -23,6 +23,7 @@ const routesMap = {
     '/home.html': homeRoutes,
     '/homeButtonEvents.js': homeRoutes,
     '/homeMapRenderer.js': homeRoutes,
+    '/downloadButtons.js': homeRoutes,
     '/home.css': homeRoutes,
     '/heatMap': heatMapRoutes,
     '/heatMap.html': heatMapRoutes,

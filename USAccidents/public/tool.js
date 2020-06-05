@@ -222,7 +222,6 @@ function newSlider(){
 
 // Event listeners 
 selectGenerator.addEventListener('change', function() {
-  console.log("found something")
   const func = nameToFunc[addSelect.value];
   func();
   addSelect.value='0';

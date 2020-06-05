@@ -247,7 +247,7 @@ function OnOffText(){
           styleRember[i] = layer.getStyle();    
 
           //Change style of points
-          // layer.setStyle((feature) => {return stylePoints(feature, test[i], false)});
+          layer.setStyle((feature) => {return stylePoints(feature, test[i], false)});
         }
       );
     }

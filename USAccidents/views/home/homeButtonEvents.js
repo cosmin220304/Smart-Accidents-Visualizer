@@ -32,25 +32,6 @@ function createNewSearch(){
 }  
 
 
-//Creates new search block
-function createSearchBlock(color)
-{
-    //Add the search block
-    newSearchBlock = document.createElement("div");
-    newSearchBlock.id = "searchBlock" + searchBlockNo;
-    lastSearchBlock = searchBlocks[searchBlockNo]; 
-    lastSearchBlock.parentNode.insertBefore(newSearchBlock, lastSearchBlock.nextSibling); 
-
-    //Add to our array
-    searchBlockNo += 1;
-    searchBlocks.push(newSearchBlock);
-
-    //Add the collor
-    newSearchBlock.style.backgroundColor = color;
-    colorArray.push(color);
-}
-
-
 //Used when submit button is pressed
 function makeSearch() { 
     //Refresh the points on map
@@ -62,6 +43,7 @@ function makeSearch() {
     //Stop form from changing url
     return false;
 }  
+
 
 async function makeSearchHandler(){
     //We make a different search for every searchBlock   
@@ -77,31 +59,32 @@ async function makeSearchHandler(){
         //Copy each value from that searchBlock into queryString
         let queryString = "";
         for ( var i = 0; i < block.childNodes.length; i++ ) {
-        //Get the elements from that block
-        var e = block.childNodes[i];  
+            //Get the elements from that block
+            var e = block.childNodes[i];  
 
-        //If checkbox we are interested in true/false value
-        if (e.type == "checkbox")
-        { 
-            queryString = queryString + e.name + "=" + e.checked.toString().toUpperCase() + "&";
-            continue;
-        }
+            //If checkbox we are interested in true/false value
+            if (e.type == "checkbox")
+            { 
+                queryString = queryString + e.name + "=" + e.checked.toString().toUpperCase() + "&";
+                continue;
+            }
 
-        //If is a remove button/div/span we skip it
-        if (e.className == "removeButton" || e.value == undefined)
-        {
-            continue;
-        }
+            //If is a remove button/div/span we skip it
+            if (e.className == "removeButton" || e.value == undefined)
+            {
+                continue;
+            }
 
-        //If is text area/date that was uncompleted we simply ignore it (and show a message)
-        if (e.value == ""){
-            alert("empty data in " + e.name + " will not be sent to server!");
-            continue;
-        }
+            //If is text area/date that was uncompleted we simply ignore it (and show a message)
+            if (e.value == ""){
+                alert("empty data in " + e.name + " will not be sent to server!");
+                continue;
+            }
 
-        //We get the name and values and add it to our query string
-        queryString = queryString + e.name + "=" + e.value + "&";
+            //We get the name and values and add it to our query string
+            queryString = queryString + e.name + "=" + e.value + "&";
         } 
+        
         //Add the color
         let color = "rgb(0, 0, 0)";
         if (searchBlocks[index].id != "searchBlockStart")
@@ -126,8 +109,7 @@ async function queryToPoints(queryString, color){
     while(true){
         //Get json from server
         var json = await getReq(queryString+"&Limit="+limit+"&Offset="+offset);  
-        var coordonatesObject = Object.values(json);   
-        console.log("got data from server");
+        var coordonatesObject = Object.values(json);
 
         offset += limit;
         if (json.length == 0)
@@ -192,7 +174,7 @@ function saveData(){
         children = searchBlocks[j].childNodes; 
         for (var i = 0; i < children.length; i++){
             //Get only inputs
-            if (children[i].name !== undefined && children[i].name != "")
+            if (children[i].name !== undefined && children[i].name != "" && children[i].value != "")
             {
                 inputNames.push(children[i].name);
                 inputValues.push(children[i].value);   
@@ -225,6 +207,7 @@ function loadData(){
         const inputValues = localStorage.getItem("inputValues").split(',');
         const nameOfBlock = localStorage.getItem("nameOfBlock").split(',');  
         const colArr = localStorage.getItem("colorArray").split(',');
+        let colIndex = 1;
         
         //Recreate each element
         for (var i = 0; i < nameOfBlock.length; i++){   
@@ -233,7 +216,7 @@ function loadData(){
 
             //Add a new searchBlock if it doesn not exist
             if (searchBlock == null){
-                createSearchBlock(colArr[i]);
+                createSearchBlock(colArr[colIndex++]);
                 searchBlock = document.getElementById(nameOfBlock[i]); 
             }
 
@@ -263,6 +246,7 @@ function destroyAllBlocks()
     //Create searchblock start
     let searchBlockStart = document.createElement("div");
     searchBlockStart.id = "searchBlockStart";
+    searchBlockStart.className = "searchBlocks";
     
     //Add child to form
     const submit = document.getElementById('submit');
@@ -274,61 +258,23 @@ function destroyAllBlocks()
     colorArray = ["#000000"];
 }
 
-//DOWNLOAD BUTTONS
-let downloadPNG = document.getElementById('downloadPNG');
-downloadPNG.addEventListener('click', function() {
-    //Get the map synced
-    map.renderSync();
 
-    //Create canvas
-    let canvas = document.createElement('canvas');
+function createSearchBlock(color)
+{
+    //Create it and add the id and class
+    newSearchBlock = document.createElement("div");
+    newSearchBlock.id = "searchBlock" + searchBlockNo;
+    newSearchBlock.className = "searchBlocks"
 
-    //Get drawing context of the canvas
-    let context = canvas.getContext('2d');
-        
-/*  Simplified CODE FROM OPENLAYERS DOCUMENTAION https://openlayers.org/en/latest/examples/export-pdf.html?q=export    */
-    canvas.width = map.getSize()[0];
-    canvas.height = map.getSize()[1]; 
-    Array.prototype.forEach.call(document.querySelectorAll('.ol-layer canvas'), function(canvas) {
-        context.drawImage(canvas, 0, 0); 
-    });
-/*  Simplified CODE FROM OPENLAYERS DOCUMENTAION https://openlayers.org/en/latest/examples/export-pdf.html?q=export    */ 
-    
-    downloadPNG.href = canvas.toDataURL();
-});
- 
+    //Add the collor
+    newSearchBlock.style.backgroundColor = color;
+    colorArray.push(color);
 
-let downloadCSV = document.getElementById('downloadCSV');
-downloadCSV.addEventListener('click', function() { 
-    //Create collumns
-    var content = 'longitude,latitude,description\n';
+    //Add it in our html
+    lastSearchBlock = searchBlocks[searchBlockNo]; 
+    lastSearchBlock.parentNode.insertBefore(newSearchBlock, lastSearchBlock.nextSibling); 
 
-    //Add for each coord in array lon,lat + descArray for that coord
-    for (var i = 0; i < coordArray.length; i++) {
-        content += coordArray[i][0]+','+coordArray[i][1]+','+descArray[i]+'\n';
-    }
-
-    //Create new csv blob
-    var csvFile = new Blob([content], { type: 'text/csv;charset=utf-8;'});
-    downloadCSV.href = URL.createObjectURL(csvFile); 
-});
- 
-
-let downloadSVG = document.getElementById('downloadSVG');
-downloadSVG.addEventListener('click', async function() { 
-    //Get the map synced
-    map.renderSync();
-
-    //Create canvas
-    let ctx = new C2S(map.getSize()[0], map.getSize()[1]); 
-
-    //Do the same thing as "download png" to draw the canvas over context 
-    //  (again code is changed a bit, but is from ol documentation)
-    Array.prototype.forEach.call(document.querySelectorAll('.ol-layer canvas'), function(canvas) {
-        ctx.drawImage(canvas, 0, 0); 
-    });
-
-    //Create new svg blob
-    var svgFile = new Blob([ctx.getSerializedSvg(true)], { type: 'text/svg;charset=utf-8;'});
-    downloadSVG.href = URL.createObjectURL(svgFile); 
-});
+    //Add to our array
+    searchBlockNo += 1;
+    searchBlocks.push(newSearchBlock);
+}
