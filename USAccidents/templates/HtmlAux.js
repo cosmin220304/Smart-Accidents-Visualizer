@@ -5,6 +5,8 @@ const publicResources = path.join(__dirname, '..', 'public')
 let topNav = ""
 let footer = ""
 let tool = ""
+const toolScript = `<script id="script2" type="text/javascript" src="tool.js"></script>`;
+const bodyEnd = "</body>";
 
 function readFile(name)
 {
@@ -101,7 +103,10 @@ function transform(content)
   try{
     content = content.replace(/^(.*){topnav}(.*)/gm, topNav) 
     content = content.replace(/^(.*){footer}(.*)/gm, footer) 
-    content = content.replace(/^(.*){tool}(.*)/gm, tool)  
+    if (content.includes("{tool}")){
+      content = content.replace(/^(.*){tool}(.*)/gm, tool)  
+      content = content.replace(/^(.*)\<\/body\>(.*)/gm, toolScript + bodyEnd)  
+    }
   }
   catch(e){
     console.log(e);
