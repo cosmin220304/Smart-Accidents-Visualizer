@@ -15,7 +15,7 @@ async function handleRecords(request, response){
     var id = request.url.split('/')[2];
     var result = await model.findByID(id);
     console.log(result)
-    response.writeHead(403, { 'Content-Type': 'application/json' })
+    response.writeHead(200, { 'Content-Type': 'application/json' })
     response.end(JSON.stringify({ "Response": result }))
 }
 
@@ -110,7 +110,7 @@ async function update(obj, response, upsertOk){
     }
     else {
         const result = await model.update(obj["ID"], obj, upsertOk)
-        response.writeHead(200, { 'Content-Type': 'application/json' })
+        response.writeHead(result["Response Code"], { 'Content-Type': 'application/json' })
         response.end(JSON.stringify(result))
     }
 }

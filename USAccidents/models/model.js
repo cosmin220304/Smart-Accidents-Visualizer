@@ -132,24 +132,34 @@ function update(ID, obj, upsertOk) {
                 { $set: obj },
                 { upsert: upsertOk },
 
-                (err, result, upserted) => {
-                    let new_obj = {}
-                    let name = ""
-
+                (err, result) => {
+                    let response = {}  
+                    //In case of ERROR
                     if (err) {
                         console.log(err)
-                        new_obj["Response"] = "Something went wrong"
+                        response["Response"] = "Something went wrong"
+                        response["Response Code"] = 500;
                     }
-                    else if (upserted) {
-                        new_obj["Response"] = "Object created with Success!"
-                        name = "New Data"
+
+                    //For PATCH on unexisting resource
+                    if (upsertOk == false && result["n"] == 0) {
+                        response["Response"] = "Update Failed! Couldn't find record." 
+                        response["Response Code"] = 404; 
+                    } 
+
+                    //For PUT on unexisting resource
+                    else if (upsertOk == true && result["upserted"]){
+                        response["Response"] = "Object created with Success!" 
+                        response["Response Code"] = 201;
                     }
-                    else {
-                        new_obj["Response"] = "Object updated with Success!"
-                        name = "Updated Data"
+
+                    //For PATCH/ PUT on existing resource
+                    else{
+                        response["Response"] = result["nModified"] + " fields updated with Success!" 
+                        response["Response Code"] = 200;
                     }
-                    new_obj[name] = result
-                    resolve(new_obj)
+                    
+                    resolve(response)
                 }
             )
         }
