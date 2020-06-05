@@ -17,8 +17,7 @@
 
 <body>
   {topnav}
-  
-  <h2>My Map</h2> 
+
   <div id="mainWrapper">  
     <!-- Search area where you can manipulate data -->
     <div id="SearchArea">
@@ -33,29 +32,22 @@
     <span></span>
     <!-- Map render surrounded by buttons -->
     <div id="mapContainer">  
-      <!-- Upper button -->
-      <button class="button arrowsUD" onmousedown="moveAround('up')" onmouseup="stopMove()"> &uarr; </button> 
-  
-      <div id="mapWrapper"> 
-        <!-- Left button -->
-        <button class="button arrowsLR"  onmousedown="moveAround('left')" onmouseup="stopMove()"> &larr; </button> 
-        
+        <!-- Upper button -->
+        <button class="button arrowsUD"> todo </button> 
+   
         <!-- Map render using openlayers api -->
-        <div id="map" class="map"></div>  
-  
-        <!-- Right button -->
-        <button class="button arrowsLR"  onmousedown="moveAround('right')" onmouseup="stopMove()"> &rarr; </button> 
-      </div> 
-  
-      <!-- Lower button -->
-      <button class="button arrowsUD" onmousedown="moveAround('down')" onmouseup="stopMove()">  &darr; </button>  
-      <a id="downloadPNG" download ="mapPNG">Download PNG</a>
-      <a id="downloadCSV" download ="mapCSV.csv">Download CSV</a>
-      <a id="downloadSVG" download ="mapSVG.svg">Download SVG</a>
+        <div id="map" class="map"></div>   
+
+        <div id="DownloadArea"> 
+          <a id="downloadPNG" download ="mapPNG">Download PNG</a>
+          <a id="downloadCSV" download ="mapCSV.csv">Download CSV</a>
+          <a id="downloadSVG" download ="mapSVG.svg">Download SVG</a>
+        </div> 
     </div>
   </div>
-
+  
   <div id="popup" style="height: 2.5em;"></div>
+  <div class="loader"></div>
 
   {footer}
   <script id="mapScript" type="text/javascript" src="homeMapRenderer.js"></script>

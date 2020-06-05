@@ -13,10 +13,6 @@ let startZoom = 3;
 const mercatorProjection = `EPSG:3857`;
 const worldGeodeticSystem = `EPSG:4326`; //datum featuring coordinates that change with time.
 
-//Used for moving buttons
-let isMoving = false;
-let direction;  
-
 //Used for popup when hovering over point 
 let coordArray = [];
 let descArray = [];
@@ -118,50 +114,6 @@ function removeAllPoints() {
   map.getLayers().getArray().filter(layer => layer.get('class') === 'points').forEach(layer => map.removeLayer(layer));
 }
 
-//Moves map to position startPosX, startPosY
-function updateMapView() {
-  map.getView().setCenter(ol.proj.transform([startPosX, startPosY], worldGeodeticSystem, mercatorProjection)); 
-}
-
-
-function sleep(ms) {
-  return new Promise(start => setTimeout(start, ms));
-} 
-
-
-function moveAround(dir) { 
-  direction = dir;
-  isMoving = true;
-}
-
-
-function stopMove() { 
-  isMoving = false;
-}
-
-
-async function moving() {
-  var force;
-  do {
-    if (isMoving) 
-    {
-      force = 2 * startZoom /  Math.exp(map.getView().getZoom());
-      if (direction == "up") 
-        startPosY += 1 * force;
-      else if (direction == "down") 
-        startPosY -= 1 * force;
-      else if (direction == "right") 
-        startPosX += 1 * force;
-      else 
-        startPosX -= 1 * force;
-      updateMapView();
-    }
-    await sleep(10);
-  } while(1);
-}
-moving();
-
-
 // Popup showing the position the user clicked
 var popup = document.getElementById('popup');
 var overlay = new ol.Overlay({
@@ -227,6 +179,7 @@ map.on('pointermove', (event) => {
 
 //Cluster points
 clusterNumber.addEventListener('input', function() { 
+  map.renderSync();
   map.getLayers().getArray().filter(layer => layer.get('class') === 'points').forEach(
     layer => { layer.getSource().setDistance(parseInt(clusterNumber.value, 10)) }
   );

@@ -1,18 +1,37 @@
-body { 
-    background: #222; 
+body {
+    background: #222;
     padding-left: 3em;
     padding-right: 3em;
+}
+
+button {
+    height: 3em;
+    width: 3em;
+    color: #fff;
+    border-color: white;
+    background-color: #363f4d;
 }
 
 #mainWrapper {
     display: grid;
     grid-template-columns: 3fr 0.1fr 6fr;
-} 
+    margin-top: 4em;
+}
 
 #tool {
     background-color: rgb(0, 0, 0, 0);
     color: orange;
-}  
+}
+
+#tool button, #colorPicker {
+    height: 1.2em;
+    width: 1.2em;
+}
+
+#SearchArea {
+    color: orange;
+    display: inline;
+}
 
 .searchBlocks {
     border: 1px solid black;
@@ -23,45 +42,51 @@ body {
     background-color: rgb(0, 0, 0);
 }
 
-#tool button { 
-    height: 1.2em;
-    width: 1.2em; 
-}  
-
-#colorPicker{
-    height: 1.2em;
-    width: 1.2em; 
-}
-
-#mapWrapper {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 2fr 15fr 2fr;
-}
-
-button {
-    /* display: block; */
-    height: 3em;
-    width: 3em;
-    color: #fff;
-    border-color: white;
-    background-color: #363f4d;
-}
-
-.arrowsLR {
-    width: 100%;
-    height: 24em;
-}
-
-.arrowsUD {
-    width: 100%;
-    height: 5em;
-}
-
 #map {
     height: 20em;
     width: 100%;
 }
+
+#DownloadArea a {
+    display: inline-block;
+    padding: 0.5rem;
+    background: white;
+    cursor: pointer;
+}
+
+#popup {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    width: 10em;
+    border: black 2px solid;
+    font-size: 1em;
+    white-space: pre-line;
+    overflow: hidden;
+}
+
+/* Insipired by https://www.w3schools.com/howto/howto_css_loader.asp */
+.loader {
+    border: 0.5em solid white; 
+    border-top: 0.5em solid green; 
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+/* Insipired by https://www.w3schools.com/howto/howto_css_loader.asp */
+
 
 @media only screen and (max-width: 900px) {
     #mainWrapper {
@@ -69,7 +94,7 @@ button {
         flex-direction: column;
     }
 
-    #legend {
+    #SearchArea {
         order: 2;
     }
 
@@ -80,35 +105,11 @@ button {
     #mapWrapper {
         display: grid;
         grid-template-columns: 1fr 5fr 1fr;
-    } 
+    }
 
     /* Code from alex */
     .topnav,
     .Us-Accidents {
         float: none;
     }
-}
-
-#popup { 
-    position: absolute;
-    bottom : 0;
-    right: 0;
-    background-color: white; 
-    width: 10em;
-    border: black 2px solid;
-    font-size: 1em; 
-    white-space: pre-line;
-    overflow:hidden;
-}
-
-#SearchArea {
-    color: orange;
-    display: inline;
-}
-
-#mapContainer a {
-    display: inline-block;
-    padding: 0.5rem;
-    background: white;
-    cursor: pointer;
 }
