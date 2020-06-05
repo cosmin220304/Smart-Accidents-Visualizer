@@ -11,6 +11,13 @@ async function getHandler(resource, response) {
     })
 }
 
+async function handleRecords(request, response){
+    var id = request.url.split('/')[2];
+    var result = await model.findByID(id);
+    console.log(result)
+    response.writeHead(403, { 'Content-Type': 'application/json' })
+    response.end(JSON.stringify({ "Response": result }))
+}
 
 async function postHandler(request, response) {
     //Used for getting the request data
@@ -135,6 +142,7 @@ async function resourceNotFound(response){
 }
 
 module.exports.getHandler = getHandler
+module.exports.handleRecords = handleRecords
 module.exports.postHandler = postHandler
 module.exports.putHandler = putHandler
 module.exports.patchHandler = patchHandler

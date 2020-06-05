@@ -82,6 +82,22 @@ function findCoordonates(body, offset, limit) {
     })
 }
 
+function findByID(ID) {
+    return new Promise((resolve, reject) => {
+        try {
+            MyModel.findOne({"ID" : ID})
+                .exec((err, res) => {
+                    if (err) console.log(err)
+                    resolve(res)
+                })
+        }
+        catch (error) {
+            reject(error)
+        }
+    })
+}
+
+
 
 function count(body) {
     return new Promise((resolve, reject) => {
@@ -144,6 +160,7 @@ function update(ID, obj, upsertOk) {
 }
 
 module.exports.save = save
+module.exports.findByID = findByID
 module.exports.start = start
 module.exports.count = count
 module.exports.update = update
