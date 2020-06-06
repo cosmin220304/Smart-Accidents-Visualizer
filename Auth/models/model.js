@@ -5,6 +5,7 @@ let db;
 
 var Schema = mongoose.Schema;
 var mySchema = new Schema({
+    _id: mongoose.Types.ObjectId,
     user: String,
     password: String,
 }, {
@@ -24,11 +25,9 @@ async function start() {
 function findByUser(user) {
     return new Promise((resolve, reject) => {
         try {
-            console.log("user: " + user)
             MyModel.findOne({ "user": user })
                 .exec((err, res) => {
                     if (err) console.log(err)
-                        console.log(res)
                     resolve(res)
                 })
         }
@@ -47,7 +46,6 @@ async function save(obj) {
     });
 }
 
-module.exports = mongoose.model("users", mySchema, "users");
 module.exports.db = db;
 module.exports.findByUser = findByUser;
 module.exports.save = save;

@@ -24,22 +24,23 @@ async function postHandler(request, response) {
         payload = JSON.parse(reqBody);
     });
 
-    request.on('end', function () {
+    request.on('end', async function () {
         console.log(payload);
-        DB.countDocuments(payload)
-            .then((countDocuments) => {
-                if (countDocuments > 0) {
-                    token = jwt.sign(payload, key.secretKey);
-                    response.write(JSON.stringify({ "logged": true, "token": token }))
-                    response.end();
-                } else {
-                    response.writeHead(200, { 'Content-Type': 'application/json' });
-                    response.write(JSON.stringify({ "Response": "Invalid User/Password" }))
-                    response.end();
-                }
-            });
+        var resultUser = await model.findByUser(payload.user);
+
+        if (resultUser && bcrypt.compareSync(payload.password, resultUser.password)) {
+            token = jwt.sign(payload, key.secretKey);
+            response.write(JSON.stringify({ "logged": true, "token": token }))
+            response.end();
+        } else {
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.write(JSON.stringify({ "Response": "Invalid User/Password" }))
+            response.end();
+        }
+
     });
 }
+
 
 
 async function postRegisterHandler(request, response) {
@@ -69,24 +70,26 @@ async function postRegisterHandler(request, response) {
         else {
             var user = payload.user;
             console.log(user)
-            var resultUser  = await model.findByUser(payload.user);
-            // console.log(resultUser)
-            // if (resultUser) {
-            //     payload['_id'] = new mongoose.Types.ObjectId()
-            //     try {
-            //         model.save(payload)
-            //         response.writeHead(200, { 'Content-Type': 'application/json' })
-            //         response.end(JSON.stringify({ "Response": "Success!" }))
-            //     }
-            //     catch (e) {
-            //         response.writeHead(403, { 'Content-Type': 'application/json' })
-            //         response.end(JSON.stringify({ "Response": e }))
-            //     }
-            // }
-            // else {
-            //     response.writeHead(403, { 'Content-Type': 'application/json' })
-            //     response.end(JSON.stringify({ "Error": "Username already exists." }))
-            // }
+            var resultUser = await model.findByUser(user);
+            if (!resultUser) {
+                payload['_id'] = new mongoose.Types.ObjectId()
+                try {
+                    var encPass = bcrypt.hashSync(payload.password, 10)
+                    payload.password = encPass
+                    model.save(payload)
+                    response.writeHead(200, { 'Content-Type': 'application/json' })
+                    response.end(JSON.stringify({ "Response": "Register successful!" }))
+                }
+                catch (e) {
+                    response.writeHead(403, { 'Content-Type': 'application/json' })
+                    response.end(JSON.stringify({ "Response": e }))
+                }
+            }
+            else {
+                console.log(resultUser.user + "id  --  pw" + resultUser.password)
+                response.writeHead(403, { 'Content-Type': 'application/json' })
+                response.end(JSON.stringify({ "Error": "Username already exists." }))
+            }
 
         }
     });
