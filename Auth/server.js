@@ -1,7 +1,7 @@
 const http = require('http');
 const model = require('./models/model')
-const authController = require("./controllers/authController")
 const port = process.env.PORT || 8000;      
+const routes = require("../Auth/routes/route")
 
 //Start the model
 model.start();
@@ -13,11 +13,11 @@ http.createServer( (request, response) => {
     
     if (request.method == "POST")
     {
-        authController.postHandler(request, response)
+        routes.route(request, response)
     }else
     if (request.method == "GET")
     {
-        authController.getHandler(request, response)
+        routes.route(request, response)
     }
     else{
         response.writeHead(401, { 'Content-Type': 'text/html' });

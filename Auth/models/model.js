@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const qs = require('querystring'); 
-const dbUrl = 'mongodb+srv://admin:proiectTW2020@cluster0-3dd1j.gcp.mongodb.net/Users?retryWrites=true&w=majority';
+const qs = require('querystring');
+const dbUrl = 'mongodb://cosminDBAdmin:20a4506524433eff9804e3b4eea35c64@centos-uni.zicar.info:27017/proiectTW_Cosmin?retryWrites=true&w=majority'
 let db;
 
 var Schema = mongoose.Schema;
@@ -10,27 +10,45 @@ var mySchema = new Schema({
 }, {
     versionKey: false
 });
-const MyModel = mongoose.model("user", mySchema, "user");
 
-async function start(){
-    mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true})
-    .then(() => console.log('Connected to DB!'))
-    .catch(err => console.log('DB conn error: ${err.message}')); 
-    db = mongoose.connection;  
+const MyModel = mongoose.model("users", mySchema, "users");
+
+async function start() {
+    mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true })
+        .then(() => console.log('Connected to DB!'))
+        .catch(err => console.log('DB conn error: ${err.message}'));
+    db = mongoose.connection;
+}
+
+
+function findByUser(user) {
+    return new Promise((resolve, reject) => {
+        try {
+            console.log("user: " + user)
+            MyModel.findOne({ "user": user })
+                .exec((err, res) => {
+                    if (err) console.log(err)
+                        console.log(res)
+                    resolve(res)
+                })
+        }
+        catch (error) {
+            reject(error)
+        }
+    })
 }
  
 
-async function save(obj)
-{
-   var abc = new MyModel(obj);
-   abc.save( (err, collection)  => {
-    if (err) return console.error(err);
-    console.log(collection.name + " saved collection");
-  });
+async function save(obj) {
+    var model = new MyModel(obj);
+    model.save((err, collection) => {
+        if (err) return console.error(err);
+        console.log(collection.name + " saved collection");
+    });
 }
 
-
-module.exports = mongoose.model("user", mySchema, "user");
+module.exports = mongoose.model("users", mySchema, "users");
 module.exports.db = db;
+module.exports.findByUser = findByUser;
 module.exports.save = save;
 module.exports.start = start;
