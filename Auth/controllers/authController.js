@@ -20,7 +20,12 @@ async function postHandler(request, response) {
     //Get the data
     var token;
     request.on('data', function (data) {
-        reqBody += data;
+        //Checking for NOSQL injection
+        if (data.includes("$"))
+            reqBody = "{}";
+        else
+            reqBody += data;
+            
         payload = JSON.parse(reqBody);
     });
 
@@ -36,12 +41,9 @@ async function postHandler(request, response) {
             response.writeHead(200, { 'Content-Type': 'application/json' });
             response.write(JSON.stringify({ "Response": "Invalid User/Password" }))
             response.end();
-        }
-
+        } 
     });
 }
-
-
 
 async function postRegisterHandler(request, response) {
     //Used for getting the request data
