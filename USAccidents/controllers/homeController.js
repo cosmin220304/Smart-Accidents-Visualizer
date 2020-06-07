@@ -69,7 +69,7 @@ function showCookies(request){
 
 function getContentType(filePath)
 {
-    var extensionName = String(path.extname(filePath)).toLowerCase()
+    var extensionName = path.extname(filePath)
     var contentTypeMap = {
         '.html': 'text/html',
         '.js': 'text/javascript',

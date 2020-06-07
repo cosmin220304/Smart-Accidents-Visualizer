@@ -1,22 +1,16 @@
-let searchBlocks = [document.getElementById('searchBlockStart')]
-let searchBlockNo = 0;
-let selectGenerator = document.getElementById('addSelect'); 
-
 const selectMap = { 
-  "Source" : ['MapQuest', 'Bing'],
-  "Severity" : ['1', '2', '3', '4'],
-  "Side" : ['L', 'R'],
+  "Source" : ["MapQuest", "Bing"],
+  "Severity" : ["1", "2", "3", "4"],
+  "Side" : ["L", "R"],
   "State" : ["AZ","AL","AK","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY","AS","GU","MP","PR","VI","UM"],
   "Country" : ["US"],
   "Timezone" : ["US/Pacific", "US/Mountain", "US/Central", "US/Easter"]
 }
-
 const dateMap = {
   "Start_Time" : ["2015-03-09", "2020-01-01"],
   "End_Time" : ["2016-02-08", "2020-11-01"],
   "Weather_Timestamp" : ["2016-02-08", "2020-01-01"]
 }
-
 const sliderMap = {
   "Temperature(F)" : ["-78" , "167"],
   "Wind_Chill(F)" : ["-54", "115"],
@@ -26,8 +20,9 @@ const sliderMap = {
   "Wind_Speed(mph)" : ["0", "823"],
   "Precipitation(in)" : ["0", "25"],
   "TMC" : ["200", "406"],
-  "Distance(mi)": ["0", "100"]
+  "Distance(mi)" : ["0", "100"]
 }
+// END
 
 const nameToFunc = { 
   "Source" : newSelect, 
@@ -64,9 +59,19 @@ const nameToFunc = {
   "Sunrise_Sunset" : newCheckbox,
   "Civil_Twilight" : newCheckbox,
   "Nautical_Twilight" : newCheckbox,
-  "Astronomical_Twilight" : newCheckbox
+  "Astronomical_Twilight" : newCheckbox,
+  "City": newTextArea,
+  "County": newTextArea,
+  "Number": newTextArea,
+  "Street": newTextArea,
+  "Zipcode": newTextArea,
+  "Airport_Code": newTextArea
 }
 
+//Variables for tool
+let searchBlocks = [document.getElementById("searchBlockStart")]
+let searchBlockNo = 0;
+let selectGenerator = document.getElementById("addSelect"); 
 
 //Adds all options to "selectGenerator" select from nameToFunc map
 function IntializeSelectGenerator(){ 
@@ -220,11 +225,25 @@ function newSlider(){
   return slider;
 }
 
+//Creates a new html textarea 
+function newTextArea(){
+  let txtArea = document.createElement("textarea")
+  txtArea.name = addSelect.value;
+
+  //Add it to current searchBlock 
+  searchBlocks[searchBlockNo].appendChild(txtArea); 
+
+  //Add data around this input
+  addTextToElement(txtArea, txtArea.name);
+
+  return txtArea;
+}
+
 // Event listeners 
-selectGenerator.addEventListener('change', function() {
+selectGenerator.addEventListener("change", function() {
   const func = nameToFunc[addSelect.value];
   func();
-  addSelect.value='0';
+  addSelect.value="0";
 });  
 
 IntializeSelectGenerator();

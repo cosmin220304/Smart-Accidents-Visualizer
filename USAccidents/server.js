@@ -8,6 +8,7 @@ const barGraphRoutes = require('./routes/barGraphRoutes')
 const publicRoutes = require('./routes/publicRoutes')
 const HtmlAux = require('./templates/HtmlAux')
 const publicController = require('./controllers/publicController')
+const dataObserver = require('./microservices/data observer')
 const port = process.env.PORT || 8128;
 
 //Start the model
@@ -15,6 +16,9 @@ model.start()
 
 //Start html templater
 HtmlAux.start()
+
+//Start dataObserver microservice
+dataObserver.start()
 
 //Map of routes 
 const routesMap = {
@@ -51,13 +55,6 @@ const routesMap = {
     '/404_2.jpeg': publicRoutes,
     '/404_3.jpeg': publicRoutes,
     '/404_4.jpeg': publicRoutes,
-}
-
-const endPointsMap = {
-    '/': '/home.html',
-    '/home': '/home.html',
-    '/heatMap': '/heatMap.html',
-    '/pieChart': '/pieChart.html'
 }
 
 const acceptedSecuredRequests = ["POST", "PATCH", "PUT", "DELETE"];

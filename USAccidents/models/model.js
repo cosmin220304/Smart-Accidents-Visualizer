@@ -1,11 +1,8 @@
 const mongoose = require('mongoose')
-const qs = require('querystring')
 //const oldbUrl = 'mongodb+srv://admin:proiectTW2020@cluster0-3dd1j.gcp.mongodb.net/SAV?retryWrites=true&w=majority'
 const dbUrl = 'mongodb://cosminDBAdmin:20a4506524433eff9804e3b4eea35c64@centos-uni.zicar.info:27017/proiectTW_Cosmin?retryWrites=true&w=majority'
-let db
 
-var Schema = mongoose.Schema
-var mySchema = new Schema({
+var mySchema = new mongoose.Schema({
     _id: mongoose.Types.ObjectId,
     ID: String,
     Source: String,
@@ -63,7 +60,6 @@ async function start() {
     mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true })
         .then(() => console.log('Connected to DB!'))
         .catch(err => console.log('DB conn error:' + err))
-    db = mongoose.connection
 }
 
 
