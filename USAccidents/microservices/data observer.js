@@ -51,11 +51,15 @@ async function checkToolFile(content){
             continue
         }
         
+        //Get the pair name:[values]
         const pair = lines[i].split(" : ")
         const name = pair[0].replace(/(\s|\")/g, '')
         const values = pair[1].replace(/],/g, ']')
+
+        //Get the values from db
         const dbValues = await getValuesByName(name)
          
+        //Check if tool.js values and db values are the same
         if (! (values === dbValues) )
         {
             changes = changes + values + " -> " + dbValues + "\n"
@@ -106,13 +110,63 @@ function createLog(content){
         if (err) 
             console.log(err)
         else
-            console.log("check" + logFile + "log file for details")
+            console.log("check \"/logs and data/data_observer.log\" for log file with details")
     });
 }
 
 async function notify(data){
-    console.log("MICROSERVICE ");
-    console.log(JSON.stringify(data))
+    //Get all the fields that were changed
+    const names = Object.keys(data)
+    for (var i = 0; i < names.length; i++){
+
+        //Check if field is in bd 
+        let exists = await nameExists(names[i])
+        if (exists == true)
+        {
+            //Get values from db and compare
+            let dbValues = await getValuesByName(names[i])
+            let values = data[names[i]]
+
+            //If values are different add to db
+            if (!dbValues.includes(values))
+            {
+                addToDb(names[i], dbValues, values)
+            }
+        }
+    }
+}
+
+function nameExists(name){
+    return new Promise((resolve, reject) => {
+        try {
+            MyModel.findOne({Name : name})
+                    .exec((err, res) => {
+                        if (err) console.log(err)
+                        if (res === null)
+                            resolve(false)
+                        else 
+                            resolve(true)
+                    })
+        }
+        catch (error) {
+            reject(error)
+        }
+    })
+}
+
+function addToDb(name, dbValues, newValues){
+    //Adds at the end in the string
+    dbValues = dbValues.replace("]", ",\"" + newValues + "\"]")
+
+    //Adds in db
+    MyModel.updateOne(
+        { Name: name },
+        { $set: {Values : dbValues} },
+        (err, result) => {
+            if (err) console.log(err)
+            console.log(result)
+        }
+    )
 }
 
 module.exports.start = start
