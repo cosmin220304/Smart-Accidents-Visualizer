@@ -5,11 +5,9 @@ module.exports.verifyAuth = (token, response) => {
     try {
         var verif = jwt.verify(token, key.secretKey)
         response.writeHead(200, { 'Content-Type': 'application/json' });
-        response.write(JSON.stringify({ "Response" : "Auth successful" }))
-        response.end()
+        response.end(JSON.stringify({ "Response" : "Auth successful" }))
     } catch (e) {
-        response.writeHead(403, 'aplication/json')
-        response.write(JSON.stringify({ "Response" : "Failed to auth" }))
-        response.end()
+        response.writeHead(401, { 'Content-Type': 'application/json' });
+        response.end(JSON.stringify({ "Response": "Failed to auth. Invalid token." }))
     }
 }
