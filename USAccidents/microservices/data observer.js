@@ -35,6 +35,8 @@ async function readToolFile(){
 //Check if values are coresponding to the ones in database
 async function checkToolFile(content){ 
     //Read each line from tool.js
+    let changes = "" 
+    let contentCopy = content
     let lines = content.split(/\r\n|\n/)
     let i = 0
     while(1){
@@ -50,15 +52,25 @@ async function checkToolFile(content){
         }
         
         const pair = lines[i].split(" : ")
-        const name = pair[0].replace(/(\s|\")/g, '');
-        const values = pair[1].replace(/,/g, '')
+        const name = pair[0].replace(/(\s|\")/g, '')
+        const values = pair[1].replace(/],/g, ']')
         const dbValues = await getValuesByName(name)
-        
-        if (values != dbValues)
-            console.log("it worked")
-        else console.log("didnt work for " + name)
-        // console.log(dbValues)
+         
+        if (! (values === dbValues) )
+        {
+            changes = changes + values + " -> " + dbValues + "\n"
+            contentCopy = contentCopy.replace(values, dbValues)
+        }
         i++
+    }
+
+    //Check if any changes was found and modify tool.js + create log file
+    if (changes === ""){
+        console.log("data observer finished, didn't find any changes")
+    }
+    else{
+        repairChanges(contentCopy) 
+        createLog(changes)
     }
 }
 
@@ -68,14 +80,34 @@ function getValuesByName(name){
             MyModel.findOne({Name : name}).select("Values -_id")
                     .exec((err, res) => {
                         if (err) console.log(err)
-                        const ret = "\"" + res.Values + "\""
-                        resolve(ret)
+                        resolve(res.Values)
                     })
         }
         catch (error) {
             reject(error)
         }
     })
+}
+
+function repairChanges(content){
+    const toolJs = path.join(__dirname, '..', 'public', 'tool.js')
+    fs.writeFile(toolJs, content, function (err) {
+        if (err) 
+            console.log(err)
+        else
+            console.log("tool.js was modified. Data observer found values different from db values/")
+    });
+}
+
+function createLog(content){
+    const logsPath = path.join(__dirname, '..', 'logs and data')
+    const logFile = logsPath + '\/data_observer.log'
+    fs.writeFile(logFile, content, function (err) {
+        if (err) 
+            console.log(err)
+        else
+            console.log("check" + logFile + "log file for details")
+    });
 }
 
 async function notify(data){

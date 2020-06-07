@@ -1,26 +1,26 @@
 const selectMap = { 
-  "Source" : ["MapQuest", "Bing"],
-  "Severity" : ["1", "2", "3", "4"],
-  "Side" : ["L", "R"],
+  "Source" : ["MapQuest","Bing"],
+  "Severity" : ["1","2","3","4"],
+  "Side" : ["L","R"],
   "State" : ["AZ","AL","AK","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY","AS","GU","MP","PR","VI","UM"],
   "Country" : ["US"],
-  "Timezone" : ["US/Pacific", "US/Mountain", "US/Central", "US/Easter"]
+  "Timezone" : ["US/Pacific","US/Mountain","US/Central","US/Easter"]
 }
 const dateMap = {
-  "Start_Time" : ["2015-03-09", "2020-01-01"],
-  "End_Time" : ["2016-02-08", "2020-11-01"],
-  "Weather_Timestamp" : ["2016-02-08", "2020-01-01"]
+  "Start_Time" : ["2015-03-09","2020-01-01"],
+  "End_Time" : ["2016-02-08","2020-11-01"],
+  "Weather_Timestamp" : ["2016-02-08","2020-01-01"]
 }
 const sliderMap = {
-  "Temperature(F)" : ["-78" , "167"],
-  "Wind_Chill(F)" : ["-54", "115"],
-  "Humidity(%)" : ["0", "100"],
-  "Pressure(in)" : ["0", "33"],
-  "Visibility(mi)" : ["0", "111"],
-  "Wind_Speed(mph)" : ["0", "823"],
-  "Precipitation(in)" : ["0", "25"],
-  "TMC" : ["200", "406"],
-  "Distance(mi)" : ["0", "100"]
+  "Temperature(F)" : ["-78","167"],
+  "Wind_Chill(F)" : ["-54","115"],
+  "Humidity(%)" : ["0","100"],
+  "Pressure(in)" : ["0","33"],
+  "Visibility(mi)" : ["0","111"],
+  "Wind_Speed(mph)" : ["0","823"],
+  "Precipitation(in)" : ["0","25"],
+  "TMC" : ["200","406"],
+  "Distance(mi)" : ["0","100"]
 }
 // END
 
