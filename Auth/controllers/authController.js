@@ -35,10 +35,11 @@ async function postHandler(request, response) {
 
         if (resultUser && bcrypt.compareSync(payload.password, resultUser.password)) {
             token = jwt.sign(payload, key.secretKey);
-            response.write(JSON.stringify({ "logged": true, "token": token }))
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.write(JSON.stringify({ "Response": "Logged! ", "Token:" : token }))
             response.end();
         } else {
-            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.writeHead(401, { 'Content-Type': 'application/json' });
             response.write(JSON.stringify({ "Response": "Invalid User/Password" }))
             response.end();
         } 
