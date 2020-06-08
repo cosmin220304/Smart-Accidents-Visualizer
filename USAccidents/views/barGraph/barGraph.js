@@ -2,16 +2,17 @@ var ctx = document.getElementById('myChart').getContext('2d');
 
 
 function updateGraph(states, data){
+    var colors = poolColors(states.length);
     var myChart = new Chart(ctx, {
         type: 'horizontalBar',
         data: {
             labels: states,
             datasets: [{
-                label: '# of Votes',
+                label: '# of Accidents',
                 // minBarLength: 0,
                 data: data,
-                backgroundColor: poolColors(states.length),
-                borderColor: poolColors(states.length),
+                backgroundColor: colors,
+                borderColor: colors,
                 borderWidth: 1
             }]
         },
@@ -86,7 +87,17 @@ async function test(queryString){
         data.push(json[Object.keys(json)[i]].counter);
     }
     console.log(states);
-    console.log(data);  
+    console.log(data);
+    for(var i = 0; i < data.length-1;i++){
+      for(var j = i+1; j< data.length;j++){
+        if(data[i]<data[j]){
+          [data[i], data[j]] = [data[j], data[i]];
+          [states[i], states[j]] = [states[j], states[i]];
+        }
+      }
+    }  
+    console.log(states);
+    console.log(data);
     updateGraph(states,data);
 }
 
