@@ -6,7 +6,7 @@ const dbUrl = 'mongodb://cosminDBAdmin:20a4506524433eff9804e3b4eea35c64@centos-u
 var mySchema = new mongoose.Schema({
     _id: mongoose.Types.ObjectId,
     Name: String,
-    Types: String,
+    Type: String,
     Values: String 
 })
 const MyModel = mongoose.model("data_values", mySchema, "data_values")
@@ -78,21 +78,6 @@ async function checkToolFile(content){
     }
 }
 
-function getValuesByName(name){
-    return new Promise((resolve, reject) => {
-        try {
-            MyModel.findOne({Name : name}).select("Values -_id")
-                    .exec((err, res) => {
-                        if (err) console.log(err)
-                        resolve(res.Values)
-                    })
-        }
-        catch (error) {
-            reject(error)
-        }
-    })
-}
-
 function repairChanges(content){
     const toolJs = path.join(__dirname, '..', 'public', 'tool.js')
     fs.writeFile(toolJs, content, function (err) {
@@ -110,7 +95,7 @@ function createLog(content){
         if (err) 
             console.log(err)
         else
-            console.log("check \"/logs and data/data_observer.log\" for log file with details")
+            console.log("Check \"/logs and data/data_observer.log\" for log file with details")
     });
 }
 
@@ -118,7 +103,7 @@ async function notify(data){
     //Get all the fields that were changed
     const names = Object.keys(data)
     for (var i = 0; i < names.length; i++){
-
+        
         //Check if field is in bd 
         let exists = await nameExists(names[i])
         if (exists == true)
@@ -127,13 +112,86 @@ async function notify(data){
             let dbValues = await getValuesByName(names[i])
             let values = data[names[i]]
 
-            //If values are different add to db
-            if (!dbValues.includes(values))
-            {
-                addToDb(names[i], dbValues, values)
+            //Check if type is select or range 
+            let type = await getTypeByName(names[i])
+
+            //In select we have and array of values
+            if (type == "Select"){
+                //If values are different add to db
+                if (!dbValues.includes(values))
+                {
+                    addSelect(names[i], dbValues, values)
+                }
+            }
+            else {
+                //In date and slider we have lower and upper limit
+                let minVal
+                let maxVal
+                if (type == "Sldier")
+                {
+                    minVal = dbValues.split("\"")[1]
+                    maxVal = dbValues.split("\"")[3]
+
+                    if (parseInt(values,10) < parseInt(minVal,10))
+                        dbValues = "[\""+values+"\",\""+maxVal+"\"]"
+                    else if (parseInt(values,10) > parseInt(maxVal,10))
+                        dbValues = "[\""+minVal+"\",\""+values+"\"]"
+
+                }
+                else{
+                    minVal = new Date(dbValues.split("\"")[1]);
+                    maxVal = new Date(dbValues.split("\"")[3]);
+                    values = new Date(values)
+
+                    if (values < minVal){
+                       values = values.toISOString().split('T')[0]
+                       maxVal = maxVal.toISOString().split('T')[0]
+                       dbValues = "[\""+values+"\",\""+maxVal+"\"]"
+                    }
+                    else if (values > maxVal){
+                        values = values.toISOString().split('T')[0]
+                        minVal = minVal.toISOString().split('T')[0]
+                        dbValues = "[\""+minVal+"\",\""+values+"\"]"
+                    }
+                }
+
+                updateDB(names[i], dbValues)
             }
         }
     }
+}
+
+
+//Auxiliary functions that intereact with bd
+
+function getValuesByName(name){
+    return new Promise((resolve, reject) => {
+        try {
+            MyModel.findOne({Name : name}).select("Values -_id")
+                    .exec((err, res) => {
+                        if (err) console.log(err)
+                        resolve(res.Values)
+                    })
+        }
+        catch (error) {
+            reject(error)
+        }
+    })
+}
+
+function getTypeByName(name){
+    return new Promise((resolve, reject) => {
+        try {
+            MyModel.findOne({Name : name}).select("Type -_id")
+                    .exec((err, res) => {
+                        if (err) console.log(err)
+                        resolve(res.Type)
+                    })
+        }
+        catch (error) {
+            reject(error)
+        }
+    })
 }
 
 function nameExists(name){
@@ -154,7 +212,7 @@ function nameExists(name){
     })
 }
 
-function addToDb(name, dbValues, newValues){
+function addSelect(name, dbValues, newValues){
     //Adds at the end in the string
     dbValues = dbValues.replace("]", ",\"" + newValues + "\"]")
 
@@ -164,10 +222,22 @@ function addToDb(name, dbValues, newValues){
         { $set: {Values : dbValues} },
         (err, result) => {
             if (err) console.log(err)
-            console.log(result)
+        }
+    )
+}
+
+function updateDB(name, values){
+    //Adds in db
+    MyModel.updateOne(
+        { Name: name },
+        { $set: {Values : values} },
+        (err, result) => {
+            if (err) console.log(err)
         }
     )
 }
 
 module.exports.start = start
 module.exports.notify = notify;
+module.exports.getValuesByName = getValuesByName;
+module.exports.dbModel = MyModel;
