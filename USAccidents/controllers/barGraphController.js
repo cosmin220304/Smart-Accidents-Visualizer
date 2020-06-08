@@ -2,7 +2,7 @@ const fs = require('fs');
 const qs = require('querystring');  
 const path = require('path'); 
 const homeModel = require('../models/model')
-const html = require('../templates/HtmlAux');
+const html = require('../microservices/HtmlAux')
 
 
 async function getHandler(response, resource){   

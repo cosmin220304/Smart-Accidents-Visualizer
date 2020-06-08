@@ -22,6 +22,10 @@ async function route(request, response){
     else if (request.method == "PATCH"){
         checkAuth.verify(request, response,  publicController.patchHandler)
     }
+    
+    else if (request.method == "DELETE"){
+        checkAuth.verify(request, response,  publicController.deleteHandler)
+    }
 }    
 
 module.exports.route = route;

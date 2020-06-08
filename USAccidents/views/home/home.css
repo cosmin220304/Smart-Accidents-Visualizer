@@ -70,6 +70,7 @@ button {
     right: 0;
     background-color: white;
     width: 10em;
+    height: 2.5em;
     border: black 2px solid;
     font-size: 1em;
     white-space: pre-line;
@@ -119,11 +120,5 @@ button {
     #mapWrapper {
         display: grid;
         grid-template-columns: 1fr 5fr 1fr;
-    }
-
-    /* Code from alex */
-    .topnav,
-    .Us-Accidents {
-        float: none;
     }
 }

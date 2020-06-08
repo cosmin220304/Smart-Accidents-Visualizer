@@ -8,14 +8,15 @@
   content="Smart website for visualizing accidents reports in the USA between the year 2016 and 2020. \
   This page focuses on providing an advanced set of options for manipulating data and projecting it on the map">
   <title>US Accidents Visualizer</title>
-  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png">
-  <link rel="stylesheet" type="text/css" href="home.css">
 </head>
 
 <body>
+  <!-- Topnav that will be automatically added from server -->
   {topnav}
 
+  <!-- Our whole page -->
   <div id="mainWrapper">  
+
     <!-- Search area where you can manipulate data -->
     <div id="SearchArea">
       <button  id="createNewSearch" onclick="createNewSearch()"> New </button>
@@ -24,39 +25,68 @@
       <button  id="hideText"        onclick="OnOffText()"> Hide </button>
       {tool}
     </div>
-     
+    
+    <!-- White space used by grid -->
     <span></span>
+
     <!-- Map render surrounded by buttons -->
     <div id="mapContainer">  
-        <!-- Upper button -->
-        <label for="clusterNumber">Details:</label>
-        <input   id="clusterNumber"   type="range" min="0" max="100" value="30" step="0.1">
+
+        <!-- Manipulates how are points shown on the map -->
+        <label for="clusterNumber">
+          Details:
+          <input   id="clusterNumber"   type="range" min="0" max="100" value="30" step="0.1">
+        </label>
    
         <!-- Map render using openlayers api -->
         <div id="map" class="map"></div>   
 
+        <!-- All download options -->
         <div id="DownloadArea"> 
           <a id="downloadPNG" href = "#" download ="mapPNG">Download PNG</a>
           <a id="downloadCSV" href = "#" download ="mapCSV.csv">Download CSV</a>
           <a id="downloadSVG" href = "#" download ="mapSVG.svg">Download SVG</a>
         </div> 
+
     </div>
+
   </div>
-  
-  <div id="popup" style="height: 2.5em;"></div>
+
+  <!-- popup used for showing details over points -->
+  <div id="popup"></div>
+
+  <!-- todo: delete this -->
   <div class="loader"></div>
 
-  <!-- css used only for map drag using mouse click -->
+  <!-- Footer that will be automatically added from server -->
+  {footer}
+
+  
+  <!-- Render blocking resources below -->
+
+  <!-- Tab Icon -->
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png">
+  
+  <!-- Main css -->
+  <link rel="stylesheet" type="text/css" href="home.css">
+
+  <!-- css used for map drag using mouse click -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
-  <!-- js openLayers used for rendering map -->
+  
+  <!-- js library openLayers used for rendering map -->
   <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>  
-   <!-- js used for converting canvas to svg -->
+  
+  <!-- js used for converting canvas to svg -->
   <script src="https://cdn.jsdelivr.net/npm/canvas2svg@1.0.16/canvas2svg.min.js"></script>
 
+  <!-- js used for manipulating openlayers library -->
   <script id="mapScript" src="homeMapRenderer.js"></script>
+
+  <!-- js used for listening to button events from tool -->
   <script id="buttonEvents" src="homeButtonEvents.js"></script>
+
+  <!-- js used for download buttons in DownloadArea -->
   <script id="downloadButtons"  src="downloadButtons.js"></script>
-  {footer}
 </body>
 
 </html>

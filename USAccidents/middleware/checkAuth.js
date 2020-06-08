@@ -11,7 +11,7 @@ async function verify (request, response, next) {
     catch (e){
         console.log(e)
         response.writeHead(403, { 'Content-Type': 'application/json' })
-        response.end(JSON.stringify({ "Response": "Success!" }))
+        response.end(JSON.stringify({ "Response": "Request failed!" }))
         response.end()  
     }
 }
