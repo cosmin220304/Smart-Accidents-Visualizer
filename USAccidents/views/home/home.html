@@ -22,7 +22,6 @@
       <button  id="createNewSearch" onclick="createNewSearch()"> New </button>
       <button  id="saveData"        onclick="saveData()"> Save </button>
       <button  id="loadData"        onclick="loadData()"> Load </button>
-      <button  id="hideText"        onclick="OnOffText()"> Hide </button>
       {tool}
     </div>
     
@@ -35,11 +34,13 @@
         <!-- Manipulates how are points shown on the map -->
         <label for="clusterNumber">
           Details:
-          <input   id="clusterNumber"   type="range" min="0" max="100" value="30" step="0.1">
+          <input id="clusterNumber" type="range" min="0" max="100" value="30" step="0.1">
         </label>
    
         <!-- Map render using openlayers api -->
         <div id="map" class="map"></div>   
+
+        <button  id="hideText"        onclick="OnOffText()"> </button>
 
         <!-- All download options -->
         <div id="DownloadArea"> 
@@ -61,7 +62,7 @@
   <!-- Footer that will be automatically added from server -->
   {footer}
 
-  
+
   <!-- Render blocking resources below -->
 
   <!-- Tab Icon -->

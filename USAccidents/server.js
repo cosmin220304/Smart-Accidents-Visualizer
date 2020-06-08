@@ -43,7 +43,6 @@ const routesMap = {
     '/barGraph.js': barGraphRoutes,
     '/tool.html': publicRoutes,
     '/tool.js': publicRoutes,
-    '/tool.css': publicRoutes,
     '/topNav.html': publicRoutes,
     '/topNav.css': publicRoutes,
     '/footer.html': publicRoutes,
@@ -55,6 +54,7 @@ const routesMap = {
     '/404_2.jpeg': publicRoutes,
     '/404_3.jpeg': publicRoutes,
     '/404_4.jpeg': publicRoutes,
+    '/icons/eye.png' : publicRoutes,    
 }
 
 const acceptedSecuredRequests = ["POST", "PATCH", "PUT", "DELETE"];
