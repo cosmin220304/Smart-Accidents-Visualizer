@@ -64,7 +64,6 @@ async function putHandler(request, response) {
     request.on('end', function () {
         update(obj, response, true)
     })
-
 }
 
 
@@ -80,9 +79,21 @@ async function patchHandler(request, response) {
     request.on('end', function () {
         update(obj, response, false)
     })
-
 }
 
+async function deleteHandler(request, response){
+    try {
+        const id = request.url.split('/')[2];
+        const result = await model.deleteByID(id);
+        response.writeHead(200, { 'Content-Type': 'application/json' })
+        response.end(JSON.stringify({ "Response": "Success" }))
+    }
+    catch(e){
+        console.log(e)
+        response.writeHead(500, { 'Content-Type': 'application/json' })
+        response.end(JSON.stringify({ "Response": "Unexpected error" }))
+    }
+}
 
 function create(obj, response){
     if (obj == undefined) {
@@ -156,3 +167,4 @@ module.exports.postHandler = postHandler
 module.exports.putHandler = putHandler
 module.exports.patchHandler = patchHandler
 module.exports.resourceNotFound = resourceNotFound
+module.exports.deleteHandler = deleteHandler

@@ -1,26 +1,42 @@
 .Us-Accidents {
     width: 100%;
-    padding-top: 20px;
+    padding-top: 1.25em;
     float: center;
     color: orange;
     text-align: center;
     font-family: serif, Arial, sans-serif;
-    font-size: 20px;
+    font-size: 1.25em;
 }
 
 .topnav a {
-    color: orange;
+    color: rgb(255, 120, 0);
     text-decoration: none;
-    width: 100%;
-    padding: 13px 16px;
-    font-size: 22px;
-
+    width: 100%; 
+    font-size: 1.25em;
 }
 
 .topnav a:hover {
     color: white;
 }
 
+.topnav {
+    width: 50%;
+    padding-left: 25%;
+    text-align: center;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+
 a:visited {
     color: rgb(255, 120, 0);
-}  
+}
+
+@media only screen and (max-width: 900px) {
+    .topnav {
+        width: 100%;
+        padding-left: 0%;
+        text-align: center;
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+}

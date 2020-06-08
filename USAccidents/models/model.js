@@ -165,9 +165,19 @@ function update(ID, obj, upsertOk) {
     })
 }
 
+function deleteByID(id){
+    return new Promise((resolve) => {
+        MyModel.deleteOne({ ID: id }, function (res, err) {
+            if(err) console.log(err);
+            resolve(res)
+        });
+    })
+}
+
 module.exports.save = save
 module.exports.findByID = findByID
 module.exports.start = start
 module.exports.count = count
 module.exports.update = update
+module.exports.deleteByID = deleteByID
 module.exports.findCoordonates = findCoordonates
