@@ -8,7 +8,7 @@ describe('/', function () {
       done();
     });
   });
-  
+
   it('should return 200 on GET/heatMap', function (done) {
     http.get('http://localhost:8128/heatMap', function (res) {
       assert.equal(200, res.statusCode);
@@ -25,7 +25,7 @@ describe('/', function () {
   });
 
 
-  it('should return 404 on get/asd', function (done) {
+  it('should return 404 on GET/asd', function (done) {
     http.get('http://localhost:8128/asd', function (res) {
       assert.equal(404, res.statusCode);
       done();
