@@ -55,6 +55,7 @@ const routesMap = {
     '/404_3.jpeg': publicRoutes,
     '/404_4.jpeg': publicRoutes,
     '/icons/eye.png' : publicRoutes,    
+    '/report.html' : publicRoutes,
 }
 
 const acceptedSecuredRequests = ["POST", "PATCH", "PUT", "DELETE"];
