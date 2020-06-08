@@ -25,7 +25,7 @@ async function postHandler(request, response) {
             reqBody = "{}";
         else
             reqBody += data;
-            
+
         payload = JSON.parse(reqBody);
     });
 
@@ -36,13 +36,13 @@ async function postHandler(request, response) {
         if (resultUser && bcrypt.compareSync(payload.password, resultUser.password)) {
             token = jwt.sign(payload, key.secretKey);
             response.writeHead(200, { 'Content-Type': 'application/json' });
-            response.write(JSON.stringify({ "Response": "Logged! ", "Token:" : token }))
+            response.write(JSON.stringify({ "Response": "Logged! ", "Token:": token }))
             response.end();
         } else {
             response.writeHead(401, { 'Content-Type': 'application/json' });
             response.write(JSON.stringify({ "Response": "Invalid User/Password" }))
             response.end();
-        } 
+        }
     });
 }
 
@@ -66,34 +66,50 @@ async function postRegisterHandler(request, response) {
 
     request.on('end', async function () {
         console.log(payload);
-        if (payload.user === undefined || payload.password === undefined) {
-            response.writeHead(403, { 'Content-Type': 'application/json' })
-            response.end(JSON.stringify({ "Error": "Expected: {'user': 'user', 'password' : 'password'}" }))
+
+        let token = request.headers.authorization
+        console.log(token);
+        if (token == undefined) {
+            response.writeHead(401, { 'Content-Type': 'application/json' });
+            response.end(JSON.stringify({ "Response": "No token found. You need to auth first." }))
         }
         else {
-            var user = payload.user;
-            console.log(user)
-            var resultUser = await model.findByUser(user);
-            if (!resultUser) {
-                payload['_id'] = new mongoose.Types.ObjectId()
-                try {
-                    var encPass = bcrypt.hashSync(payload.password, 10)
-                    payload.password = encPass
-                    model.save(payload)
-                    response.writeHead(200, { 'Content-Type': 'application/json' })
-                    response.end(JSON.stringify({ "Response": "Register successful!" }))
-                }
-                catch (e) {
+            token = token.split(' ')[1];
+            try {
+                var verif = jwt.verify(token, key.secretKey)
+                response.writeHead(200, { 'Content-Type': 'application/json' });
+                if (payload.user === undefined || payload.password === undefined) {
                     response.writeHead(403, { 'Content-Type': 'application/json' })
-                    response.end(JSON.stringify({ "Response": e }))
+                    response.end(JSON.stringify({ "Error": "Expected: {'user': 'user', 'password' : 'password'}" }))
                 }
+                else {
+                    var user = payload.user;
+                    console.log(user)
+                    var resultUser = await model.findByUser(user);
+                    if (!resultUser) {
+                        payload['_id'] = new mongoose.Types.ObjectId()
+                        try {
+                            var encPass = bcrypt.hashSync(payload.password, 10)
+                            payload.password = encPass
+                            model.save(payload)
+                            response.writeHead(200, { 'Content-Type': 'application/json' })
+                            response.end(JSON.stringify({ "Response": "Register successful!" }))
+                        }
+                        catch (e) {
+                            response.writeHead(403, { 'Content-Type': 'application/json' })
+                            response.end(JSON.stringify({ "Response": e }))
+                        }
+                    }
+                    else {
+                        console.log(resultUser.user + "id  --  pw" + resultUser.password)
+                        response.writeHead(403, { 'Content-Type': 'application/json' })
+                        response.end(JSON.stringify({ "Error": "Username already exists." }))
+                    }
+                }
+            } catch (e) {
+                response.writeHead(401, { 'Content-Type': 'application/json' });
+                response.end(JSON.stringify({ "Response": "Failed to auth. Invalid token." }))
             }
-            else {
-                console.log(resultUser.user + "id  --  pw" + resultUser.password)
-                response.writeHead(403, { 'Content-Type': 'application/json' })
-                response.end(JSON.stringify({ "Error": "Username already exists." }))
-            }
-
         }
     });
 }
