@@ -48,19 +48,20 @@ body {
     height: 100%;
     display: grid;
     grid-template-columns: 10fr 40fr 40fr 10fr;
-    background-color: black;
+    backdrop-filter: blur(20px);
     position: relative;
     z-index: 100;
 } 
 
 .footer #container a {
+    color: orange;
     text-align: center;
     font-size: 2em;
     text-decoration: none;
 }
 
 .footer #container a:hover {
-    color: white;
+    color: grey;
 }
 
 @keyframes beep {
