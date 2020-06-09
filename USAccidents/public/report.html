@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Report used to explain details of the development process">
     <title>US Accidents Visualizer</title>
-    <link rel="icon" type="image/png" href="/icons/flag.svg.png" />
+    <link rel="icon" type="image/png" href="/icons/flag.svg.png" /> 
+    <link rel="stylesheet" type="text/css" href="report.css">
 </head>
 
 <body>
@@ -157,15 +158,18 @@
     <section id="technologies">
         <h1 href="#technologies"> 9. Technologies </h1>
         <p><b>1. Node JS </b></p>
-        <p> Node.js is an open source, cross-platform runtime environment for developing server-side and networking
-            applications. Node.js applications are written in JavaScript, and can be run within the Node.js runtime on
-            OS X, Microsoft Windows, and Linux.
-
-            Node.js also provides a rich library of various JavaScript modules which simplifies the development of web
-            applications using Node.js to a great extent.
+        <p> Node.js is an open-source runtime environment that we used for developing our server-side.
+            We chose Node due to its popularity and its beginner-friendly learning curve, Javascript being an easy language
+            to learn that we also use in the front end of our application.
+            
         </p>
         <p> <b>2. MongoDB </b></p>
-        <p> Stores accidents data, admin credentials, and available values in JSON format.</p>
+        <p> MongoDB was used because of its popularity with Node.js (in MERN/MEAN Stacks)
+            and also because of how the data is structured in a MongoDB collection: in (Binary) JSON format.
+            JSON stands for JavaScript Object Notation and our api's also return and work with JSON so 
+            the choise was self-evident.
+            In this project we used Mongoose as the mongodb npm package framework.
+        </p>
 
         <p>
             <b> 3. HTML5, CSS3, JavaScript </b>
@@ -189,10 +193,11 @@
             <b> 5.2 Openlayers </b> 
         </p>
         <p> Used to create ...</p>
-
+        
         <b><p>Mocha testing</p></b>
         <p>We've used Mocha framework for testing GET requests on different routes, including a undefined route.</p>
         <p>The other suite tests wether the data that was added was also in dava_values database wich holds all the unique posible values for any given collumn. </p>
+  
     </section>
 
     <section id="services">
@@ -203,17 +208,6 @@
             The auth service lets the user login as administrator using a POST request, sending a username and a password;
             If the credentials are correct, the user gets a JWT, used for later authentication.
             Then the user could send the JWT using a GET to verify the token.
-            SQL Injection has been prevented by checking wether the '$' exists in the body requests, and if so, the whole body is turned into null;
-        </p>
-        <p>Before:</p>
-        <p>
-            <img src='/icons/before.webp' alt="MVC Architecture" type="image/png"
-            href="/icons/before.webp" style="width: 70%; height:50%">
-        </p>
-        <p>After:</p>
-        <p>
-            <img src='/icons/after.webp' alt="MVC Architecture" type="image/png"
-            href="/icons/after.webp" style="width: 70%; height:50%">
         </p>
         <p>
             The register service requests a JWT to create a new account, meaning the user needs to auth first in order to get the JWT.

@@ -21,12 +21,15 @@ async function postHandler(request, response) {
     var token;
     request.on('data', function (data) {
         //Checking for NOSQL injection
-        if (data.includes("$"))
-            reqBody = "{}";
-        else
+        if (data.includes("$")){
+            response.writeHead(401, { 'Content-Type': 'application/json' });
+            response.write(JSON.stringify({ "Response": "Invalid User/Password" }))
+            response.end();
+        }
+        else{
             reqBody += data;
-
-        payload = JSON.parse(reqBody);
+            payload = JSON.parse(reqBody);
+        }
     });
 
     //Auth function
