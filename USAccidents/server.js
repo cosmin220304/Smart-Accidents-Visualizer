@@ -67,6 +67,7 @@ const routesMap = {
     '/icons/save.png' : publicRoutes,
     '/icons/search.png' : publicRoutes,
     '/icons/flag.svg.png' : publicRoutes,
+    '/icons/mvc-architecture.png' : publicRoutes,
     '/report.html' : publicRoutes,
 }
 
