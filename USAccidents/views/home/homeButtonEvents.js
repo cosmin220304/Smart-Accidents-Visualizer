@@ -20,7 +20,7 @@ function createNewSearch(){
     colorPicker.onchange = function(){ 
 
         //Creates new search block
-        createSearchBlock(colorPicker.value);
+        createSearchBlock(colorPicker.value, "");
 
         //Remove color picker
         colorPicker.remove(); 
@@ -167,7 +167,8 @@ function saveData(){
     let inputNames = [];
     let inputValues = [];
     let nameOfBlock = [];   
-    
+    let collors = "";
+
     //Go through all searchblocks
     for (var j = 0; j < searchBlocks.length; j++){
         //Go through all searchblock nodes
@@ -179,16 +180,23 @@ function saveData(){
                 inputNames.push(children[i].name);
                 inputValues.push(children[i].value);   
                 nameOfBlock.push(searchBlocks[j].id.toString());
+                if(searchBlocks[j].style.backgroundColor)
+                    collors = collors + "+" + searchBlocks[j].style.backgroundColor;
+                else
+                    collors =  collors + "+rgb(0,0,0)";
             }
-        } 
+        }
+        collors = collors.substr(1);
     }
+    console.log(searchBlocks)
+    console.log(collors)
 
     //Save everything on localStorage
     if (typeof(Storage) !== "undefined") {
         localStorage.setItem("inputNames", inputNames);
         localStorage.setItem("inputValues", inputValues); 
         localStorage.setItem("nameOfBlock", nameOfBlock); 
-        localStorage.setItem("colorArray", colorArray);
+        localStorage.setItem("colorArray", collors);
     } 
     else{ 
         alert("Browser does not support localStorage") 
@@ -206,9 +214,10 @@ function loadData(){
         const inputNames = localStorage.getItem("inputNames").split(',');
         const inputValues = localStorage.getItem("inputValues").split(',');
         const nameOfBlock = localStorage.getItem("nameOfBlock").split(',');  
-        const colArr = localStorage.getItem("colorArray").split(',');
-        let colIndex = 1;
-        
+        const colArr = localStorage.getItem("colorArray").split('+');
+        console.log(nameOfBlock)
+        console.log(colArr)
+
         //Recreate each element
         for (var i = 0; i < nameOfBlock.length; i++){   
             //Find current searchBlock
@@ -216,7 +225,8 @@ function loadData(){
 
             //Add a new searchBlock if it doesn not exist
             if (searchBlock == null){
-                createSearchBlock(colArr[colIndex++]);
+                console.log(colArr[i])
+                createSearchBlock(colArr[i], nameOfBlock[i]);
                 searchBlock = document.getElementById(nameOfBlock[i]); 
             }
 
@@ -229,6 +239,10 @@ function loadData(){
 
         //Reset selectGenerator
         addSelect.value = '0';
+
+        startBlock = document.getElementById("searchBlockStart");
+        if (startBlock.childElementCount == 0)
+            destroyBlock(startBlock)
     }
     else{
         alert("Browser does not support localStorage") 
@@ -258,11 +272,22 @@ function destroyAllBlocks()
     colorArray = ["#000000"];
 }
 
-function createSearchBlock(color)
+function destroyBlock(block){
+    var index = searchBlocks.indexOf(block); 
+    searchBlocks.splice(index, 1);
+    searchBlockNo--;
+    console.log(searchBlocks)
+    block.remove(); 
+}
+
+function createSearchBlock(color, name)
 {
     //Create it and add the id and class
     newSearchBlock = document.createElement("div");
-    newSearchBlock.id = "searchBlock" + searchBlockNo;
+    if(name == "")
+      newSearchBlock.id = "searchBlock" + searchBlockNo;
+    else
+        newSearchBlock.id = name;
     newSearchBlock.className = "searchBlocks"
 
     //Add the collor
