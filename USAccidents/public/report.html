@@ -151,7 +151,70 @@
 
     <section id="API">
         <h1 href="#API"> 8. API's </h1>
-        <p> </p>
+        <p> Project's APIs are the following: </p>
+        <ol>
+            <li> GET <u>https://proiect-tw-2020.herokuapp.com/home</u> 
+                <p> It gets from the server the contents of the file home.hmtl . </p>
+                <p>Returns: text/html</p>
+            </li>
+            <li>
+                GET <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
+                <p> Gets the document from the database by its ID. </p>
+                <p>Returns: application/json</p>
+                <p>
+                    {
+                        "Response": {
+                            "_id": "5ee018cc00109ab4977acd67",
+                            "ID": "B-1",
+                            "__v": 0,
+                            "Country": "Alabama"
+                        }
+                    }
+                </p>
+            </li>
+            <li>
+                PATCH <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
+                <p> Updates the document from the database by it's ID. </p>
+                <p>Returns: application/json</p>
+                <p>
+                    {
+                        "Response": "1 fields updated with Success!",
+                        "Response Code": 200
+                    }
+                </p>
+            </li>
+            <li>
+                POST <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
+                <p> Creates/Updates a document in the database by the specified ID.</p>
+                <p>Returns: application/json</p>
+                <p>
+                    {
+                        "Response": "Success!"
+                    }
+                </p>
+            </li>
+            <li>
+                PUT <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
+                <p> Creates/Updates a document in the database with the specified ID. </p>
+                <p>Returns: application/json</p>
+                <p>
+                    {
+                        "Response": "Object created with Success!",
+                        "Response Code": 201
+                    }
+                </p>
+            </li>
+            <li>
+                DELETE <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
+                <p> Deletes a document in the database by its ID. </p>
+                <p>Returns: application/json</p>
+                <p>
+                    {
+                        "Response": "Success"
+                    }
+                </p>
+            </li>
+        </ol>
     </section>
 
     <section id="technologies">
