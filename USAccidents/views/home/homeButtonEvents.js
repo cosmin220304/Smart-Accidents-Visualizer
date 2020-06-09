@@ -188,8 +188,6 @@ function saveData(){
         }
         collors = collors.substr(1);
     }
-    console.log(searchBlocks)
-    console.log(collors)
 
     //Save everything on localStorage
     if (typeof(Storage) !== "undefined") {
@@ -215,8 +213,6 @@ function loadData(){
         const inputValues = localStorage.getItem("inputValues").split(',');
         const nameOfBlock = localStorage.getItem("nameOfBlock").split(',');  
         const colArr = localStorage.getItem("colorArray").split('+');
-        console.log(nameOfBlock)
-        console.log(colArr)
 
         //Recreate each element
         for (var i = 0; i < nameOfBlock.length; i++){   
@@ -225,7 +221,6 @@ function loadData(){
 
             //Add a new searchBlock if it doesn not exist
             if (searchBlock == null){
-                console.log(colArr[i])
                 createSearchBlock(colArr[i], nameOfBlock[i]);
                 searchBlock = document.getElementById(nameOfBlock[i]); 
             }
@@ -276,7 +271,6 @@ function destroyBlock(block){
     var index = searchBlocks.indexOf(block); 
     searchBlocks.splice(index, 1);
     searchBlockNo--;
-    console.log(searchBlocks)
     block.remove(); 
 }
 
