@@ -252,13 +252,16 @@ function destroyAllBlocks()
         searchBlocks[i].remove();
     }
 
-    //Create searchblock start
+    createStartBlock();
+}
+
+function createStartBlock(){
     let searchBlockStart = document.createElement("div");
     searchBlockStart.id = "searchBlockStart";
     searchBlockStart.className = "searchBlocks";
     
     //Add child to form
-    const submit = document.getElementById('submit');
+    let submit = document.getElementById('submit');
     submit.parentNode.insertBefore(searchBlockStart, submit);
 
     //Reset array
@@ -272,6 +275,11 @@ function destroyBlock(block){
     searchBlocks.splice(index, 1);
     searchBlockNo--;
     block.remove(); 
+ 
+    //If no blocks existing create one
+    if (searchBlockNo == -1){ 
+        createStartBlock();
+    }
 }
 
 function createSearchBlock(color, name)
