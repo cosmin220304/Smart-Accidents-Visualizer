@@ -6,20 +6,6 @@ html {
   color: orange;
 
 }
-.topnav a {
-  color: orange;
-  text-decoration: none;
-  width: 100%;
-  padding: 13px 16px;
-  font-size: 22px;
-}
-a:visited {
-  color: rgb(255,120,0);
-}
-.topnav a:hover {
-  color: white;
-} 
-
 
 #geochart{
   
@@ -29,8 +15,6 @@ a:visited {
   height: 80%;
   display:block;
 }
-
-
 
 #download {
   position: fixed;

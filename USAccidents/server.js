@@ -54,7 +54,13 @@ const routesMap = {
     '/404_2.jpeg': publicRoutes,
     '/404_3.jpeg': publicRoutes,
     '/404_4.jpeg': publicRoutes,
-    '/icons/eye.png' : publicRoutes,    
+    '/icons/add.png' : publicRoutes,
+    '/icons/closedEye.png' : publicRoutes,    
+    '/icons/download.png' : publicRoutes,
+    '/icons/eye.png' : publicRoutes,
+    '/icons/history.png' : publicRoutes,
+    '/icons/save.png' : publicRoutes,
+    '/icons/search.png' : publicRoutes,
     '/report.html' : publicRoutes,
 }
 

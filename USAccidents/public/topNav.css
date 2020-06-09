@@ -1,17 +1,26 @@
-.Us-Accidents {
-    width: 100%;
-    padding-top: 1.25em;
-    float: center;
-    color: orange;
+.Us-Accidents { 
+    color: orange; 
+    vertical-align: top;
     text-align: center;
     font-family: serif, Arial, sans-serif;
     font-size: 1.25em;
 }
 
+#headerBackground{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8em;
+    background: #F8F7F5;
+    z-index: -999;
+    /* border-bottom: 0.1em solid #707070;    */
+	box-shadow: 0 0.5em 2em -1em black;
+}
+
 .topnav a {
     color: rgb(255, 120, 0);
-    text-decoration: none;
-    width: 100%; 
+    text-decoration: none; 
     font-size: 1.25em;
 }
 
@@ -20,6 +29,7 @@
 }
 
 .topnav {
+    margin-top: -1em;
     width: 50%;
     padding-left: 25%;
     text-align: center;
@@ -33,10 +43,21 @@ a:visited {
 
 @media only screen and (max-width: 900px) {
     .topnav {
-        width: 90%;
+        width: 100%;
         padding-left: 0%;
         text-align: center;
         display: grid;
         grid-template-columns: auto auto;
+    }
+    #headerBackground{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 12em;
+        background: #F8F7F5;
+        z-index: -999;
+        border-bottom: 0.1em solid #707070;   
+        box-shadow: 0 0.5em 2em -1em black;
     }
 }
