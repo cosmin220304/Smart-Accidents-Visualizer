@@ -30,6 +30,7 @@
             <li><a href="#usecases">Use-cases</a></li>
             <li><a href="#API">API's</a></li>
             <li><a href="#technologies">Technologies</a>
+            <li><a href="#services">Services</a>
             <li><a href="#bibliography">Bibliography & Sources</a>
         </ol>
         <dl>
@@ -191,9 +192,25 @@
 
     </section>
 
+    <section id="services">
+        <h1 href="#services"> 10. Services </h1>
+        <p> <b>Authorization</b> (decides wether you have the permission to access a resource)</p>
+
+        <p>
+            The auth service lets the user login as administrator using a POST request, sending a username and a password;
+            If the credentials are correct, the user gets a JWT, used for later authentication.
+            Then the user could send the JWT using a GET to verify the token.
+        </p>
+        <p>
+            The register service requests a JWT to create a new account, meaning the user needs to auth first in order to get the JWT.
+            Afterwards, the user could create new accounts using POST request, sending the username and password in the body of the request.
+        </p>
+
+    </section>
+
 
     <section id="bibliography">
-        <h1 href="#bibliography"> 10. Bibliography </h1>
+        <h1 href="#bibliography"> 11. Bibliography </h1>
         <p><a href = 'https://dzone.com/articles/introduction-to-mvc-architecture-web-developer-poi'> https://dzone.com/articles/introduction-to-mvc-architecture-web-developer-poi </a> </p>
         <p><a href = 'https://www.tutorialspoint.com/nodejs/nodejs_introduction.htm'>https://www.tutorialspoint.com/nodejs/nodejs_introduction.htm</a> </p>
         <p><a href = 'https://developers.google.com/chart'>https://developers.google.com/chart</a></p>
