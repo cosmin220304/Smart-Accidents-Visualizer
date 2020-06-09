@@ -26,9 +26,9 @@
             </li>
             <li><a href="#db">Database</a></li>
             <li><a href="#mvc">MVC Model</a></li>
-            <li><a href="#db">Microservices</a></li>
+            <li><a href="#ms">Microservices</a></li>
             <li><a href="#usecases">Use-cases</a></li>
-            <li><a href="#functionalities">API's</a></li>
+            <li><a href="#API">API's</a></li>
             <li><a href="#technologies">Technologies</a>
             <li><a href="#bibliography">Bibliography & Sources</a>
         </ol>
@@ -64,27 +64,133 @@
     </section>
 
     <section id="arhitecture">
-        <h1 href="#mvc"> 3. MVC </h1>
-        <p>3.1 Model</p>
-        <p>3.2 View</p>
-        <p>3.3 Controller</p>
-    </section>
-
-
-    <section id="UML">
-        <h1 href="#UML"> 4. Diagram </h1>
-        <p> *insert UML here* </p>
+        <h1 href="#mvc"> 3. Architecture </h1>
+        <p id='arhitecture_1'>3.1 Details</p>
+        <p id='arhitecture_2'>3.2 Components</p>
+        <p id='arhitecture_3'>3.3 Application flow</p>
     </section>
 
     <section id="db">
-        <h1 href="#db"> 5. Database </h1>
-        <p>  </p>
+        <h1 href="#db"> 4. Database </h1>
+        <p> MongoDB stores accidents data, admin credentials, and available values for the
+            multi-criterial search tool. </p>
     </section>
 
-    <section id="usecases">
-        <h1 href="#usecases"> 6. Use-cases </h1>
-        <p>  </p>
+
+    <section id="mvc">
+        <h1 href="#mvc"> 5. MVC </h1>
+        <p><b>5.1 Model</b></p>
+        <p>
+            The Model is responsible for getting and manipulating the data, so it's basically the brain of the
+            application.
+            It interracts with MongoDB, where it stores accidents data, admin user data, and available values for the
+            multi-criterial search tool.
+        </p>
+        <p><b>5.2 View</b></p>
+        <p>
+            Next, we have the view and you can probably guess what that takes care of. That's the actual view of the
+            application, so it's the user interface, it's what the user sees and how they interact with the application.
+            So the view usually consists of HTML and CSS along with dynamic values from the controller. So the
+            controller communicates with the view as well as the model. Now, depending on which framework you use, the
+            template engine may vary.
+            The template engine is what allows dynamic data. If we have straight HTML, we can't output variables, we
+            can't use logic, select an if statement, etc., but, with template engines, we can do that stuff right in the
+            view or right in the template.
+        </p>
+        <p><b>5.3 Controller</b></p>
+        <p>
+            So, finally, we have the controller and the controller takes in user input, so this could be from the user
+            visiting a page or clicking a link which makes a get request or submitting a form which makes a post request
+            and we also have delete requests or put requests for updating. And these can't be made directly from the
+            browser, you can only do a get or a post but we do have HTTP clients that are at times built in with the
+            framework, that can do that.
+
+            Now the controller acts as kind of a middleman between the model and the view. The controller will ask the
+            model to get some data from a database and then the controller will take that data and load a view and pass
+            that data into it. Then, from there, the template engine takes over and can basically do some logic, output
+            variables, and things like that.
+
+            The controller can also load a view without passing it data, so just a plain web page with HTML and CSS, no
+            actual templating logic.
+
+            Here's a very simple example or diagram.
+        </p>
+        <img src='/icons/mvc-architecture.png' alt="MVC Architecture" type="image/png"
+            href="/icons/mvc-architecture.png" style="width: 40%; height:50%">
+        <p>
+            Now we have the user, who sees the view of the application in the browser, and the app can make some kind of
+            requests with input to what's called a router. And their request could be some kind of link that they
+            clicked on some kind of route.
+
+            Then the router will call a specific controller method based on that route and if data is needed or if you
+            need to fetch some data, the controller will then interact with the model, which interacts with the
+            database. Then, once the controller gets that data passed back, it can then load a view and it can send the
+            data to the view and it'll get dealt with by the template engine.
+
+
+            Once that's all done it'll send the view back to the browser for the user to see.
+        </p>
     </section>
+
+
+    <section id="usecases">
+        <h1 href="#usecases"> 7. Use-cases </h1>
+        <p> </p>
+    </section>
+
+
+    <section id="API">
+        <h1 href="#API"> 8. API's </h1>
+        <p> </p>
+    </section>
+
+    <section id="technologies">
+        <h1 href="#technologies"> 9. Technologies </h1>
+        <p><b>1. Node JS </b></p>
+        <p> Node.js is an open source, cross-platform runtime environment for developing server-side and networking
+            applications. Node.js applications are written in JavaScript, and can be run within the Node.js runtime on
+            OS X, Microsoft Windows, and Linux.
+
+            Node.js also provides a rich library of various JavaScript modules which simplifies the development of web
+            applications using Node.js to a great extent.
+        </p>
+        <p> <b>2. MongoDB </b></p>
+        <p> Stores accidents data, admin credentials, and available values in JSON format.</p>
+
+        <p>
+            <b> 3. HTML5, CSS3, JavaScript </b>
+        </p>
+
+        <p> HTML and CSS was used to create the UI, whereas JavaScript was used for creating functionalities and
+            cartographical representations. 
+        </p>
+        
+        <p>
+            <b> 4. Version Control - Privare repository on GitHub </b>
+        </p>
+        <p>
+            <b> 5. Cartographic representations </b>
+        </p>
+        <p>
+            <b> 5.1 Google Charts </b> 
+        </p>
+        <p> Used to create heat map and pie chart representations.</p>
+        <p>
+            <b> 5.2 Openlayers </b> 
+        </p>
+        <p> Used to create ...</p>
+
+    </section>
+
+
+    <section id="bibliography">
+        <h1 href="#bibliography"> 10. Bibliography </h1>
+        <p><a href = 'https://dzone.com/articles/introduction-to-mvc-architecture-web-developer-poi'> https://dzone.com/articles/introduction-to-mvc-architecture-web-developer-poi </a> </p>
+        <p><a href = 'https://www.tutorialspoint.com/nodejs/nodejs_introduction.htm'>https://www.tutorialspoint.com/nodejs/nodejs_introduction.htm</a> </p>
+        <p><a href = 'https://developers.google.com/chart'>https://developers.google.com/chart</a></p>
+        <p><a href = 'https://openlayers.org/'>https://openlayers.org/</a></p>
+    </section>
+
 </body>
 
 </html>
