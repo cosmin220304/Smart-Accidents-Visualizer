@@ -94,6 +94,8 @@ button:hover {
     border: 1px solid black;
     padding: 7px;
     margin-bottom: 1em;
+    width: 90%;
+    border-radius: 0 1em 0 0;
 }
 
 .searchBlocks::before {
@@ -165,7 +167,8 @@ button:hover {
 }
 
 #closeDownloadArea {
-    margin-left: 90%;
+    margin-top: 1em;
+    margin-left: 0;
     cursor: pointer;
 }
 
@@ -184,7 +187,7 @@ button:hover {
 
 /* Code from https://www.w3schools.com/howto/howto_css_loader.asp */
 .loader {
-    visibility: hidden;
+    display: none;
     content: "";
     border: 0.5em solid white;
     border-top: 0.5em solid green;
@@ -224,7 +227,7 @@ input[id="clusterNumber"]::-webkit-slider-runnable-track {
 
 input[id="clusterNumber"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    background: url('icons/search.png');
+    background: url('icons/search.webp');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 2em 2em;
@@ -257,7 +260,7 @@ input[id="clusterNumber"]::-webkit-slider-thumb {
 /* Hide points button */
 #download {
     padding-bottom: 0.5em;
-    background: url('icons/download.png');
+    background: url('icons/download.webp');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 1.7em 1.7em;
@@ -286,7 +289,13 @@ label[for="addSelect"] {
 }
 
 #submit {
-    display: inline;
+    -webkit-text-fill-color: var(--frontColor);
+    font-family: "Times New Roman", Times, serif; 
+    font-size: 1.05em;
+    width: 5em;
+    height: 2em;
+    border-radius: 0.5em;
+    border: 0.1em solid black; 
 }
 
 label[for="submit"] {
@@ -320,6 +329,11 @@ label {
         grid-template-columns: auto;
     }
 
+    #SearchAreaButtons button, #toolboxName{
+        width: 90%;
+        margin-bottom: 1em;
+    }
+
     #mapContainer {
         order: 1;
     }
@@ -342,15 +356,11 @@ label {
 
     #DownloadAreaPanel {
         margin-top: 12%;
-        margin-left: 25%;
-        width: 50%;
-        height: 75%;
+        margin-left: 15%;
+        width: 65%;
+        height: 80%;
         background-color: var(--backColor);
         text-align: center;
     }
 
-    #closeDownloadArea {
-        margin-left: 0;
-        cursor: pointer;
-    }
 }

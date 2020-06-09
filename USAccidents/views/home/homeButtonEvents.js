@@ -1,4 +1,4 @@
-var colorArray = ["#000000"];
+const loader = document.getElementById("originalLoader")
 
 // Appends a new searchBlock to the last searchBlock
 function createNewSearch(){
@@ -91,16 +91,18 @@ async function makeSearchHandler(){
         color =  searchBlocks[index].style.backgroundColor; 
 
         //Print the result locally + send it to server
-        console.log("For block number " + index + " we have: " + queryString);
+        let loadClone = loader.cloneNode(true);
+        loadClone.style.display = "block";
+        searchBlocks[index].appendChild(loadClone)
+        
+        await queryToPoints(searchBlocks[index], queryString, color);
 
-        await queryToPoints(queryString, color);
-
-        console.log("Block number " + index + " finised!");
+        loadClone.remove();
     }
 }
 
 
-async function queryToPoints(queryString, color){
+async function queryToPoints(searchBlock, queryString, color){
     //todo add loading
 
     //Make requests in wave
@@ -111,9 +113,15 @@ async function queryToPoints(queryString, color){
         var json = await getReq(queryString+"&Limit="+limit+"&Offset="+offset);  
         var coordonatesObject = Object.values(json);
 
+        //Stop if we dont have any more elements or if we dont have any more data from server
         offset += limit;
+        children = searchBlock.childElementCount; 
         if (json.length == 0)
             break
+        if (children == 1){
+            destroyBlock(searchBlock);
+            break;
+        }
 
         //Transform object into array of coordonates
         var coordonatesArray = [];
@@ -130,13 +138,6 @@ async function queryToPoints(queryString, color){
         addPointsToMap(coordonatesArray, descriptionArray, color);  
     } 
 }
-
-
-//Initializes the map with some random points
-function addRandomPoints() {
-    queryToPoints("State=NE&Severity=1", "rgb(0, 0, 0)");
-} 
-addRandomPoints();
 
 //Get data from db
 async function getReq(queryString) {
@@ -267,7 +268,6 @@ function createStartBlock(){
     //Reset array
     searchBlocks = [searchBlockStart];
     searchBlockNo = 0;
-    colorArray = ["#000000"];
 }
 
 function destroyBlock(block){
@@ -294,7 +294,6 @@ function createSearchBlock(color, name)
 
     //Add the collor
     newSearchBlock.style.backgroundColor = color;
-    colorArray.push(color);
 
     //Add it in our html
     lastSearchBlock = searchBlocks[searchBlockNo]; 
