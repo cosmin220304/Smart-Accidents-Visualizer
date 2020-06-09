@@ -8,21 +8,6 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-var mailOptions = {
-  from: 'us.accidents2020@gmail.com',
-  to: 'us.accidents2020@gmail.com',
-  subject: 'Sending Email using Node.js',
-  text: 'That was easy!'
-};
-
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-});
-
 const http = require('http');
 const port = process.env.PORT || 8001;
 
@@ -55,7 +40,20 @@ async function postHandler(request, response) {
     })
 
     request.on('end', function () {
-        update(obj, response, false)
+      var mailOptions = {
+      from: 'us.accidents2020@gmail.com',
+      to: 'us.accidents2020@gmail.com',
+      subject: obj["name"],
+      text: obj["message"] + "\n" + obj["email"] + "\n" + obj["phone"]
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+       });
     })
 }
 
