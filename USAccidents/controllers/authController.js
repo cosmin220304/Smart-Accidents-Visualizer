@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
- 
+//POST request for 
 function postHandler(request, response){  
     //Used for getting the request data
     let reqBody = '';

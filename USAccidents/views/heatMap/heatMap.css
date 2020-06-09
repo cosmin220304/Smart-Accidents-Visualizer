@@ -1,4 +1,5 @@
-html {
+html {  
+  font-family: serif, Arial, sans-serif;
   background: linear-gradient(to right, rgb(15, 32, 39),
   rgb(32, 58, 67), rgb(44, 83, 100)),  
  no-repeat, center, center,  fixed;  background-size: cover;
@@ -61,7 +62,19 @@ a:visited {
   background: linear-gradient(to left, rgb(120, 2, 6), rgb(0, 0, 0, 0.001)); /**/
 }
 
-
+@media only screen and (max-width: 900px) {
+    #download, #downloadCSV {
+      content: 'JPG';
+      font-family: serif, Arial, sans-serif;
+      font-size: 16px;
+      position: relative;
+      display:  block;
+      max-width: 90%;
+      min-width: auto;
+      margin:0 auto;  
+      background: linear-gradient(to right, rgb(120, 2, 6), rgb(0, 0, 0, 0.001));
+  }
+}
 
 .filterList{
   display: grid;
@@ -79,6 +92,7 @@ li {
   float: left;
   margin-left: 10px;
 }
+/* modified code from youtube tutorial */
 
 input[type="checkbox"]
 {
@@ -116,6 +130,7 @@ input:checked[type="checkbox"]:before
 {
   left:20px;
 }
+/* modified code from youtube tutorial */
 
 
 ul li {
@@ -124,17 +139,6 @@ ul li {
   font-family: sans-serif;
   padding: 20px 0;
 }
-
-
-@media screen and (max-width: 300px) {
-  .topnav, .Us-Accidents{
-    text-align: center;
-    float: center;
-    width: 100%;
-    height: 100%;
-  }
-}
-
 
 /*TOOL */
 #tool{
@@ -157,6 +161,7 @@ label[for="submit"] { display:none; }
   margin:0 auto;
 }
 #submit{
+
   font-family: serif, Arial, sans-serif;
   font-size: 16px;
   position: relative;
@@ -165,6 +170,7 @@ label[for="submit"] { display:none; }
   min-width: auto;
   margin:0 auto;  
 }
+
 @media only screen and (min-width: 200) {
   #submit {
       display: inline-block;

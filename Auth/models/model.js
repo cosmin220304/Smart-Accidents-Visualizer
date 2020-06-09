@@ -37,7 +37,7 @@ function findByUser(user) {
     })
 }
  
-
+// Saving models in the DB
 async function save(obj) {
     var model = new MyModel(obj);
     model.save((err, collection) => {
