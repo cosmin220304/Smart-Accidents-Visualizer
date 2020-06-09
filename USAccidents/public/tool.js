@@ -72,6 +72,7 @@ const nameToFunc = {
 let searchBlocks = [document.getElementById("searchBlockStart")]
 let searchBlockNo = 0;
 let selectGenerator = document.getElementById("addSelect"); 
+let deleteSearchBlock = false;
 
 //Adds all options to "selectGenerator" select from nameToFunc map
 function IntializeSelectGenerator(){ 
@@ -126,6 +127,10 @@ function addTextToElement(element, text){
     br.remove();
     if (!(sliderText === undefined))
       sliderText.remove();
+    if (deleteSearchBlock == true)
+    {
+       console.log(button.parentNode);
+    }
     button.remove();
   }
 

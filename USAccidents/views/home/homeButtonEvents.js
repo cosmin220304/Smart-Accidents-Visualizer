@@ -258,7 +258,6 @@ function destroyAllBlocks()
     colorArray = ["#000000"];
 }
 
-
 function createSearchBlock(color)
 {
     //Create it and add the id and class
@@ -277,4 +276,11 @@ function createSearchBlock(color)
     //Add to our array
     searchBlockNo += 1;
     searchBlocks.push(newSearchBlock);
+}
+
+//Used to find if any searchblock remained without children
+document.body.addEventListener('click', addRemoveAnnounce);
+function addRemoveAnnounce(event) {
+    deleteSearchBlock = true;
+    document.body.removeEventListener('click', addRemoveAnnounce);
 }

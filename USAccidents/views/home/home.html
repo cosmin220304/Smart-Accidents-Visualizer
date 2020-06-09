@@ -12,16 +12,18 @@
 
 <body>
   <!-- Topnav that will be automatically added from server -->
-  {topnav}
-  <!-- test &#x274c; -->
+  {topnav} 
   <!-- Our whole page -->
   <div id="mainWrapper">  
 
     <!-- Search area where you can manipulate data -->
     <div id="SearchArea">
-      <button  id="createNewSearch" onclick="createNewSearch()"> New </button>
-      <button  id="saveData"        onclick="saveData()"> Save </button>
-      <button  id="loadData"        onclick="loadData()"> Load </button>
+      <div id="SearchAreaButtons">
+        <span id="toolboxName">Toolbox</span>
+        <button  id="createNewSearch" onclick="createNewSearch()"> New </button>
+        <button  id="saveData"        onclick="saveData()"> Save </button>
+        <button  id="loadData"        onclick="loadData()"> Load </button>
+      </div>
       {tool}
     </div>
     
@@ -34,21 +36,22 @@
       <div id="map" class="map"></div>   
 
       <!-- Map options used for download and manipulate rendered points-->
-      <div> 
-      <label>
-        Details:
-        <input type="range" name="clusterNumber" min="0" max="100" step="0.1" value="30" id="clusterNumber">
-      </label> 
-      <button id="hideText" onclick="OnOffText()"> </button>
+      <div id="underMap"> 
+        <label>
+          Detail level:
+          <input type="range" name="clusterNumber" min="0" max="100" step="0.1" value="30" id="clusterNumber">
+        </label> 
+        <span></span>
+        <label>
+          Show details:
+          <button id="hideText" onclick="OnOffText()"> </button>
+        </label> 
+        <span></span>
+        <label>
+          Download:
+          <button id="download" onclick="showDownloadArea()"> </button>
+        </label> 
       </div>
-
-      <!-- All download options -->
-      <div id="DownloadArea"> 
-        <a id="downloadPNG" href = "#" download ="mapPNG">Download PNG</a>
-        <a id="downloadCSV" href = "#" download ="mapCSV.csv">Download CSV</a>
-        <a id="downloadSVG" href = "#" download ="mapSVG.svg">Download SVG</a>
-      </div> 
-
     </div>
 
   </div>
@@ -62,6 +65,16 @@
   <!-- Footer that will be automatically added from server -->
   {footer}
 
+  <!-- All download options -->
+  <div id="DownloadArea"> 
+    <div id="DownloadAreaPanel">
+      <button  id="closeDownloadArea" onclick="hideDownloadArea()"> &#x274c; </button>
+      <p id="test">Download as:</p>
+      <a id="downloadPNG" href = "#" download ="mapPNG">Download PNG</a>
+      <a id="downloadCSV" href = "#" download ="mapCSV.csv">Download CSV</a>
+      <a id="downloadSVG" href = "#" download ="mapSVG.svg">Download SVG</a>
+    </div>
+  </div> 
 
   <!-- Render blocking resources below -->
 

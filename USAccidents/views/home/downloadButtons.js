@@ -55,3 +55,13 @@ downloadSVG.addEventListener('click', async function() {
     var svgFile = new Blob([ctx.getSerializedSvg(true)], { type: 'text/svg;charset=utf-8;'});
     downloadSVG.href = URL.createObjectURL(svgFile); 
 });
+
+function showDownloadArea(){
+    downloadArea = document.getElementById("DownloadArea");
+    downloadArea.style.display= "inline";
+}
+
+function hideDownloadArea(){
+    downloadArea = document.getElementById("DownloadArea");
+    downloadArea.style.display= "none";
+}
