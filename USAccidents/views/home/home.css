@@ -241,7 +241,7 @@ input[id="clusterNumber"]::-webkit-slider-thumb {
 /* Hide points button */
 #hideText {
     padding-bottom: 0.5em;
-    background: url('icons/eye.png');
+    background: url('icons/eye.webp');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 2em 2em;
