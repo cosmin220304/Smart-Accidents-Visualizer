@@ -201,4 +201,16 @@ label[for="submit"]{
         display: grid;
         grid-template-columns: 1fr 5fr 1fr;
     }
+
+    #headerBackground{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 12em;
+        background: #F8F7F5;
+        z-index: -999;
+        border-bottom: 0.1em solid #707070;   
+        box-shadow: 0 0.5em 2em -1em black;
+    }
 }
