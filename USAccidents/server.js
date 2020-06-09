@@ -6,6 +6,7 @@ const pieChartRoutes = require('./routes/pieChartRoutes')
 const authRoutes = require('./routes/authRoutes')
 const barGraphRoutes = require('./routes/barGraphRoutes')
 const publicRoutes = require('./routes/publicRoutes')
+const contactRoute = require('./routes/contactRoute')
 const HtmlAux = require('./microservices/HtmlAux')
 const publicController = require('./controllers/publicController')
 const dataObserver = require('./microservices/data observer')
@@ -54,7 +55,10 @@ const routesMap = {
     '/404_1.jpeg': publicRoutes,
     '/404_2.jpeg': publicRoutes,
     '/404_3.jpeg': publicRoutes,
-    '/404_4.jpeg': publicRoutes,
+    '/contacts': contactRoute,
+    '/contacte.css': contactRoute,
+    '/contacte.html': contactRoute,
+    '/contacte.js': contactRoute,
 }
 
 const acceptedSecuredRequests = ["POST", "PATCH", "PUT", "DELETE"];
