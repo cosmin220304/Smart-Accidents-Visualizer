@@ -68,6 +68,8 @@ const routesMap = {
     '/icons/search.webp' : publicRoutes,
     '/icons/flag.png' : publicRoutes,
     '/icons/mvc-architecture.png' : publicRoutes,
+    '/icons/before.webp' : publicRoutes,
+    '/icons/after.webp' : publicRoutes,
     '/report.html' : publicRoutes,
 }
 

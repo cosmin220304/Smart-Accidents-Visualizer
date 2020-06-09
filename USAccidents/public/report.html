@@ -253,6 +253,9 @@
         </p>
         <p> Used to create ...</p>
 
+        <b><p>Mocha testing</p></b>
+        <p>We've used Mocha framework for testing GET requests on different routes, including a undefined route.</p>
+        <p>The other suite tests wether the data that was added was also in dava_values database wich holds all the unique posible values for any given collumn. </p>
     </section>
 
     <section id="services">
@@ -263,6 +266,17 @@
             The auth service lets the user login as administrator using a POST request, sending a username and a password;
             If the credentials are correct, the user gets a JWT, used for later authentication.
             Then the user could send the JWT using a GET to verify the token.
+            SQL Injection has been prevented by checking wether the '$' exists in the body requests, and if so, the whole body is turned into null;
+        </p>
+        <p>Before:</p>
+        <p>
+            <img src='/icons/before.webp' alt="MVC Architecture" type="image/png"
+            href="/icons/before.webp" style="width: 70%; height:50%">
+        </p>
+        <p>After:</p>
+        <p>
+            <img src='/icons/after.webp' alt="MVC Architecture" type="image/png"
+            href="/icons/after.webp" style="width: 70%; height:50%">
         </p>
         <p>
             The register service requests a JWT to create a new account, meaning the user needs to auth first in order to get the JWT.
