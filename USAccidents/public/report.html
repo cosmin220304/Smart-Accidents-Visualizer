@@ -7,6 +7,7 @@
     <meta name="description" content="Report used to explain details of the development process">
     <title>US Accidents Visualizer</title>
     <link rel="icon" type="image/png" href="/icons/flag.svg.png" />
+    <link rel="stylesheet" href="report.css" type="text/css">
 </head>
 
 <body>
@@ -218,17 +219,20 @@
     </section>
 
     <section id="technologies">
-        <h1 href="#technologies"> 9. Technologies </h1>
+        <h1 href="#technologies"> 9. Technologies </h1> 
         <p><b>1. Node JS </b></p>
-        <p> Node.js is an open source, cross-platform runtime environment for developing server-side and networking
-            applications. Node.js applications are written in JavaScript, and can be run within the Node.js runtime on
-            OS X, Microsoft Windows, and Linux.
-
-            Node.js also provides a rich library of various JavaScript modules which simplifies the development of web
-            applications using Node.js to a great extent.
+        <p> Node.js is an open-source runtime environment that we used for developing our server-side.
+            We chose Node due to its popularity and its beginner-friendly learning curve, Javascript being an easy language
+            to learn that we also use in the front end of our application.
+            
         </p>
         <p> <b>2. MongoDB </b></p>
-        <p> Stores accidents data, admin credentials, and available values in JSON format.</p>
+        <p> MongoDB was used because of its popularity with Node.js (in MERN/MEAN Stacks)
+            and also because of how the data is structured in a MongoDB collection: in (Binary) JSON format.
+            JSON stands for JavaScript Object Notation and our api's also return and work with JSON so 
+            the choise was self-
+            In this project we used Mongoose as the mongodb npm package framework.
+        </p>
 
         <p>
             <b> 3. HTML5, CSS3, JavaScript </b>
