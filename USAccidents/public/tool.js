@@ -129,7 +129,8 @@ function addTextToElement(element, text){
       sliderText.remove();
     if (deleteSearchBlock == true)
     {
-       console.log(button.parentNode);
+      if (button.parentNode.childElementCount == 1)
+        destroyBlock(button.parentNode);
     }
     button.remove();
   }
