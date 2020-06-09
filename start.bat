@@ -1,2 +1,3 @@
-start nodemon USAccidents/server.js
-start nodemon Auth/server.js
+start node USAccidents/server.js
+start node Auth/server.js
+start node Email/server.js
