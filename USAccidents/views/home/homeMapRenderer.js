@@ -205,6 +205,7 @@ function OnOffText(){
       );
     }
     state = "off";
+    document.getElementById("hideText").style.backgroundImage = "url('icons/closedEye.png')";
   }
 
   //Show text
@@ -217,5 +218,6 @@ function OnOffText(){
       );
     }
     state = "on";
+    document.getElementById("hideText").style.backgroundImage = "url('icons/eye.png')";
   } 
 }

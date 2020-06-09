@@ -1,2 +1,2 @@
 start nodemon USAccidents/server.js
-start node Auth/server.js
+start nodemon Auth/server.js

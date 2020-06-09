@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 
 async function getHandler(filePath, response){ 
     //Open and return it if is .html,.css or .js
-    if(!filePath.includes('?'))
+    if(!filePath.includes('?')) //Checks wether the requests containts qs
     {
         fs.readFile(filePath, 'utf8', function(error, content) 
         {   
@@ -19,11 +19,8 @@ async function getHandler(filePath, response){
     }
     else{
         response.writeHead(200, { 'Content-Type': 'application/json' });
-        console.log(filePath.split('?')[1]);
         var json = qs.parse(filePath.split('?')[1]);
-        console.log(json);
         var rez = await model.count(json);
-        console.log(rez);
         response.end(JSON.stringify(rez))
     }
 }  
@@ -48,9 +45,7 @@ async function postHandler(filePath, response){
 
     request.on('end', function(){
         response.writeHead(200, { 'Content-Type': 'application/json' });
-        console.log("body");
         obj['_id'] = new mongoose.Types.ObjectId();
-        console.log(obj);
         model.save(obj);
         response.end(reqBody);
     });
@@ -67,15 +62,6 @@ function getContentType(filePath)
     }; 
     var contentType = contentTypeMap[extensionName];
     return contentType;
-}
-
-function showCookies(request){
-    var list = {},
-    rc = request.headers.cookie; 
-    if (rc)
-        console.log('Cookies:',rc);
-    else 
-        console.log('No cookies found!');
 }
 
 module.exports.getHandler = getHandler;

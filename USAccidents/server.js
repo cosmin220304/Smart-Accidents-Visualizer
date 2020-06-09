@@ -44,7 +44,6 @@ const routesMap = {
     '/barGraph.js': barGraphRoutes,
     '/tool.html': publicRoutes,
     '/tool.js': publicRoutes,
-    '/tool.css': publicRoutes,
     '/topNav.html': publicRoutes,
     '/topNav.css': publicRoutes,
     '/footer.html': publicRoutes,
@@ -59,6 +58,16 @@ const routesMap = {
     '/contacte.css': contactRoute,
     '/contacte.html': contactRoute,
     '/contacte.js': contactRoute,
+    '/404_4.jpeg': publicRoutes,
+    '/icons/add.png' : publicRoutes,
+    '/icons/closedEye.png' : publicRoutes,    
+    '/icons/download.png' : publicRoutes,
+    '/icons/eye.png' : publicRoutes,
+    '/icons/history.png' : publicRoutes,
+    '/icons/save.png' : publicRoutes,
+    '/icons/search.png' : publicRoutes,
+    '/icons/flag.svg.png' : publicRoutes,
+    '/report.html' : publicRoutes,
 }
 
 const acceptedSecuredRequests = ["POST", "PATCH", "PUT", "DELETE"];
