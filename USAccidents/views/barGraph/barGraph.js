@@ -1,31 +1,64 @@
 var ctx = document.getElementById('myChart').getContext('2d');
 
+var myChart = new Chart( ctx, {
+  type: "horizontalBar",
+  data: { 
+    labels: [],
+    datasets: [{
+      label: '# of Accidents',
+      data: [],
+      backgroundColor: [],
+      borderColor: [],
+      borderWidth: 1
+    }]
+  },
+  options: {
+      // legend: {
+      //   // display: true,
+      //   labels: [{
+      //     fontColor: "white",
+      //     fontSize: 18
+      // }],
+      scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+        }]
+    }
+  }
+});
 
 function updateGraph(states, data){
     var colors = poolColors(states.length);
-    var myChart = new Chart(ctx, {
-        type: 'horizontalBar',
-        data: {
-            labels: states,
-            datasets: [{
-                label: '# of Accidents',
-                // minBarLength: 0,
-                data: data,
-                backgroundColor: colors,
-                borderColor: colors,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
+    // myChart = new Chart(ctx, {
+    //     type: 'horizontalBar',
+    //     data: {
+    //         labels: states,
+    //         datasets: [{
+    //             label: '# of Accidents',
+    //             // minBarLength: 0,
+    //             data: data,
+    //             backgroundColor: colors,
+    //             borderColor: colors,
+    //             borderWidth: 1
+    //         }]
+    //     },
+    //     options: {
+    //         scales: {
+    //             yAxes: [{
+    //               ticks: {
+    //                 beginAtZero: true
+    //                 }
+    //             }]
+    //         }
+    //     }
+    // });
+    myChart.data.labels=states;
+    myChart.data.datasets[0].data=data;
+    myChart.data.datasets[0].backgroundColor=colors;
+    myChart.data.datasets[0].borderColor=colors;
+    myChart.update();
 }
 
 function dynamicColors() {
