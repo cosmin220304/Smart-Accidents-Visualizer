@@ -7,6 +7,7 @@
     <meta name="description" content="Report used to explain details of the development process">
     <title>US Accidents Visualizer</title>
     <link rel="icon" type="image/png" href="/icons/flag.svg.png" />
+    <link rel="stylesheet" href="report.css" type="text/css">
 </head>
 
 <body>
@@ -117,7 +118,7 @@
             Here's a very simple example or diagram.
         </p>
         <img src='/icons/mvc-architecture.png' alt="MVC Architecture" type="image/png"
-            href="/icons/mvc-architecture.png" style="width: 40%; height:50%">
+            href="/icons/mvc-architecture.png" style="width: 100%; height:50%">
         <p>
             Now we have the user, who sees the view of the application in the browser, and the app can make some kind of
             requests with input to what's called a router. And their request could be some kind of link that they
@@ -153,7 +154,8 @@
         <h1 href="#API"> 8. API's </h1>
         <p> Project's APIs are the following: </p>
         <ol>
-            <li> GET <u>https://proiect-tw-2020.herokuapp.com/home</u> 
+            <li> GET <u>https://proiect-tw-2020.herokuapp.com/home</u>
+                <p><i>(Alex)</i></p>
                 <p> It gets from the server the contents of the file home.hmtl . </p>
                 <p>Returns: text/html</p>
                 <p>
@@ -165,6 +167,7 @@
             </li>
             <li>
                 GET <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
+                <p><i>(Alex)</i></p>
                 <p> Gets the document from the database by its ID. </p>
                 <p>Returns: application/json</p>
                 <p>
@@ -184,6 +187,7 @@
             </li>
             <li>
                 PATCH <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
+                <p><i>(Cosmin)</i></p>
                 <p> Updates the document from the database by it's ID. </p>
                 <p>Returns: application/json</p>
                 <p>
@@ -202,6 +206,7 @@
             </li>
             <li>
                 POST <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
+                <p><i>(Alex)</i></p>
                 <p> Creates/Updates a document in the database by the specified ID.</p>
                 <p>Returns: application/json</p>
                 <p>
@@ -219,6 +224,7 @@
             </li>
             <li>
                 PUT <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
+                <p><i>(Cosmin)</i></p>
                 <p> Creates/Updates a document in the database with the specified ID. </p>
                 <p>Returns: application/json</p>
                 <p>
@@ -237,6 +243,7 @@
             </li>
             <li>
                 DELETE <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
+                <p><i>(Adi)</i></p>
                 <p> Deletes a document in the database by its ID. </p>
                 <p>Returns: application/json</p>
                 <p>
@@ -255,17 +262,20 @@
     </section>
 
     <section id="technologies">
-        <h1 href="#technologies"> 9. Technologies </h1>
+        <h1 href="#technologies"> 9. Technologies </h1> 
         <p><b>1. Node JS </b></p>
-        <p> Node.js is an open source, cross-platform runtime environment for developing server-side and networking
-            applications. Node.js applications are written in JavaScript, and can be run within the Node.js runtime on
-            OS X, Microsoft Windows, and Linux.
-
-            Node.js also provides a rich library of various JavaScript modules which simplifies the development of web
-            applications using Node.js to a great extent.
+        <p> Node.js is an open-source runtime environment that we used for developing our server-side.
+            We chose Node due to its popularity and its beginner-friendly learning curve, Javascript being an easy language
+            to learn that we also use in the front end of our application.
+            
         </p>
         <p> <b>2. MongoDB </b></p>
-        <p> Stores accidents data, admin credentials, and available values in JSON format.</p>
+        <p> MongoDB was used because of its popularity with Node.js (in MERN/MEAN Stacks)
+            and also because of how the data is structured in a MongoDB collection: in (Binary) JSON format.
+            JSON stands for JavaScript Object Notation and our api's also return and work with JSON so 
+            the choise was self-
+            In this project we used Mongoose as the mongodb npm package framework.
+        </p>
 
         <p>
             <b> 3. HTML5, CSS3, JavaScript </b>
@@ -282,13 +292,13 @@
             <b> 5. Cartographic representations </b>
         </p>
         <p>
-            <b> 5.1 Google Charts </b> 
+            <b> 5.1 Google Charts  </b> 
         </p>
         <p> Used to create heat map and pie chart representations.</p>
         <p>
             <b> 5.2 Openlayers </b> 
         </p>
-        <p> Used to create ...</p>
+        <p> Used to create </p>
 
         <b><p>Mocha testing</p></b>
         <p>We've used Mocha framework for testing GET requests on different routes, including a undefined route.</p>
@@ -308,12 +318,12 @@
         <p>Before:</p>
         <p>
             <img src='/icons/before.webp' alt="MVC Architecture" type="image/png"
-            href="/icons/before.webp" style="width: 70%; height:50%">
+            href="/icons/before.webp" style="width: 100%; height:50%">
         </p>
         <p>After:</p>
         <p>
             <img src='/icons/after.webp' alt="MVC Architecture" type="image/png"
-            href="/icons/after.webp" style="width: 70%; height:50%">
+            href="/icons/after.webp" style="width: 100%; height:50%">
         </p>
         <p>
             The register service requests a JWT to create a new account, meaning the user needs to auth first in order to get the JWT.
