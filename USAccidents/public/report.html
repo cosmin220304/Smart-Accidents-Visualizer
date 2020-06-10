@@ -18,20 +18,14 @@
         <ol role="directory">
             <li><a href="#abstract">Abstract</a></li>
             <li><a href="#introduction">Introduction</a></li>
-            <li><a href="#arhitecture">Project architecture</a>
-                <ul>
-                    <li><a href="#arhitecture_1">Details</a></li>
-                    <li><a href="#arhitecture_1">Components</a></li>
-                    <li><a href="#arhitecture_1">Application flow</a></li>
-                </ul>
-            </li>
+            <li><a href="#structure">Structure</a>
             <li><a href="#db">Database</a></li>
             <li><a href="#mvc">MVC Model</a></li>
-            <li><a href="#ms">Microservices</a></li>
             <li><a href="#usecases">Use-cases</a></li>
             <li><a href="#API">API's</a></li>
             <li><a href="#technologies">Technologies</a>
             <li><a href="#services">Services</a>
+            <li><a href="#microservices">Microservices</a></li>
             <li><a href="#bibliography">Bibliography & Sources</a>
         </ol>
         <dl>
@@ -49,11 +43,6 @@
     <section id="abstract">
         <h1> 1. Abstract </h1>
         <p>This application represents a flexible web tool used for data visualzation of accidents in the USA.</p>
-        <!-- Sa se dezvolte un instrument Web de vizualizare flexibila a datelor vizand accidentele din SUA, 
-        pe baza unui API REST/GraphQL propriu. Statisticile si vizualizarile generate – minim 3 maniere + 
-        redari cartografice pe baza unor servicii Web de profil – vor putea fi exportate in formatele CSV, PNG si SVG. 
-        Sistemul va oferi suport si pentru cautarea multi-criteriala de incidente raportate. Resurse suplimentare despre 
-        vizualizarea datelor:  -->
     </section>
 
     <section id="introduction">
@@ -62,20 +51,42 @@
         <p> It provides a multi-criterial search to show different graphs and cartographical representations of a 3
             million record document
             regarding accidents from the USA.
+            It also has an administrative module for adding data to the database.
         </p>
     </section>
 
-    <section id="arhitecture">
-        <h1 href="#mvc"> 3. Architecture </h1>
-        <p id='arhitecture_1'>3.1 Details</p>
-        <p id='arhitecture_2'>3.2 Components</p>
-        <p id='arhitecture_3'>3.3 Application flow</p>
+    <section id="structure">
+        <h1 href="#mvc"> 3. Structure </h1>
+        <p>
+            For our project we used for our arhitecture Model-View-Controller (MVC).
+            It is an arhitectural pattern that separates an application 
+            into three main logical components: the model, the view and the controller. 
+            Each of these components are built to handle specific development aspects of an application.
+        </p>
+        <img src='/icons/mvc-architecture.png' alt="MVC Architecture" type="image/png" style="width: 100%; height:50%">
+        <p>
+           <b>Advantages of this arhitecture:</b>
+        </p>
+        <ol>
+           <li>Easy for multiple developers to collaborate and work together.</li>
+           <li>Code modularization</li> 
+           <li>Development of the application becomes fast. </li>
+           <li>Modifications of the apllication do not affect other parts</li>
+           <li>Scalability</li>
+           <li>Easier to maintenance by keeping the view and the data-manipulating logic separate</li>
+           <li>Easier to Update the application (extensiblity)</li>
+        </ol>
+        <img src='mvc.png' alt="MVC Architecture" type="image/png" style="width: 35%; height: 35%">
     </section>
 
     <section id="db">
         <h1 href="#db"> 4. Database </h1>
         <p> MongoDB stores accidents data, admin credentials, and available values for the
             multi-criterial search tool. </p>
+        <p> 
+            Intially the database was hosted on cloud on Atlas but due to space limitation (only 500mb were free),
+            we moved it to a server. <b>It contains approximately 6gb of data plus indexes.</b>
+        </p>
     </section>
 
 
@@ -85,7 +96,7 @@
         <p>
             The Model is responsible for getting and manipulating the data, so it's basically the brain of the
             application.
-            It interracts with MongoDB, where it stores accidents data, admin user data, and available values for the
+            It interracts with our MongoDB database, where it stores accidents data, admin user data, and available values for the
             multi-criterial search tool.
         </p>
         <p><b>5.2 View</b></p>
@@ -117,8 +128,6 @@
 
             Here's a very simple example or diagram.
         </p>
-        <img src='/icons/mvc-architecture.png' alt="MVC Architecture" type="image/png"
-            href="/icons/mvc-architecture.png" style="width: 100%; height:50%">
         <p>
             Now we have the user, who sees the view of the application in the browser, and the app can make some kind of
             requests with input to what's called a router. And their request could be some kind of link that they
@@ -137,15 +146,16 @@
     <section id="usecases">
         <h1 href="#usecases"> 7. Use-cases </h1>
         <ol>
-            <li> The user enters the site and<b> views the map and the points where the accidents occurred according to the input criteria. </b></li>
-            <li> The user enters the <b>main page</b> and can download the generated map in png, csv and svg format.</li>
-            <li> The user enters the site <b>and can navigate to the other pages</b></li>
-            <li> The user enters the <b>Heat Map</b> page and can view on the map each state with a different color depending on the criteria of the chosen accidents. </li>    
-            <li> The user enters the <b>Heat Map</b> page and can download the generated map in jpg and csv format. </li>
-            <li> The user enters the <b>Pie Chart</b> page and can view a pie chart with all states according to the chosen accident criteria.</li>
-            <li> The user enters the <b>Pie Chart</b> page and can download the generated chart in jpg or csv format. </li>
-            <li> The user enters the <b>Bar Graph</b> page and can view a graph in which on the horizontal axis is the number of accidents chosen according to the criteria, and on the vertical axis each state separately. </li>
-            <li> The user enters the <b>Contact</b> page in which he can send an email to the project email. </li>
+            <li> The user can enter the site and<b> view the map and the points where the accidents occurred according to the input criteria. </b></li>
+            <li> The user can also download the generated map in <b>png, csv and svg </b> format.</li>
+            <li> The user can enter the site <b>and can navigate to the other pages using the top nav</b></li>
+            <li> The user can enter the <b>Heat Map</b> page and can view on the map each state with a different color depending on the criteria of the chosen accidents. </li>    
+            <li> The user can enter the <b>Heat Map</b> page and can download the generated map in jpg and csv format. </li>
+            <li> The user can enter the <b>Pie Chart</b> page and can view a pie chart with all states according to the chosen accident criteria.</li>
+            <li> The user can enter the <b>Pie Chart</b> page and can download the generated chart in jpg or csv format. </li>
+            <li> The user can enter the <b>Bar Graph</b> page and can view a graph in which on the horizontal axis is the number of accidents chosen according to the criteria, and on the vertical axis each state separately. </li>
+            <li> The user can enter the <b>Contact</b> page in which he can send an email to the project email. </li>
+            <li> The user can enter the <b>About</b> page in which he can read the report. </li>
         </ol>
     </section>
 
@@ -154,107 +164,81 @@
         <h1 href="#API"> 8. API's </h1>
         <p> Project's APIs are the following: </p>
         <ol>
-            <li> GET <u>https://proiect-tw-2020.herokuapp.com/home</u>
-                <p><i>(Alex)</i></p>
+            <li> <b>GET</b> <u>https://proiect-tw-2020.herokuapp.com/home </u>
                 <p> It gets from the server the contents of the file home.hmtl . </p>
-                <p>Returns: text/html</p>
-                <p>
-                    &lt;!doctype html&gt;<br>
-                    &lt;html lang="en"&gt;<br>
-                        ... <br>
-                    &lt;/html&gt;
-                </p>
+                <p> <b>Returns</b>: text/html</p>
             </li>
             <li>
-                GET <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
-                <p><i>(Alex)</i></p>
-                <p> Gets the document from the database by its ID. </p>
-                <p>Returns: application/json</p>
+                <b>GET</b> <u>https://proiect-tw-2020.herokuapp.com/records/:id </u> <i>(Alex)</i>
+                <p> Gets the document from the database by its ID. </p> 
+                <p><b>Returns</b>: application/json with all info from database about that record</p>
+            </li>
+            <li>
+                <b>PATCH</b> <u>https://proiect-tw-2020.herokuapp.com/records/:id</u> <i>(Cosmin)</i>
+                <p> Updates the document from the database by it's ID. </p>
+                <p><b><b>Body:</b></b></p>
                 <p>
                     {
-                        "Response": {
-                            "_id": "5ee018cc00109ab4977acd67",
-                            "ID": "B-1",
-                            "__v": 0,
-                            "Country": "Alabama"
-                        }
+                        "ID" : "B-1",
+                        "Country" : "Romania"
                     }
                 </p>
-                <p> Body: </p>
-                <p>
-                    { "ID":  "B-1" , "Country":"Alabama" }
-                </p>
-            </li>
-            <li>
-                PATCH <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
-                <p><i>(Cosmin)</i></p>
-                <p> Updates the document from the database by it's ID. </p>
-                <p>Returns: application/json</p>
+                <p><b>Returns</b>: application/json</p>
                 <p>
                     {
                         "Response": "1 fields updated with Success!",
                         "Response Code": 200
                     }
                 </p>
-                <p> Body: </p>
+            </li>
+            <li>
+                <b>POST</b> <u>https://proiect-tw-2020.herokuapp.com/records/:id</u> <i>(Alex)</i>
+                <p> Creates/Updates a document in the database by the specified ID.</p>
+                <p> <b>Body:</b> </p>
                 <p>
                     {
                         "ID" : "B-1",
                         "Country" : "Romania"
                     }
                 </p>
-            </li>
-            <li>
-                POST <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
-                <p><i>(Alex)</i></p>
-                <p> Creates/Updates a document in the database by the specified ID.</p>
-                <p>Returns: application/json</p>
+                <p><b>Returns</b>: application/json</p>
                 <p>
                     {
                         "Response": "Success!"
                     }
                 </p>
-                <p> Body: </p>
+            </li>
+            <li>
+                <b>PUT</b> <u>https://proiect-tw-2020.herokuapp.com/records/:id</u> <i>(Cosmin)</i>
+                <p> Creates/Updates a document in the database with the specified ID. </p>
+                <p> <b>Body:</b> </p>
                 <p>
                     {
                         "ID" : "B-1",
                         "Country" : "Romania"
                     }
                 </p>
-            </li>
-            <li>
-                PUT <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
-                <p><i>(Cosmin)</i></p>
-                <p> Creates/Updates a document in the database with the specified ID. </p>
-                <p>Returns: application/json</p>
+                <p><b>Returns</b>: application/json</p>
                 <p>
                     {
                         "Response": "Object created with Success!",
                         "Response Code": 201
                     }
-                </p>
-                <p> Body: </p>
+                </p> 
                 <p>
                     {
-                        "ID" : "B-1",
-                        "Country" : "Romania"
+                        "Response": "1 fields updated with Success!",
+                        "Response Code": 200
                     }
                 </p>
             </li>
             <li>
-                DELETE <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
-                <p><i>(Adi)</i></p>
+                <p><b>DELETE</b></p> <u>https://proiect-tw-2020.herokuapp.com/records/:id</u> <i>(Adrian)</i>
                 <p> Deletes a document in the database by its ID. </p>
-                <p>Returns: application/json</p>
+                <p><b>Returns</b>: application/json</p>
                 <p>
                     {
                         "Response": "Success"
-                    }
-                </p>
-                <p> Body: </p>
-                <p>
-                    {
-                        "ID" : "B-1"
                     }
                 </p>
             </li>
@@ -291,14 +275,14 @@
         <p>
             <b> 5. Data visualization libraries</b>
         </p>
-        <p>Google Charts - Used to create heat map and pie chart representations.</p>
-        <p>Openlayers - Used to create main page map that renders the points.</p>
-        <p>ChartJS - Used to create the bar graph page.</p>
+        <p> <b>Google Charts</b> - Used to create heat map and pie chart representations. <i>(Alex)</i></p> 
+        <p> <b>Openlayers</b> - Used to create main page map that renders the points. <i>(Cosmin)</i></p>
+        <p> <b>ChartJS</b> - Used to create the bar graph page. <i>(Adrian)</i></p>
         <p>All are free open-source licence javascript Libraries</p>
 
-        <b><p>Mocha testing</p></b>
-        <p>We've used Mocha framework for testing GET requests on different routes, including a undefined route.</p>
-        <p>The other suite tests wether the data that was added was also in dava_values database wich holds all the unique posible values for any given column. </p>
+        <b><p>6.Unit testing</p></b>
+        <p>We've used Mocha framework for testing <b>GET</b> requests on different routes, including a undefined route. <i>(Alex)</i></p> 
+        <p>The other suite tests wether the data that was added was also in dava_values database wich holds all the unique posible values for any given column. <i>(Cosmin)</i> </p>
     </section>
 
     <section id="services">
@@ -308,33 +292,100 @@
         <p>
             The auth service lets the user login as administrator using a POST request, sending a username and a password;
             If the credentials are correct, the user gets a JWT, used for later authentication.
-            Then the user could send the JWT using a GET to verify the token.
+            Then the user could send the JWT using a <b>GET</b> to verify the token.
             SQL Injection has been prevented by checking wether the '$' exists in the body requests, and if so, the whole body is turned into null;
         </p>
         <p>Before:</p>
         <p>
-            <img src='/icons/before.webp' alt="MVC Architecture" type="image/png"
+            <img src='/icons/before.webp' alt="auth service" type="image/png"
             href="/icons/before.webp" style="width: 100%; height:50%">
         </p>
         <p>After:</p>
         <p>
-            <img src='/icons/after.webp' alt="MVC Architecture" type="image/png"
+            <img src='/icons/after.webp' alt="auth service" type="image/png"
             href="/icons/after.webp" style="width: 100%; height:50%">
         </p>
+
+        <p> <b>Register</b> (create an authorized account)</p>
+        <p><i>(Alex)</i></p>
         <p>
             The register service requests a JWT to create a new account, meaning the user needs to auth first in order to get the JWT.
             Afterwards, the user could create new accounts using POST request, sending the username and password in the body of the request.
         </p>
 
+        <p> <b>Email</b></p>
+        <p><i>(Adrian)</i></p>
+        <p>
+            We have a Contacts web page in which the user can enter data and send it to our email service which uses
+            Nodemailer npm package to send it to a special gmail account made for this website.
+        </p>
+        <p>
+            <img src='email1.png'  alt="email service" type="image/png" style="width: 100%; height:50%">
+        </p>
+        <p>
+            <img src='email2.png' alt="email service" type="image/png" style="width: 100%; height:50%">
+        </p>
+
     </section>
 
+    <section id="microservices">
+        <h1 href="#microservices"> 11. Microservices </h1>
+        <p> <b>Data Observer</b></p>
+        <p><i>(Cosmin)</i></p>
+        <p>
+            Our Select Generator that creates selectors for every column from database is created dynamically by Javascript at runtime.
+            The values from each selector generated by Select Generator are not hardcoded and written manually into tool.js
+            everytime we add something new via POST/PUT/PATCH requests. They are monitored and written by "Data Observer" 
+            who has it's own database of each unique values for each colomn from the main database.
+        </p>
+        <p>
+            Data Observer listens for crud operations and checks if a new unique value for a given column has been added.
+            If so, it will automatically update the "tool.js" file next time the server is restarted and will also generate a logFile
+            with the changes made.
+        </p>
+        <p>
+            <img src='dataObs.png' alt="microservice data observer" type="image/png" style="width: 100%; height:50%">
+        </p>
+
+        <p> <b>HTMLAux</b></p>
+        <p><i>(Cosmin)</i></p>
+        <p>
+            We have separated our tool (select generator), footer and top nav into 3 different htmls, 
+            each with its own css and/or javascript file.
+            HtmlAux reads these files at the start of the server, and given an html file that contains {tool}, {topnav}, {footer} 
+            will act as a template engine and replace the words inside the brace with coresponding html. In case of tool witch has a lot of
+            render blocking javascript it will at that js file at the end of the html file, before the &lt;/body&gt;
+        </p>
+
+    </section>
+
+    <section id="responsabilities">
+        <h1 href="#responsabilities"> 12. Responsabilities </h1>
+        <h4> Responsabilities in our MVC are as follow:</h4>
+        <p> <b>Cosmin</b> : Responsible for homeController, homeView, homeRoutes, publicRoutes, collaborated with Alex on middleware/checkAuth and microservices</p>
+        <p> <b>Alex</b>  : Responsible for heatMapController, pieChartController, heatMapView, pieChartView, pieChartRoutes, heatMapRoutes, collaborated with Cosmin on middleware/checkAuth and authentication and register services</p>
+        <p> <b>Adrian</b>  : Responsible for barGraphController, barGraphView, barGraphRoutes, email service</p>
+        <p> <b>All three</b> collaborated in publicController for the CRUD operation:</p>
+        <ul>
+            <li><b>CREATE</b>: using POST request <i>(Alex)</i></li>
+            <li><b>READ</b>: using GET request for an item from db <i>(Alex)</i> or for a normal html/css/js/image <i>(Cosmin)</i></li>
+            <li><b>UPDATE</b>: using PATCH/PUT request <i>(Cosmin)</i></li>
+            <li><b>DELETE</b>: using DELETE request <i>(Adrian)</i></li>
+        </ul>
+        <p> <b>All three</b> collaborated in Model with the following functions:</p>
+        <ul>
+            <li> <b>Cosmin</b>: start, findCoordonates, update</li>
+            <li> <b>Alex</b> : findByID, count, save</li>
+            <li> <b>Adrian</b>: deleteByID</li>
+        </ul>
+    </section>
 
     <section id="bibliography">
-        <h1 href="#bibliography"> 11. Bibliography </h1>
-        <p><a href = 'https://dzone.com/articles/introduction-to-mvc-architecture-web-developer-poi'> https://dzone.com/articles/introduction-to-mvc-architecture-web-developer-poi </a> </p>
-        <p><a href = 'https://www.tutorialspoint.com/nodejs/nodejs_introduction.htm'>https://www.tutorialspoint.com/nodejs/nodejs_introduction.htm</a> </p>
-        <p><a href = 'https://developers.google.com/chart'>https://developers.google.com/chart</a></p>
-        <p><a href = 'https://openlayers.org/'>https://openlayers.org/</a></p>
+        <h1 href="#bibliography"> 13. Bibliography </h1> 
+        <p><a href = 'https://dzone.com/articles/introduction-to-mvc-architecture-web-developer-poi'> MVC image </a> </p> 
+        <p><a href = 'https://developers.google.com/chart'>Google Chart</a></p>
+        <p><a href = 'https://openlayers.org/'>Openlayers</a></p>
+        <p><a href = 'https://www.chartjs.org/'>ChartJS</a></p>
     </section>
 
 </body>
