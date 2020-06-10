@@ -5,7 +5,7 @@ var myChart = new Chart( ctx, {
   data: { 
     labels: [],
     datasets: [{
-      label: '# of Accidents',
+      label: 'Number of Accidents',
       data: [],
       backgroundColor: [],
       borderColor: [],
@@ -13,15 +13,15 @@ var myChart = new Chart( ctx, {
     }]
   },
   options: {
-      // legend: {
-      //   // display: true,
-      //   labels: [{
-      //     fontColor: "white",
-      //     fontSize: 18
-      // }],
       scales: {
-          yAxes: [{
+        xAxes: [{
+          ticks: {
+              fontColor: "white",
+          }
+        }],
+        yAxes: [{
             ticks: {
+              fontColor: "white",
               beginAtZero: true
             }
         }]
@@ -31,29 +31,6 @@ var myChart = new Chart( ctx, {
 
 function updateGraph(states, data){
     var colors = poolColors(states.length);
-    // myChart = new Chart(ctx, {
-    //     type: 'horizontalBar',
-    //     data: {
-    //         labels: states,
-    //         datasets: [{
-    //             label: '# of Accidents',
-    //             // minBarLength: 0,
-    //             data: data,
-    //             backgroundColor: colors,
-    //             borderColor: colors,
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         scales: {
-    //             yAxes: [{
-    //               ticks: {
-    //                 beginAtZero: true
-    //                 }
-    //             }]
-    //         }
-    //     }
-    // });
     myChart.data.labels=states;
     myChart.data.datasets[0].data=data;
     myChart.data.datasets[0].backgroundColor=colors;
