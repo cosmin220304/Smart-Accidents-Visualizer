@@ -156,6 +156,12 @@
             <li> GET <u>https://proiect-tw-2020.herokuapp.com/home</u> 
                 <p> It gets from the server the contents of the file home.hmtl . </p>
                 <p>Returns: text/html</p>
+                <p>
+                    &lt;!doctype html&gt;<br>
+                    &lt;html lang="en"&gt;<br>
+                        ... <br>
+                    &lt;/html&gt;
+                </p>
             </li>
             <li>
                 GET <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
@@ -171,6 +177,10 @@
                         }
                     }
                 </p>
+                <p> Body: </p>
+                <p>
+                    { "ID":  "B-1" , "Country":"Alabama" }
+                </p>
             </li>
             <li>
                 PATCH <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
@@ -182,6 +192,13 @@
                         "Response Code": 200
                     }
                 </p>
+                <p> Body: </p>
+                <p>
+                    {
+                        "ID" : "B-1",
+                        "Country" : "Romania"
+                    }
+                </p>
             </li>
             <li>
                 POST <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
@@ -190,6 +207,13 @@
                 <p>
                     {
                         "Response": "Success!"
+                    }
+                </p>
+                <p> Body: </p>
+                <p>
+                    {
+                        "ID" : "B-1",
+                        "Country" : "Romania"
                     }
                 </p>
             </li>
@@ -203,6 +227,13 @@
                         "Response Code": 201
                     }
                 </p>
+                <p> Body: </p>
+                <p>
+                    {
+                        "ID" : "B-1",
+                        "Country" : "Romania"
+                    }
+                </p>
             </li>
             <li>
                 DELETE <u>https://proiect-tw-2020.herokuapp.com/records/:id</u>
@@ -211,6 +242,12 @@
                 <p>
                     {
                         "Response": "Success"
+                    }
+                </p>
+                <p> Body: </p>
+                <p>
+                    {
+                        "ID" : "B-1"
                     }
                 </p>
             </li>
