@@ -67,7 +67,6 @@ const routesMap = {
     '/icons/save.webp' : publicRoutes,
     '/icons/search.webp' : publicRoutes,
     '/icons/flag.png' : publicRoutes,
-    '/icons/mvc-architecture.png' : publicRoutes,
     '/icons/before.webp' : publicRoutes,
     '/icons/after.webp' : publicRoutes,
     '/report.html' : publicRoutes,
@@ -76,6 +75,7 @@ const routesMap = {
     '/email2.png' : publicRoutes,
     '/mvc.png' : publicRoutes,
     '/dataObs.png' : publicRoutes,
+    '/mvc-architecture.png' : publicRoutes,
 }
 
 const acceptedSecuredRequests = ["POST", "PATCH", "PUT", "DELETE"];

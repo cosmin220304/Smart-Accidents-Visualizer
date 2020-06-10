@@ -285,7 +285,7 @@ input[id="clusterNumber"]::-webkit-slider-thumb {
 }
 
 label[for="addSelect"] {
-    display: none;
+   
 }
 
 #submit {

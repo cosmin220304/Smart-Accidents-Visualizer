@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Report used to explain details of the development process">
+    <meta name="keywords" content="project, infoiasi, web"/>
     <title>US Accidents Visualizer</title>
     <link rel="icon" type="image/png" href="/icons/flag.svg.png" />
     <link rel="stylesheet" href="report.css" type="text/css">
@@ -26,6 +27,7 @@
             <li><a href="#technologies">Technologies</a>
             <li><a href="#services">Services</a>
             <li><a href="#microservices">Microservices</a></li>
+            <li><a href="#responsabilities">Responsabilities</a></li>
             <li><a href="#bibliography">Bibliography & Sources</a>
         </ol>
         <dl>
@@ -63,7 +65,7 @@
             into three main logical components: the model, the view and the controller. 
             Each of these components are built to handle specific development aspects of an application.
         </p>
-        <img src='/icons/mvc-architecture.png' alt="MVC Architecture" type="image/png" style="width: 100%; height:50%">
+        <img src='/mvc-architecture.png' alt="MVC Architecture" type="image/png" style="width: 100%; height:50%">
         <p>
            <b>Advantages of this arhitecture:</b>
         </p>
@@ -171,10 +173,11 @@
             <li>
                 <b>GET</b> <u>https://proiect-tw-2020.herokuapp.com/records/:id </u> <i>(Alex)</i>
                 <p> Gets the document from the database by its ID. </p> 
-                <p><b>Returns</b>: application/json with all info from database about that record</p>
+                <p><b>Returns</b>: application/json with all info from database about that document</p>
             </li>
             <li>
                 <b>PATCH</b> <u>https://proiect-tw-2020.herokuapp.com/records/:id</u> <i>(Cosmin)</i>
+                <p> Requires authentication token. </p>
                 <p> Updates the document from the database by it's ID. </p>
                 <p><b><b>Body:</b></b></p>
                 <p>
@@ -193,6 +196,7 @@
             </li>
             <li>
                 <b>POST</b> <u>https://proiect-tw-2020.herokuapp.com/records/:id</u> <i>(Alex)</i>
+                <p> Requires authentication token. </p>
                 <p> Creates/Updates a document in the database by the specified ID.</p>
                 <p> <b>Body:</b> </p>
                 <p>
@@ -210,6 +214,7 @@
             </li>
             <li>
                 <b>PUT</b> <u>https://proiect-tw-2020.herokuapp.com/records/:id</u> <i>(Cosmin)</i>
+                <p> Requires authentication token. </p>
                 <p> Creates/Updates a document in the database with the specified ID. </p>
                 <p> <b>Body:</b> </p>
                 <p>
@@ -234,6 +239,7 @@
             </li>
             <li>
                 <p><b>DELETE</b></p> <u>https://proiect-tw-2020.herokuapp.com/records/:id</u> <i>(Adrian)</i>
+                <p> Requires authentication token. </p>
                 <p> Deletes a document in the database by its ID. </p>
                 <p><b>Returns</b>: application/json</p>
                 <p>
@@ -242,6 +248,7 @@
                     }
                 </p>
             </li>
+            <p><b>All CRUD operations return 403 if invalid/missing token has been provided.</b></p>
         </ol>
     </section>
 
@@ -256,8 +263,10 @@
         <p> <b>2. MongoDB </b></p>
         <p> MongoDB was used because of its popularity with Node.js (in MERN/MEAN Stacks)
             and also because of how the data is structured in a MongoDB collection: in (Binary) JSON format.
-            JSON stands for JavaScript Object Notation and our api's also return and work with JSON so 
+            JSON stands for JavaScript Object Notation and our api's also returns and works with JSON so 
             the choise was evident.
+        </p>
+        <p>
             In this project we used Mongoose as the mongodb framework.
         </p>
 
@@ -265,12 +274,12 @@
         <p> 
             HTML and CSS were used to create the UI, whereas JavaScript was used for creating functionalities and
             cartographical representations and also used for dynamically creating html elements. 
-            These are the main parts of the front-end of our application.
+            HTML, CSS and JavaScript are the main parts of the front-end of our application.
         </p>
         
         <p>
             <b> 4. Version Control</b>
-            <p> <b>GitHub </b> - We used a private repository on GitHub because it is free and widely used. </p>
+            <p> <b>GitHub </b> - We used a private repository on GitHub. Github was used because it is free, popular and reliable. </p>
         </p>
         <p>
             <b> 5. Data visualization libraries</b>
@@ -278,20 +287,20 @@
         <p> <b>Google Charts</b> - Used to create heat map and pie chart representations. <i>(Alex)</i></p> 
         <p> <b>Openlayers</b> - Used to create main page map that renders the points. <i>(Cosmin)</i></p>
         <p> <b>ChartJS</b> - Used to create the bar graph page. <i>(Adrian)</i></p>
-        <p>All are free open-source licence javascript Libraries</p>
+        <p>All are free open-source javascript libraries</p>
 
         <b><p>6.Unit testing</p></b>
-        <p>We've used Mocha framework for testing <b>GET</b> requests on different routes, including a undefined route. <i>(Alex)</i></p> 
-        <p>The other suite tests wether the data that was added was also in dava_values database wich holds all the unique posible values for any given column. <i>(Cosmin)</i> </p>
+        <p>We've used Mocha framework for testing GET requests on different routes, including undefined routes. <i>(Alex)</i></p> 
+        <p>The other suite tested weather the data that has been added was also in dava_values database wich holds all the unique posible values for any given column. <i>(Cosmin)</i> </p>
     </section>
 
     <section id="services">
         <h1 href="#services"> 10. Services </h1>
-        <p> <b>Authorization</b> (decides wether you have the permission to access a resource)</p>
+        <p> <b>Authorization</b> (decides weather you have the permission to access a resource)</p>
         <p><i>(Alex)</i></p>
         <p>
             The auth service lets the user login as administrator using a POST request, sending a username and a password;
-            If the credentials are correct, the user gets a JWT, used for later authentication.
+            If the credentials are correct, the user gets a JWT token, used for later authentication.
             Then the user could send the JWT using a <b>GET</b> to verify the token.
             SQL Injection has been prevented by checking wether the '$' exists in the body requests, and if so, the whole body is turned into null;
         </p>
@@ -334,13 +343,13 @@
         <p><i>(Cosmin)</i></p>
         <p>
             Our Select Generator that creates selectors for every column from database is created dynamically by Javascript at runtime.
-            The values from each selector generated by Select Generator are not hardcoded and written manually into tool.js
+            We don't want the values from each select generated by Select Generator to be hardcoded/written manually into tool.js
             everytime we add something new via POST/PUT/PATCH requests. They are monitored and written by "Data Observer" 
             who has it's own database of each unique values for each colomn from the main database.
         </p>
         <p>
-            Data Observer listens for crud operations and checks if a new unique value for a given column has been added.
-            If so, it will automatically update the "tool.js" file next time the server is restarted and will also generate a logFile
+            Data Observer listens for CRUD operations and checks if a new unique value for a given column has been added.
+            If so, it will automatically update the "tool.js" file next time the server is restarted and will also generate a Log File
             with the changes made.
         </p>
         <p>
@@ -353,18 +362,18 @@
             We have separated our tool (select generator), footer and top nav into 3 different htmls, 
             each with its own css and/or javascript file.
             HtmlAux reads these files at the start of the server, and given an html file that contains {tool}, {topnav}, {footer} 
-            will act as a template engine and replace the words inside the brace with coresponding html. In case of tool witch has a lot of
-            render blocking javascript it will at that js file at the end of the html file, before the &lt;/body&gt;
+            will act as a template engine and replace the words and the brace with coresponding html. In case of tool witch has a lot of
+            render blocking javascript it will add that js file at the end of the html file, before the &lt;/body&gt;
         </p>
 
     </section>
 
     <section id="responsabilities">
         <h1 href="#responsabilities"> 12. Responsabilities </h1>
-        <h4> Responsabilities in our MVC are as follow:</h4>
-        <p> <b>Cosmin</b> : Responsible for homeController, homeView, homeRoutes, publicRoutes, collaborated with Alex on middleware/checkAuth and microservices</p>
-        <p> <b>Alex</b>  : Responsible for heatMapController, pieChartController, heatMapView, pieChartView, pieChartRoutes, heatMapRoutes, collaborated with Cosmin on middleware/checkAuth and authentication and register services</p>
-        <p> <b>Adrian</b>  : Responsible for barGraphController, barGraphView, barGraphRoutes, email service</p>
+        <p> <b>Responsabilities in our MVC are as follow:</b></p>
+        <p> <b>Cosmin</b> : Responsible for homeController, homeView, homeRoutes, publicRoutes, 404 page, microservices Data Observer and HTMLAux and collaborated with Alex on middleware/checkAuth </p>
+        <p> <b>Alex</b>  : Responsible for heatMapController, pieChartController, heatMapView, pieChartView, pieChartRoutes, heatMapRoutes, authentication service, register service and collaborated with Cosmin on middleware/checkAuth</p>
+        <p> <b>Adrian</b>  : Responsible for barGraphController, barGraphView, barGraphRoutes and email service</p>
         <p> <b>All three</b> collaborated in publicController for the CRUD operation:</p>
         <ul>
             <li><b>CREATE</b>: using POST request <i>(Alex)</i></li>
