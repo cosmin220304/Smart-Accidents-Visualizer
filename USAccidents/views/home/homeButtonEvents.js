@@ -304,6 +304,11 @@ function createSearchBlock(color, name)
     searchBlocks.push(newSearchBlock);
 }
 
+function resetPage(){
+    destroyAllBlocks();
+    removeAllPoints();
+}
+
 //Used to find if any searchblock remained without children
 document.body.addEventListener('click', addRemoveAnnounce);
 function addRemoveAnnounce(event) {
