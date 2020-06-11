@@ -2,7 +2,6 @@
 let map;
 const clusterNumber = document.getElementById('clusterNumber'); 
 let clusterNo = 0;
-var test=[]
 
 //Start variables for map
 let startPosX = 260;
@@ -62,7 +61,6 @@ function addPointsToMap(coordonates, desc, color) {
     id: "points" + clusterNo,
     class: "points"
   });
-  test.push(color) 
   clusterNo++;
 
   //Add layer to map
@@ -108,7 +106,6 @@ function stylePoints(feature, color, hasText){
 //Removes all points from map
 function removeAllPoints() {
   clusterNo = 0;
-  test = [];
   descArray = [];
   coordArray = [];
   map.getLayers().getArray().filter(layer => layer.get('class') === 'points').forEach(layer => map.removeLayer(layer));
@@ -200,7 +197,7 @@ function OnOffText(){
           styleRember[i] = layer.getStyle();    
 
           //Change style of points
-          layer.setStyle((feature) => {return stylePoints(feature, test[i], false)});
+          layer.setStyle((feature) => {return stylePoints(feature, "rgb(0, 0, 0)", false)});
         }
       );
     }

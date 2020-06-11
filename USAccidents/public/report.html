@@ -20,6 +20,10 @@
             <li><a href="#abstract">Abstract</a></li>
             <li><a href="#introduction">Introduction</a></li>
             <li><a href="#structure">Structure</a>
+                <ol>
+                    <li><a href="#structure_1">Arhitecture</a></li>
+                    <li><a href="#structure_2">UML Diagram</a></li>
+                </ol>
             <li><a href="#db">Database</a></li>
             <li><a href="#mvc">MVC Model</a></li>
             <li><a href="#usecases">Use-cases</a></li>
@@ -58,7 +62,8 @@
     </section>
 
     <section id="structure">
-        <h1 href="#mvc"> 3. Structure </h1>
+        <h1> 3. Structure </h1>
+        <h2 id="structure_1"> 3.1. Arhitecture</h2>
         <p>
             For our project we used for our arhitecture Model-View-Controller (MVC).
             It is an arhitectural pattern that separates an application 
@@ -67,18 +72,21 @@
         </p>
         <img src='/mvc-architecture.png' alt="MVC Architecture" type="image/png" style="width: 100%; height:50%">
         <p>
-           <b>Advantages of this arhitecture:</b>
+        <b>Advantages of this arhitecture:</b>
         </p>
         <ol>
-           <li>Easy for multiple developers to collaborate and work together.</li>
-           <li>Code modularization</li> 
-           <li>Development of the application becomes fast. </li>
-           <li>Modifications of the apllication do not affect other parts</li>
-           <li>Scalability</li>
-           <li>Easier to maintenance by keeping the view and the data-manipulating logic separate</li>
-           <li>Easier to Update the application (extensiblity)</li>
+        <li>Easy for multiple developers to collaborate and work together.</li>
+        <li>Code modularization</li> 
+        <li>Development of the application becomes fast. </li>
+        <li>Modifications of the apllication do not affect other parts</li>
+        <li>Scalability</li>
+        <li>Easier to maintenance by keeping the view and the data-manipulating logic separate</li>
+        <li>Easier to Update the application (extensiblity)</li>
         </ol>
         <img src='mvc.png' alt="MVC Architecture" type="image/png" style="width: 35%; height: 35%">
+
+        <h2 id="structure_2"> 3.2. UML Diagram</h2>
+        <p>todo</p>
     </section>
 
     <section id="db">
@@ -90,7 +98,6 @@
             we moved it to a server. <b>It contains approximately 6gb of data plus indexes.</b>
         </p>
     </section>
-
 
     <section id="mvc">
         <h1 href="#mvc"> 5. MVC </h1>
@@ -166,17 +173,17 @@
         <h1 href="#API"> 8. API's </h1>
         <p> Project's APIs are the following: </p>
         <ol>
-            <li> <b>GET</b> <u>https://proiect-tw-2020.herokuapp.com/home </u>
+            <li> <b>GET</b> <u>https://usaccidents-visualizer.herokuapp.com/home </u>
                 <p> It gets from the server the contents of the file home.hmtl . </p>
                 <p> <b>Returns</b>: text/html</p>
             </li>
             <li>
-                <b>GET</b> <u>https://proiect-tw-2020.herokuapp.com/records/:id </u> <i>(Alex)</i>
+                <b>GET</b> <u>https://usaccidents-visualizer.herokuapp.com/records/:id </u> <i>(Alex)</i>
                 <p> Gets the document from the database by its ID. </p> 
                 <p><b>Returns</b>: application/json with all info from database about that document</p>
             </li>
             <li>
-                <b>PATCH</b> <u>https://proiect-tw-2020.herokuapp.com/records/:id</u> <i>(Cosmin)</i>
+                <b>PATCH</b> <u>https://usaccidents-visualizer.herokuapp.com/records/</u> <i>(Cosmin)</i>
                 <p> Requires authentication token. </p>
                 <p> Updates the document from the database by it's ID. </p>
                 <p><b><b>Body:</b></b></p>
@@ -195,7 +202,7 @@
                 </p>
             </li>
             <li>
-                <b>POST</b> <u>https://proiect-tw-2020.herokuapp.com/records/:id</u> <i>(Alex)</i>
+                <b>POST</b> <u>https://usaccidents-visualizer.herokuapp.com/records/</u> <i>(Alex)</i>
                 <p> Requires authentication token. </p>
                 <p> Creates/Updates a document in the database by the specified ID.</p>
                 <p> <b>Body:</b> </p>
@@ -213,7 +220,7 @@
                 </p>
             </li>
             <li>
-                <b>PUT</b> <u>https://proiect-tw-2020.herokuapp.com/records/:id</u> <i>(Cosmin)</i>
+                <b>PUT</b> <u>https://usaccidents-visualizer.herokuapp.com/records/</u> <i>(Cosmin)</i>
                 <p> Requires authentication token. </p>
                 <p> Creates/Updates a document in the database with the specified ID. </p>
                 <p> <b>Body:</b> </p>
@@ -238,7 +245,7 @@
                 </p>
             </li>
             <li>
-                <p><b>DELETE</b></p> <u>https://proiect-tw-2020.herokuapp.com/records/:id</u> <i>(Adrian)</i>
+                <p><b>DELETE</b></p> <u>https://usaccidents-visualizer.herokuapp.com/records/:id</u> <i>(Adrian)</i>
                 <p> Requires authentication token. </p>
                 <p> Deletes a document in the database by its ID. </p>
                 <p><b>Returns</b>: application/json</p>
