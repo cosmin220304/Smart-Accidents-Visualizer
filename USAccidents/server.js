@@ -76,6 +76,10 @@ const routesMap = {
     '/mvc.png' : publicRoutes,
     '/dataObs.png' : publicRoutes,
     '/mvc-architecture.png' : publicRoutes,
+    '/context.png' : publicRoutes,
+    '/containers.png' : publicRoutes,
+    '/components.png' : publicRoutes,
+
 }
 
 const acceptedSecuredRequests = ["POST", "PATCH", "PUT", "DELETE"];

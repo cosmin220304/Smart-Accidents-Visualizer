@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Report used to explain details of the development process">
-    <meta name="keywords" content="project, infoiasi, web"/>
+    <meta name="keywords" content="project, infoiasi, web" />
     <title>US Accidents Visualizer</title>
     <link rel="icon" type="image/png" href="/icons/flag.svg.png" />
     <link rel="stylesheet" href="report.css" type="text/css">
@@ -22,7 +22,7 @@
             <li><a href="#structure">Structure</a>
                 <ol>
                     <li><a href="#structure_1">Arhitecture</a></li>
-                    <li><a href="#structure_2">UML Diagram</a></li>
+                    <li><a href="#structure_2">C4 Diagram</a></li>
                 </ol>
             <li><a href="#db">Database</a></li>
             <li><a href="#mvc">MVC Model</a></li>
@@ -66,34 +66,47 @@
         <h2 id="structure_1"> 3.1. Arhitecture</h2>
         <p>
             For our project we used for our arhitecture Model-View-Controller (MVC).
-            It is an arhitectural pattern that separates an application 
-            into three main logical components: the model, the view and the controller. 
+            It is an arhitectural pattern that separates an application
+            into three main logical components: the model, the view and the controller.
             Each of these components are built to handle specific development aspects of an application.
         </p>
         <img src='/mvc-architecture.png' alt="MVC Architecture" type="image/png" style="width: 100%; height:50%">
         <p>
-        <b>Advantages of this arhitecture:</b>
+            <b>Advantages of this arhitecture:</b>
         </p>
         <ol>
-        <li>Easy for multiple developers to collaborate and work together.</li>
-        <li>Code modularization</li> 
-        <li>Development of the application becomes fast. </li>
-        <li>Modifications of the apllication do not affect other parts</li>
-        <li>Scalability</li>
-        <li>Easier to maintenance by keeping the view and the data-manipulating logic separate</li>
-        <li>Easier to Update the application (extensiblity)</li>
+            <li>Easy for multiple developers to collaborate and work together.</li>
+            <li>Code modularization</li>
+            <li>Development of the application becomes fast. </li>
+            <li>Modifications of the apllication do not affect other parts</li>
+            <li>Scalability</li>
+            <li>Easier to maintenance by keeping the view and the data-manipulating logic separate</li>
+            <li>Easier to Update the application (extensiblity)</li>
         </ol>
         <img src='mvc.png' alt="MVC Architecture" type="image/png" style="width: 35%; height: 35%">
 
-        <h2 id="structure_2"> 3.2. UML Diagram</h2>
-        <p>todo</p>
+        <h2 id="structure_2"> 3.2. C4 Diagram</h2>
+        <p>Context</p>
+        <p>
+             <img src='context.png' alt="c4" type="image/png" style="width: 100%; height:50%">
+        </p>
+
+        <p>Containers</p>
+        <p>
+             <img src='containers.png' alt="c4" type="image/png" style="width: 100%; height:50%">
+        </p>
+
+        <p>Components</p>
+        <p>
+             <img src='components.png' alt="c4" type="image/png" style="width: 100%; height:50%">
+        </p>
     </section>
 
     <section id="db">
         <h1 href="#db"> 4. Database </h1>
         <p> MongoDB stores accidents data, admin credentials, and available values for the
             multi-criterial search tool. </p>
-        <p> 
+        <p>
             Intially the database was hosted on cloud on Atlas but due to space limitation (only 500mb were free),
             we moved it to a server. <b>It contains approximately 6gb of data plus indexes.</b>
         </p>
@@ -105,7 +118,8 @@
         <p>
             The Model is responsible for getting and manipulating the data, so it's basically the brain of the
             application.
-            It interracts with our MongoDB database, where it stores accidents data, admin user data, and available values for the
+            It interracts with our MongoDB database, where it stores accidents data, admin user data, and available
+            values for the
             multi-criterial search tool.
         </p>
         <p><b>5.2 View</b></p>
@@ -155,14 +169,21 @@
     <section id="usecases">
         <h1 href="#usecases"> 7. Use-cases </h1>
         <ol>
-            <li> The user can enter the site and<b> view the map and the points where the accidents occurred according to the input criteria. </b></li>
+            <li> The user can enter the site and<b> view the map and the points where the accidents occurred according
+                    to the input criteria. </b></li>
             <li> The user can also download the generated map in <b>png, csv and svg </b> format.</li>
             <li> The user can enter the site <b>and can navigate to the other pages using the top nav</b></li>
-            <li> The user can enter the <b>Heat Map</b> page and can view on the map each state with a different color depending on the criteria of the chosen accidents. </li>    
-            <li> The user can enter the <b>Heat Map</b> page and can download the generated map in jpg and csv format. </li>
-            <li> The user can enter the <b>Pie Chart</b> page and can view a pie chart with all states according to the chosen accident criteria.</li>
-            <li> The user can enter the <b>Pie Chart</b> page and can download the generated chart in jpg or csv format. </li>
-            <li> The user can enter the <b>Bar Graph</b> page and can view a graph in which on the horizontal axis is the number of accidents chosen according to the criteria, and on the vertical axis each state separately. </li>
+            <li> The user can enter the <b>Heat Map</b> page and can view on the map each state with a different color
+                depending on the criteria of the chosen accidents. </li>
+            <li> The user can enter the <b>Heat Map</b> page and can download the generated map in jpg and csv format.
+            </li>
+            <li> The user can enter the <b>Pie Chart</b> page and can view a pie chart with all states according to the
+                chosen accident criteria.</li>
+            <li> The user can enter the <b>Pie Chart</b> page and can download the generated chart in jpg or csv format.
+            </li>
+            <li> The user can enter the <b>Bar Graph</b> page and can view a graph in which on the horizontal axis is
+                the number of accidents chosen according to the criteria, and on the vertical axis each state
+                separately. </li>
             <li> The user can enter the <b>Contact</b> page in which he can send an email to the project email. </li>
             <li> The user can enter the <b>About</b> page in which he can read the report. </li>
         </ol>
@@ -179,7 +200,7 @@
             </li>
             <li>
                 <b>GET</b> <u>https://usaccidents-visualizer.herokuapp.com/records/:id </u> <i>(Alex)</i>
-                <p> Gets the document from the database by its ID. </p> 
+                <p> Gets the document from the database by its ID. </p>
                 <p><b>Returns</b>: application/json with all info from database about that document</p>
             </li>
             <li>
@@ -189,15 +210,15 @@
                 <p><b><b>Body:</b></b></p>
                 <p>
                     {
-                        "ID" : "B-1",
-                        "Country" : "Romania"
+                    "ID" : "B-1",
+                    "Country" : "Romania"
                     }
                 </p>
                 <p><b>Returns</b>: application/json</p>
                 <p>
                     {
-                        "Response": "1 fields updated with Success!",
-                        "Response Code": 200
+                    "Response": "1 fields updated with Success!",
+                    "Response Code": 200
                     }
                 </p>
             </li>
@@ -208,14 +229,14 @@
                 <p> <b>Body:</b> </p>
                 <p>
                     {
-                        "ID" : "B-1",
-                        "Country" : "Romania"
+                    "ID" : "B-1",
+                    "Country" : "Romania"
                     }
                 </p>
                 <p><b>Returns</b>: application/json</p>
                 <p>
                     {
-                        "Response": "Success!"
+                    "Response": "Success!"
                     }
                 </p>
             </li>
@@ -226,21 +247,21 @@
                 <p> <b>Body:</b> </p>
                 <p>
                     {
-                        "ID" : "B-1",
-                        "Country" : "Romania"
+                    "ID" : "B-1",
+                    "Country" : "Romania"
                     }
                 </p>
                 <p><b>Returns</b>: application/json</p>
                 <p>
                     {
-                        "Response": "Object created with Success!",
-                        "Response Code": 201
+                    "Response": "Object created with Success!",
+                    "Response Code": 201
                     }
-                </p> 
+                </p>
                 <p>
                     {
-                        "Response": "1 fields updated with Success!",
-                        "Response Code": 200
+                    "Response": "1 fields updated with Success!",
+                    "Response Code": 200
                     }
                 </p>
             </li>
@@ -251,7 +272,7 @@
                 <p><b>Returns</b>: application/json</p>
                 <p>
                     {
-                        "Response": "Success"
+                    "Response": "Success"
                     }
                 </p>
             </li>
@@ -260,17 +281,18 @@
     </section>
 
     <section id="technologies">
-        <h1 href="#technologies"> 9. Technologies </h1> 
+        <h1 href="#technologies"> 9. Technologies </h1>
         <p><b>1. Node JS </b></p>
         <p> Node.js is an open-source runtime environment that we used for developing our server-side.
-            We chose Node due to its popularity and its beginner-friendly learning curve, Javascript being an easy language
+            We chose Node due to its popularity and its beginner-friendly learning curve, Javascript being an easy
+            language
             to learn that we also use in the front end of our application.
-            
+
         </p>
         <p> <b>2. MongoDB </b></p>
         <p> MongoDB was used because of its popularity with Node.js (in MERN/MEAN Stacks)
             and also because of how the data is structured in a MongoDB collection: in (Binary) JSON format.
-            JSON stands for JavaScript Object Notation and our api's also returns and works with JSON so 
+            JSON stands for JavaScript Object Notation and our api's also returns and works with JSON so
             the choise was evident.
         </p>
         <p>
@@ -278,27 +300,32 @@
         </p>
 
         <p><b> 3. HTML5, CSS3, JavaScript </b></p>
-        <p> 
+        <p>
             HTML and CSS were used to create the UI, whereas JavaScript was used for creating functionalities and
-            cartographical representations and also used for dynamically creating html elements. 
+            cartographical representations and also used for dynamically creating html elements.
             HTML, CSS and JavaScript are the main parts of the front-end of our application.
         </p>
-        
+
         <p>
             <b> 4. Version Control</b>
-            <p> <b>GitHub </b> - We used a private repository on GitHub. Github was used because it is free, popular and reliable. </p>
+        <p> <b>GitHub </b> - We used a private repository on GitHub. Github was used because it is free, popular and
+            reliable. </p>
         </p>
         <p>
             <b> 5. Data visualization libraries</b>
         </p>
-        <p> <b>Google Charts</b> - Used to create heat map and pie chart representations. <i>(Alex)</i></p> 
+        <p> <b>Google Charts</b> - Used to create heat map and pie chart representations. <i>(Alex)</i></p>
         <p> <b>Openlayers</b> - Used to create main page map that renders the points. <i>(Cosmin)</i></p>
         <p> <b>ChartJS</b> - Used to create the bar graph page. <i>(Adrian)</i></p>
         <p>All are free open-source javascript libraries</p>
 
-        <b><p>6.Unit testing</p></b>
-        <p>We've used Mocha framework for testing GET requests on different routes, including undefined routes. <i>(Alex)</i></p> 
-        <p>The other suite tested weather the data that has been added was also in dava_values database wich holds all the unique posible values for any given column. <i>(Cosmin)</i> </p>
+        <b>
+            <p>6.Unit testing</p>
+        </b>
+        <p>We've used Mocha framework for testing GET requests on different routes, including undefined routes.
+            <i>(Alex)</i></p>
+        <p>The other suite tested weather the data that has been added was also in dava_values database wich holds all
+            the unique posible values for any given column. <i>(Cosmin)</i> </p>
     </section>
 
     <section id="services">
@@ -306,27 +333,31 @@
         <p> <b>Authorization</b> (decides weather you have the permission to access a resource)</p>
         <p><i>(Alex)</i></p>
         <p>
-            The auth service lets the user login as administrator using a POST request, sending a username and a password;
+            The auth service lets the user login as administrator using a POST request, sending a username and a
+            password;
             If the credentials are correct, the user gets a JWT token, used for later authentication.
             Then the user could send the JWT using a <b>GET</b> to verify the token.
-            SQL Injection has been prevented by checking wether the '$' exists in the body requests, and if so, the whole body is turned into null;
+            SQL Injection has been prevented by checking wether the '$' exists in the body requests, and if so, the
+            whole body is turned into null;
         </p>
         <p>Before:</p>
         <p>
-            <img src='/icons/before.webp' alt="auth service" type="image/png"
-            href="/icons/before.webp" style="width: 100%; height:50%">
+            <img src='/icons/before.webp' alt="auth service" type="image/png" href="/icons/before.webp"
+                style="width: 100%; height:50%">
         </p>
         <p>After:</p>
         <p>
-            <img src='/icons/after.webp' alt="auth service" type="image/png"
-            href="/icons/after.webp" style="width: 100%; height:50%">
+            <img src='/icons/after.webp' alt="auth service" type="image/png" href="/icons/after.webp"
+                style="width: 100%; height:50%">
         </p>
 
         <p> <b>Register</b> (create an authorized account)</p>
         <p><i>(Alex)</i></p>
         <p>
-            The register service requests a JWT to create a new account, meaning the user needs to auth first in order to get the JWT.
-            Afterwards, the user could create new accounts using POST request, sending the username and password in the body of the request.
+            The register service requests a JWT to create a new account, meaning the user needs to auth first in order
+            to get the JWT.
+            Afterwards, the user could create new accounts using POST request, sending the username and password in the
+            body of the request.
         </p>
 
         <p> <b>Email</b></p>
@@ -336,7 +367,7 @@
             Nodemailer npm package to send it to a special gmail account made for this website.
         </p>
         <p>
-            <img src='email1.png'  alt="email service" type="image/png" style="width: 100%; height:50%">
+            <img src='email1.png' alt="email service" type="image/png" style="width: 100%; height:50%">
         </p>
         <p>
             <img src='email2.png' alt="email service" type="image/png" style="width: 100%; height:50%">
@@ -349,14 +380,19 @@
         <p> <b>Data Observer</b></p>
         <p><i>(Cosmin)</i></p>
         <p>
-            Our Select Generator that creates selectors for every column from database is created dynamically by Javascript at runtime.
-            We don't want the values from each select generated by Select Generator to be hardcoded/written manually into tool.js
-            everytime we add something new via POST/PUT/PATCH requests. They are monitored and written by "Data Observer" 
+            Our Select Generator that creates selectors for every column from database is created dynamically by
+            Javascript at runtime.
+            We don't want the values from each select generated by Select Generator to be hardcoded/written manually
+            into tool.js
+            everytime we add something new via POST/PUT/PATCH requests. They are monitored and written by "Data
+            Observer"
             who has it's own database of each unique values for each colomn from the main database.
         </p>
         <p>
-            Data Observer listens for CRUD operations and checks if a new unique value for a given column has been added.
-            If so, it will automatically update the "tool.js" file next time the server is restarted and will also generate a Log File
+            Data Observer listens for CRUD operations and checks if a new unique value for a given column has been
+            added.
+            If so, it will automatically update the "tool.js" file next time the server is restarted and will also
+            generate a Log File
             with the changes made.
         </p>
         <p>
@@ -366,10 +402,12 @@
         <p> <b>HTMLAux</b></p>
         <p><i>(Cosmin)</i></p>
         <p>
-            We have separated our tool (select generator), footer and top nav into 3 different htmls, 
+            We have separated our tool (select generator), footer and top nav into 3 different htmls,
             each with its own css and/or javascript file.
-            HtmlAux reads these files at the start of the server, and given an html file that contains {tool}, {topnav}, {footer} 
-            will act as a template engine and replace the words and the brace with coresponding html. In case of tool witch has a lot of
+            HtmlAux reads these files at the start of the server, and given an html file that contains {tool}, {topnav},
+            {footer}
+            will act as a template engine and replace the words and the brace with coresponding html. In case of tool
+            witch has a lot of
             render blocking javascript it will add that js file at the end of the html file, before the &lt;/body&gt;
         </p>
 
@@ -378,13 +416,17 @@
     <section id="responsabilities">
         <h1 href="#responsabilities"> 12. Responsabilities </h1>
         <p> <b>Responsabilities in our MVC are as follow:</b></p>
-        <p> <b>Cosmin</b> : Responsible for homeController, homeView, homeRoutes, publicRoutes, 404 page, microservices Data Observer and HTMLAux and collaborated with Alex on middleware/checkAuth </p>
-        <p> <b>Alex</b>  : Responsible for heatMapController, pieChartController, heatMapView, pieChartView, pieChartRoutes, heatMapRoutes, authentication service, register service and collaborated with Cosmin on middleware/checkAuth</p>
-        <p> <b>Adrian</b>  : Responsible for barGraphController, barGraphView, barGraphRoutes and email service</p>
+        <p> <b>Cosmin</b> : Responsible for homeController, homeView, homeRoutes, publicRoutes, 404 page, microservices
+            Data Observer and HTMLAux and collaborated with Alex on middleware/checkAuth </p>
+        <p> <b>Alex</b> : Responsible for heatMapController, pieChartController, heatMapView, pieChartView,
+            pieChartRoutes, heatMapRoutes, authentication service, register service and collaborated with Cosmin on
+            middleware/checkAuth</p>
+        <p> <b>Adrian</b> : Responsible for barGraphController, barGraphView, barGraphRoutes and email service</p>
         <p> <b>All three</b> collaborated in publicController for the CRUD operation:</p>
         <ul>
             <li><b>CREATE</b>: using POST request <i>(Alex)</i></li>
-            <li><b>READ</b>: using GET request for an item from db <i>(Alex)</i> or for a normal html/css/js/image <i>(Cosmin)</i></li>
+            <li><b>READ</b>: using GET request for an item from db <i>(Alex)</i> or for a normal html/css/js/image
+                <i>(Cosmin)</i></li>
             <li><b>UPDATE</b>: using PATCH/PUT request <i>(Cosmin)</i></li>
             <li><b>DELETE</b>: using DELETE request <i>(Adrian)</i></li>
         </ul>
@@ -397,11 +439,11 @@
     </section>
 
     <section id="bibliography">
-        <h1 href="#bibliography"> 13. Bibliography </h1> 
-        <p><a href = 'https://dzone.com/articles/introduction-to-mvc-architecture-web-developer-poi'> MVC image </a> </p> 
-        <p><a href = 'https://developers.google.com/chart'>Google Chart</a></p>
-        <p><a href = 'https://openlayers.org/'>Openlayers</a></p>
-        <p><a href = 'https://www.chartjs.org/'>ChartJS</a></p>
+        <h1 href="#bibliography"> 13. Bibliography </h1>
+        <p><a href='https://dzone.com/articles/introduction-to-mvc-architecture-web-developer-poi'> MVC image </a> </p>
+        <p><a href='https://developers.google.com/chart'>Google Chart</a></p>
+        <p><a href='https://openlayers.org/'>Openlayers</a></p>
+        <p><a href='https://www.chartjs.org/'>ChartJS</a></p>
     </section>
 
 </body>
