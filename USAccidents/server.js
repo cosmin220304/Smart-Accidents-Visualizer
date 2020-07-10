@@ -19,7 +19,7 @@ model.start()
 HtmlAux.start()
 
 //Start dataObserver microservice
-dataObserver.start()
+// dataObserver.start()
 
 //Map of routes 
 const routesMap = {
